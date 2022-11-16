@@ -33,6 +33,8 @@
         width: calc(100% - 12px * 2);
         background-color: #F5F5F5;
         padding: 3px 12px;
+
+        padding-bottom: calc(3px + env(safe-area-inset-bottom));
     }
 
     #NavigationBar * {

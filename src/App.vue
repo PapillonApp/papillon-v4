@@ -13,12 +13,14 @@
 
 <style scoped>
   #main {
-    height: 100%;
+    height: -webkit-fill-available;
     width: 100%;
     overflow: hidden;
+    background: red;
   }
 
   #NavigationBar {
-
+    position: fixed;
+    bottom: 0;
   }
 </style>

@@ -17,6 +17,10 @@
 }
 
 /* setting basic CSS */
+html {
+    height: -webkit-fill-available;
+}
+
 * {
     font-family: "Papillon";
 }
@@ -27,4 +31,5 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
