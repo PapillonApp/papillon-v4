@@ -6,7 +6,7 @@ import router from './router'
 // importations de modules secondaires
 
 // feuilles de style
-import './assets/main.css'
+import './css/main.css'
 
 // création de l'application
 const app = createApp(App)

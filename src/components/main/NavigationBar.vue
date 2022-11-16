@@ -1,0 +1,67 @@
+<script setup>
+    /* icons (from https://lucide.dev/) */
+    import { CalendarRange, BookOpenCheck, LineChart, Newspaper } from 'lucide-vue-next';
+</script>
+
+<template>
+    <div id="NavigationBar">
+        <RouterLink to="/">
+            <CalendarRange />
+            <p>Cours</p>
+        </RouterLink>
+        <RouterLink to="/devoirs">
+            <BookOpenCheck />
+            <p>Devoirs</p>
+        </RouterLink>
+        <RouterLink to="/devoirs">
+            <LineChart />
+            <p>Notes</p>
+        </RouterLink>
+        <RouterLink to="/devoirs">
+            <Newspaper />
+            <p>Actus</p>
+        </RouterLink>
+    </div>
+</template>
+
+<style scoped>
+    #NavigationBar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: calc(100% - 12px * 2);
+        background-color: #F5F5F5;
+        padding: 3px 12px;
+    }
+
+    #NavigationBar * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Bouton de tab */
+    #NavigationBar a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        height: 60px;
+
+        color: #000000;
+        opacity: 42%;
+    }
+
+    /* Texte du bouton */
+    #NavigationBar p {
+        font-size: 15px;
+        line-height: 15px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        margin-top: 5px;
+    }
+</style>

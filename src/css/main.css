@@ -1,0 +1,30 @@
+/* importing fonts */
+@font-face {
+    font-family: "Papillon";
+    src: url("fonts/Carnero SemiBold.otf");
+}
+
+@font-face {
+    font-family: "Papillon Book";
+    src: url("fonts/Carnero Book.otf");
+}
+
+/* setting vars */
+:root {
+    --brand-color: #00B562;
+    --background: #FFFFFF;
+    --element: #F4F4F4;
+}
+
+/* setting basic CSS */
+* {
+    font-family: "Papillon";
+}
+
+body {
+    background-color: var(--background);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}

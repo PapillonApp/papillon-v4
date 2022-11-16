@@ -2,13 +2,14 @@
   "name": "papillon-v4",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "lucide-vue-next": "^0.101.0",
     "vue": "^3.2.41",
     "vue-router": "^4.1.5"
   },
