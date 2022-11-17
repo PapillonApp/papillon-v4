@@ -1,0 +1,10 @@
+{
+    "short_name": "Pronote+",
+    "name": "Pronote+ | L'app de vie scolaire intelligente",
+    "id": "/",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#00B562"
+}

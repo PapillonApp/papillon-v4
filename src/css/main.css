@@ -1,12 +1,23 @@
 /* importing fonts */
 @font-face {
     font-family: "Papillon";
-    src: url("fonts/Carnero SemiBold.otf");
+    src: url("fonts/Carnero Light.otf");
+    font-weight: 300;
+    font-style: normal;
 }
 
 @font-face {
-    font-family: "Papillon Book";
-    src: url("fonts/Carnero Book.otf");
+    font-family: "Papillon";
+    src: url("fonts/Carnero Regular.otf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Papillon";
+    src: url("fonts/Carnero SemiBold.otf");
+    font-weight: 600;
+    font-style: normal;
 }
 
 /* setting vars */
@@ -14,6 +25,7 @@
     --brand-color: #00B562;
     --background: #FFFFFF;
     --element: #F4F4F4;
+    --text: #000000;
 }
 
 /* setting basic CSS */
@@ -23,6 +35,8 @@ html {
 
 * {
     font-family: "Papillon";
+    -webkit-tap-highlight-color: transparent;
+    text-transform: lowercase;
 }
 
 body {
@@ -31,5 +45,51 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    color: var(--text);
+}
+
+/* darkmode */
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --brand-color: #00B562;
+        --background: #0f0f0f;
+        --element: #181818;
+        --text: #FFFFFF;
+    }
+}
+
+#content {
+    margin: 24px;
+    padding-top: calc(70px - 28px);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 12px;
+}
+
+/* animations */
+@keyframes TabNameString {
+    0% {
+        transform: translateX(-15px);
+        opacity: 0%;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 100%;
+    }
+}
+
+@keyframes TabNameStringUp {
+    0% {
+        transform: translateY(15px);
+        opacity: 0%;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 100%;
+    }
 }

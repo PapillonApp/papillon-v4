@@ -5,19 +5,19 @@
 
 <template>
     <div id="NavigationBar">
-        <RouterLink to="/">
+        <RouterLink to="/" v-wave>
             <CalendarRange />
             <p>Cours</p>
         </RouterLink>
-        <RouterLink to="/devoirs">
+        <RouterLink to="/devoirs" v-wave>
             <BookOpenCheck />
             <p>Devoirs</p>
         </RouterLink>
-        <RouterLink to="/devoirs">
+        <RouterLink to="/notes" v-wave>
             <LineChart />
             <p>Notes</p>
         </RouterLink>
-        <RouterLink to="/devoirs">
+        <RouterLink to="/actus" v-wave>
             <Newspaper />
             <p>Actus</p>
         </RouterLink>
@@ -31,7 +31,7 @@
         justify-content: space-around;
         align-items: center;
         width: calc(100% - 12px * 2);
-        background-color: #F5F5F5;
+        background-color: var(--background);
         padding: 3px 12px;
 
         padding-bottom: calc(3px + env(safe-area-inset-bottom));
@@ -54,8 +54,10 @@
         width: 100%;
         height: 60px;
 
-        color: #000000;
+        color: var(--text);
         opacity: 42%;
+
+        border-radius: 8px;
     }
 
     /* Texte du bouton */
@@ -65,5 +67,11 @@
         letter-spacing: -0.02em;
         text-align: center;
         margin-top: 5px;
+    }
+
+    #NavigationBar a.router-link-active {
+        color: var(--brand-color);
+        opacity: 100%;
+        font-weight: 600;
     }
 </style>

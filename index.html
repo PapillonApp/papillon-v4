@@ -8,10 +8,15 @@
 
         <!-- apple touch pwa support -->
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/launch-828x1792.jpg" />
         <meta name="apple-mobile-web-app-capable" content="yes">
 
+        <!-- status bar -->
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)">
+        
         <!-- pwa support -->
-        <meta name="theme-color" content="#ffffff">
+        <link rel="manifest" href="/manifest.json">
 
         <style>
             #app {
@@ -32,5 +37,6 @@
     <body>
         <div id="app"></div>
         <script type="module" src="/src/main.ts"></script>
+        <script src="/src/App.ts"></script>
     </body>
 </html>

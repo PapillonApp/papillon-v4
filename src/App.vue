@@ -1,6 +1,9 @@
 <script setup lang="ts">
   import { RouterLink, RouterView } from 'vue-router'
   import NavigationBar from './components/main/NavigationBar.vue'
+
+  // hide tabbar if not logged in
+  let authStatus = isAuthenticated
 </script>
 
 <template>
@@ -8,7 +11,9 @@
   <div id="main">
     <RouterView />
   </div>
-  <NavigationBar />
+
+  <!-- Affiche la barre de navigation -->
+  <NavigationBar v-if="authStatus" />
 </template>
 
 <style scoped>
@@ -16,11 +21,15 @@
     height: -webkit-fill-available;
     width: 100%;
     overflow: hidden;
-    background: red;
   }
 
   #NavigationBar {
     position: fixed;
     bottom: 0;
+  }
+
+  #TabName {
+    position: fixed;
+    top: 0;
   }
 </style>
