@@ -26,6 +26,14 @@
                 localStorage.removeItem('token')
                 location.reload()
             }
+        },
+        data() {
+            return {
+                avatar,
+                firstName,
+                establishment,
+                className
+            }
         }
     }
 </script>

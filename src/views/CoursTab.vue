@@ -1,15 +1,17 @@
 <script setup lang="ts">
     import TabName from '../components/main/TabName.vue'
     import CoursElement from '@/components/cours/CoursElement.vue';
+    import NoItem from '@/components/main/NoItem.vue';
 </script>
 
 <template>
     <TabName name="Emploi du temps" calendar logged />
     <div id="content">
         
-        <div class="list">
-            <CoursElement time="12:00" wait="dans 5 min" name="sciences économiques et sociales" room="salle A210" teacher="M. Durand" color="#5340ED"/>
-        </div>
+        <NoItem
+            title="Pas de cours prévus pour cette journée"
+            subtitle="Utilisez le calendrier pour consulter les jours passés et à venir"
+        />
 
     </div>
 </template>
