@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <TabName name="Actualités" />
+    <TabName name="Actualités" logged />
     <div id="content">
         <p>Ceci est un texte par défaut.</p>
     </div>

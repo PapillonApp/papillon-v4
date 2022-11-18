@@ -26,6 +26,7 @@
     --background: #FFFFFF;
     --element: #F4F4F4;
     --text: #000000;
+    --border: #00000022;
 }
 
 /* setting basic CSS */
@@ -55,6 +56,7 @@ body {
         --background: #0f0f0f;
         --element: #181818;
         --text: #FFFFFF;
+        --border: #ffffff22;
     }
 }
 
@@ -92,4 +94,22 @@ body {
         transform: translateY(0px);
         opacity: 100%;
     }
+}
+
+.notification {
+    background: #222 !important;
+    box-shadow: none !important;
+    text-align: left;
+    min-width: 80% !important;
+    max-width: 80% !important;
+    border-radius: 7px;
+    padding: 14px 24px;
+    margin-bottom: env(safe-area-inset-bottom) !important;
+    font-size: 16px;
+    font-variation-settings: "wght" 500;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }

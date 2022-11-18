@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <TabName name="Travail à faire" calendar />
+    <TabName name="Travail à faire" calendar logged />
     <div id="content">
         <p>Ceci est un texte par défaut.</p>
     </div>

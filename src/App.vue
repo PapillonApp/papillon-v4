@@ -9,7 +9,11 @@
 <template>
   <!-- Affiche la tab sélectionnée -->
   <div id="main">
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <KeepAlive>
+        <Component :is="Component" />
+      </KeepAlive>
+  </RouterView>
   </div>
 
   <!-- Affiche la barre de navigation -->

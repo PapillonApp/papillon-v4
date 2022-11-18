@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <TabName name="Emploi du temps" calendar />
+    <TabName name="Emploi du temps" calendar logged />
     <div id="content">
         
         <div class="list">

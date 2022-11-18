@@ -14,6 +14,11 @@
             type: Boolean,
             required: false,
             default: false
+        },
+        logged: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     })  
 
@@ -53,20 +58,30 @@
             });
         })
     }
+
+    let userData = JSON.parse(localStorage.getItem('userData'))
+    let avatar = userData.avatar;
 </script>
 
 <template>
     <div id="TabName">
-        <PapillonLogo id="PapillonLogo" />
-        <p id="TabNameString">{{name}}</p>
+        <div class="tabLeft">
+            <PapillonLogo id="PapillonLogo" />
+            <p id="TabNameString">{{name}}</p>
+        </div>
+        <div class="tabRight">
+            <label id="CalendarLabel" for="rnPicker" v-wave onclick="document.getElementById('rnPicker').showPicker()">
+                <div id="Calendar" v-if="calendar">
+                    <CalendarDays />
+                    <p id="CalendarString">1 jan.</p>
+                    <input type="date" id="rnPicker" />
+                </div>
+            </label>
 
-        <label id="CalendarLabel" for="rnPicker" v-wave onclick="document.getElementById('rnPicker').showPicker()">
-            <div id="Calendar" v-if="calendar">
-                <CalendarDays />
-                <p id="CalendarString">1 jan.</p>
-                <input type="date" id="rnPicker" />
-            </div>
-        </label>
+            <RouterLink v-if="logged" to="/settings" id="avatar" v-wave>
+                <img :src="avatar" />
+            </RouterLink>
+        </div>
     </div>
 </template>
 
@@ -77,12 +92,13 @@
         left: 0;
         background: linear-gradient(180deg, #FFFFFF 50%, #FFFFFF00 100%);
     
-        width: calc(100vw);
+        width: calc(100vw - 24px * 2);
 
         padding: 20px 24px;
         display: flex;
 
-        align-items: center;
+        align-items: flex-start;
+        z-index: 99999;
     }
 
     #TabName * {
@@ -107,8 +123,10 @@
         opacity: 0%;
         animation: TabNameString 0.2s cubic-bezier(0,0,0,1) forwards;
 
-        position: absolute;
-        left: 72px;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     @media screen and (prefers-color-scheme: dark) {
@@ -125,10 +143,34 @@
         }
     }
 
+    .tabLeft {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1;
+        overflow: hidden !important;
+    }
+
+    .tabRight {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        width: fit-content;
+        transform: translateY(-8px);
+    }
+
+    #avatar {
+        border-radius: 50%;
+    }
+
+    #avatar img {
+        height: 36px;
+        width: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
     #CalendarLabel {
-        position: absolute;
-        right: 24px;
-        margin-top: -3px;
         color: var(--brand-color);
         border-radius: 5px;
     }
@@ -140,11 +182,13 @@
         align-items: center;
         justify-content: center;
         align-items: flex-end;
-        padding: 7px 9px !important;
+        padding: 7px 6px !important;
         gap: 4px;
         border-radius: 8px;
 
-        padding-right: 2px !important;
+        width: fit-content;
+        padding-right: 0px !important;
+        margin-right: 10px;
     }
 
     #Calendar * {

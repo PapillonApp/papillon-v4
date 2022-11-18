@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <TabName name="Résultats" />
+    <TabName name="Résultats" logged />
     <div id="content">
         <p>Ou sont mes notes ?</p>
     </div>
