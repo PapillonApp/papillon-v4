@@ -38,6 +38,8 @@ html {
     font-family: "Papillon";
     -webkit-tap-highlight-color: transparent;
     text-transform: lowercase;
+    -webkit-touch-callout: none;
+    user-select: none !important;
 }
 
 body {
