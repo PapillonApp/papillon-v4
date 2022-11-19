@@ -1,11 +1,16 @@
 <script lang="ts">
     import TabName from '/src/components/main/TabName.vue'
     import axios from 'axios'
-
+    import ent_list from '/src/ent_list.json'
     export default {
         name: 'LoginPage',
         components: {
             TabName
+        },
+        data() {
+            return {
+                ent_list: ent_list,
+            }
         },
         methods: {
             login: function(event) {
@@ -68,6 +73,8 @@
                     gravity: "bottom"
                 }).showToast();
             }
+
+            // get ent list
         }
     }
 </script>
@@ -87,8 +94,8 @@
 
             <input id="url" v-wave class="input" type="url" placeholder="URL Pronote" />
             <select id="cas" v-wave class="select" placeholder="votre ENT">
-                <option value="none">Aucun ENT</option>
-                <option value="toutatice">Toutatice</option>
+                <option value="none">Aucun</option>
+                <option v-for="ent in ent_list" :value="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
 
