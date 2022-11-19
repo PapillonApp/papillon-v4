@@ -20,12 +20,18 @@
             color: {
                 type: String,
                 required: true
+            },
+            status: {
+                type: String,
+                required: false
             }
         },
         data() {
             return {
                 timeString: "",
-                waitTime : ""
+                waitTime : "",
+                cancelled: false,
+                hasStatus: Boolean(this.status)
             }
         },
         methods: {
@@ -80,6 +86,15 @@
             }
 
             this.$el.style.setProperty('--color', finalColor)
+
+            // cancelled
+            if(this.status == "Cours annulé") {
+                this.cancelled = true
+                this.hasStatus = false
+
+                // add class to this.$el
+                this.$el.classList.add('cancelled')
+            }
         }
     };
  
@@ -89,7 +104,11 @@
     <div class="cours" v-wave>
         <div class="cours-color"></div>
         <div class="cours-data">
-            <small>{{timeString}} - {{waitTime}}</small>
+            <small>
+                {{timeString}} - {{waitTime}}
+                <span v-if="hasStatus" class="status">{{status}}</span>
+                <span v-if="cancelled" class="status cancelled">annulé</span>
+            </small>
             <h3>{{name}}</h3>
             <p>{{room}} - {{teacher}}</p>
         </div>
@@ -115,6 +134,12 @@
         animation: TabNameStringUp 0.2s cubic-bezier(0,0,0,1) forwards;
     }
 
+    .cours.cancelled {
+        background: var(--background);
+        border: 1px solid var(--element);
+        --color: #f1323255 !important;
+    }
+
     .cours * {
         margin: 0;
         padding: 0;
@@ -132,12 +157,12 @@
     }
 
     .cours-data small {
-        opacity: 0.3;
         font-size: 15px;
         line-height: 15px;
         letter-spacing: 0.005em;
         text-align: left;
         margin-bottom: 5px;
+        color: var(--text-light);
     }
 
     .cours-data h3 {
@@ -156,5 +181,21 @@
         text-align: left;
         opacity: 0.5;
         text-transform: none;
+    }
+
+    .cours .status {
+        font-size: 14px;
+        line-height: 14px;
+        color: var(--text-light);
+        border: 1px solid var(--text-light);
+        border-radius: 5px;
+        padding: 1px 5px;
+        padding-top: 3px;
+        margin-left: 2px;
+    }
+
+    .cours .status.cancelled {
+        color: #F13232;
+        border: 1px solid #F13232;
     }
 </style>

@@ -26,6 +26,7 @@
     --background: #FFFFFF;
     --element: #F4F4F4;
     --text: #000000;
+    --text-light: #00000055;
     --border: #00000022;
 }
 
@@ -58,6 +59,7 @@ body {
         --background: #0f0f0f;
         --element: #181818;
         --text: #FFFFFF;
+        --text-light: #ffffff55;
         --border: #ffffff22;
     }
 }

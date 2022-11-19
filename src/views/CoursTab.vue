@@ -93,7 +93,7 @@
         </NoItem>
 
         <div class="list">
-            <CoursElement v-for="cours in cours" :time="cours.from" :name="cours.subject" :room="cours.room" :teacher="cours.teacher" :color="cours.color"/>
+            <CoursElement v-for="cours in cours" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
         </div>
 
     </div>
