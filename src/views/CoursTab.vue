@@ -33,6 +33,7 @@
                 this.loading = true;
                 this.empty = false;
                 this.error = "";
+                this.cours = [];
 
                 // get token
                 let token = localStorage.getItem('token')
@@ -57,6 +58,8 @@
                     .catch(error => {
                         console.error(error);
                         this.error = error;
+                        this.loading = false;
+                        this.empty = false;
                     })
             }
         },
