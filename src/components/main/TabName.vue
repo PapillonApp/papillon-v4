@@ -59,9 +59,11 @@
         })
     }
 
+    let avatar = "";
+
     if (props.logged) {
         let userData = JSON.parse(localStorage.getItem('userData'))
-        let avatar = userData.avatar;
+        avatar = userData.avatar;
     }
 </script>
 
