@@ -49,7 +49,7 @@
             /* if rn changes */
             document.getElementById('rnPicker').addEventListener('change', function() {
                 rn = new Date(this.value);
-                rnString = rn.getFullYear() + "-" + (rn.getMonth() + 1) + "-" + rn.getDate();
+                rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
 
                 updateDateStrings()
                 document.getElementById('rnPicker').value = dateStr;

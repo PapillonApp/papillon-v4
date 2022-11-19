@@ -20,8 +20,12 @@ function constructAuthURL(authData) {
 }
 
 /* time management */
+function lz(n) {
+    return n < 10 ? "0" + n : n;
+}
+
 let rn = new Date();
-let rnString = rn.getFullYear() + "-" + (rn.getMonth() + 1) + "-" + rn.getDate();
+let rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
 
 /* check if logged in */
 let isAuthenticated = false;
