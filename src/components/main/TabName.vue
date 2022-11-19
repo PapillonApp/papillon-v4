@@ -178,6 +178,7 @@
         color: var(--brand-color);
         border-radius: 5px;
         margin-right: 10px;
+        font-weight: 600;
     }
 
     #Calendar {
