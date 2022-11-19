@@ -88,7 +88,7 @@
             this.$el.style.setProperty('--color', finalColor)
 
             // cancelled
-            if(this.status == "Cours annulé") {
+            if(this.status == "Cours annulé" || this.status == "Prof. absent") {
                 this.cancelled = true
                 this.hasStatus = false
 
