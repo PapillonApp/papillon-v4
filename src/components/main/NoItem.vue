@@ -1,23 +1,20 @@
 <script lang="ts">
-    import { CalendarOff } from 'lucide-vue-next';
-
     export default {
-        components: {
-            CalendarOff
-        },
         props: ['title', 'subtitle']
     }
 </script>
 
 <template>
     <div class="noItem">
-        <CalendarOff />
+        <div class="noItem_icon">
+            <slot />
+        </div>
         <h3>{{title}}</h3>
         <p>{{subtitle}}</p>
     </div>
 </template>
 
-<style scoped>
+<style>
     .noItem {
         display: flex;
         flex-direction: column;
@@ -34,10 +31,10 @@
         padding: 0;
     }
 
-    .noItem svg {
+    .noItem_icon svg {
         width: 32px;
         height: 32px;
-        margin-bottom: 18px;
+        margin-bottom: 12px;
     }
 
     .noItem h3 {
