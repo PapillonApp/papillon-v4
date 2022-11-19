@@ -51,12 +51,12 @@
       "url": "cas.cybercolleges42.fr"
     },
     {
-      "name": "Académie de Lille",
+      "name": "Académie de Lille (SavoirsNumériques)",
       "cas": "ac-lille",
       "url": "cas.savoirsnumeriques62.fr"
     },
     {
-      "name": "Académie de Lille",
+      "name": "Académie de Lille (Teleservices)",
       "cas": "ac-lille2",
       "url": "teleservices.ac-lille.fr"
     },
@@ -101,7 +101,7 @@
       "url": "cas.monbureaunumerique.fr"
     },
     {
-      "name": "Académie de Rouen (Arsene76",
+      "name": "Académie de Rouen (Arsene76)",
       "cas": "arsene76",
       "url": "cas.arsene76.fr"
     },
@@ -126,7 +126,7 @@
       "url": "cas.moncollege.valdoise.fr"
     },
     {
-      "name": "ENT Agora 06 (Nice",
+      "name": "ENT Agora 06 (Nice)",
       "cas": "agora06",
       "url": "cas.agora06.fr"
     },
@@ -141,12 +141,12 @@
       "url": "enthdf.fr"
     },
     {
-      "name": "ENT La Classe (Lyon",
+      "name": "ENT La Classe (Lyon)",
       "cas": "laclasse",
       "url": "www.laclasse.com"
     },
     {
-      "name": "ENT Lycee Connecte (Nouvelle-Aquitaine",
+      "name": "ENT Lycee Connecte (Nouvelle-Aquitaine)",
       "cas": "lyceeconnecte",
       "url": "mon.lyceeconnecte.fr"
     },
