@@ -1,0 +1,198 @@
+[
+    {
+      "name": "Académie de Rennes",
+      "cas": "toutatice",
+      "url": "www.toutatice.fr",
+      "py": "ac_rennes"
+    },
+    {
+      "name": "Académie d`Orléans-Tours",
+      "cas": "ac-orleans-tours",
+      "url": "ent.netocentre.fr"
+    },
+    {
+      "name": "Académie de Besançon",
+      "cas": "ac-besancon",
+      "url": "cas.eclat-bfc.fr"
+    },
+    {
+      "name": "Académie de Bordeaux",
+      "cas": "ac-bordeaux",
+      "url": "mon.lyceeconnecte.fr"
+    },
+    {
+      "name": "Académie de Bordeaux 2",
+      "cas": "ac-bordeaux2",
+      "url": "ent2d.ac-bordeaux.fr"
+    },
+    {
+      "name": "Académie de Caen",
+      "cas": "ac-caen",
+      "url": "fip.itslearning.com"
+    },
+    {
+      "name": "Académie de Clermont-Ferrand",
+      "cas": "ac-clermont",
+      "url": "cas.ent.auvergnerhonealpes.fr"
+    },
+    {
+      "name": "Académie de Dijon",
+      "cas": "ac-dijon",
+      "url": "cas.eclat-bfc.fr"
+    },
+    {
+      "name": "Académie de Grenoble",
+      "cas": "ac-grenoble",
+      "url": "cas.ent.auvergnerhonealpes.fr"
+    },
+    {
+      "name": "Académie de la Loire",
+      "cas": "cybercolleges42",
+      "url": "cas.cybercolleges42.fr"
+    },
+    {
+      "name": "Académie de Lille",
+      "cas": "ac-lille",
+      "url": "cas.savoirsnumeriques62.fr"
+    },
+    {
+      "name": "Académie de Lille",
+      "cas": "ac-lille2",
+      "url": "teleservices.ac-lille.fr"
+    },
+    {
+      "name": "Académie de Limoges",
+      "cas": "ac-limoges",
+      "url": "mon.lyceeconnecte.fr"
+    },
+    {
+      "name": "Académie de Lyon",
+      "cas": "ac-lyon",
+      "url": "cas.ent.auvergnerhonealpes.fr"
+    },
+    {
+      "name": "Académie de Marseille",
+      "cas": "atrium-sud",
+      "url": "atrium-sud.fr"
+    },
+    {
+      "name": "Académie de Montpellier",
+      "cas": "ac-montpellier",
+      "url": "cas.mon-ent-occitanie.fr"
+    },
+    {
+      "name": "Académie de Nancy-Metz",
+      "cas": "ac-nancy-metz",
+      "url": "cas.monbureaunumerique.fr"
+    },
+    {
+      "name": "Académie de Nantes",
+      "cas": "ac-nantes",
+      "url": "cas3.e-lyco.fr"
+    },
+    {
+      "name": "Académie de Poitiers",
+      "cas": "ac-poitiers",
+      "url": "mon.lyceeconnecte.fr"
+    },
+    {
+      "name": "Académie de Reims",
+      "cas": "ac-reims",
+      "url": "cas.monbureaunumerique.fr"
+    },
+    {
+      "name": "Académie de Rouen (Arsene76",
+      "cas": "arsene76",
+      "url": "cas.arsene76.fr"
+    },
+    {
+      "name": "Académie de Rouen",
+      "cas": "ac-rouen",
+      "url": "nero.l-educdenormandie.fr"
+    },
+    {
+      "name": "Académie de Strasbourg",
+      "cas": "ac-strasbourg",
+      "url": "cas.monbureaunumerique.fr"
+    },
+    {
+      "name": "Académie de Toulouse",
+      "cas": "ac-toulouse",
+      "url": "cas.mon-ent-occitanie.fr"
+    },
+    {
+      "name": "Académie du Val-d`Oise",
+      "cas": "ac-valdoise",
+      "url": "cas.moncollege.valdoise.fr"
+    },
+    {
+      "name": "ENT Agora 06 (Nice",
+      "cas": "agora06",
+      "url": "cas.agora06.fr"
+    },
+    {
+      "name": "ENT Haute-Garonne",
+      "cas": "haute-garonne",
+      "url": "cas.ecollege.haute-garonne.fr"
+    },
+    {
+      "name": "ENT Hauts-de-France",
+      "cas": "hdf",
+      "url": "enthdf.fr"
+    },
+    {
+      "name": "ENT La Classe (Lyon",
+      "cas": "laclasse",
+      "url": "www.laclasse.com"
+    },
+    {
+      "name": "ENT Lycee Connecte (Nouvelle-Aquitaine",
+      "cas": "lyceeconnecte",
+      "url": "mon.lyceeconnecte.fr"
+    },
+    {
+      "name": "ENT Seine-et-Marne",
+      "cas": "seine-et-marne",
+      "url": "ent77.seine-et-marne.fr"
+    },
+    {
+      "name": "ENT Somme",
+      "cas": "somme",
+      "url": "college.entsomme.fr"
+    },
+    {
+      "name": "ENT Portail Famille (Orleans Tours)",
+      "cas": "portail-famille",
+      "url": "seshat.ac-orleans-tours.fr:8443"
+    },
+    {
+      "name": "ENT Île de France",
+      "cas": "iledefrance",
+      "url": "ent.iledefrance.fr"
+    },
+    {
+      "name": "ENT Mon collège Essonne",
+      "cas": "moncollege-essonne",
+      "url": "www.moncollege-ent.essonne.fr"
+    },
+    {
+      "name": "ENT Paris Classe Numerique",
+      "cas": "parisclassenumerique",
+      "url": "ent.parisclassenumerique.fr"
+    },
+    {
+      "name": "ENT Lycee Jean Renoir Munich",
+      "cas": "ljr-munich",
+      "url": "cas.kosmoseducation.com"
+    },
+    {
+      "name": "ENT L`Eure en Normandie",
+      "cas": "eure-normandie",
+      "url": "cas.ent27.fr"
+    },
+    {
+      "name": "ENT Mon Bureau Numérique via EduConnect",
+      "cas": "monbureaunumerique-educonnect",
+      "url": "cas.monbureaunumerique.fr"
+    }
+]
