@@ -1,6 +1,7 @@
 <script lang="ts">
     import TabName from '../components/main/TabName.vue'
     import MainItem from '../components/main/MainItem.vue'
+    import MainCategory from '../components/main/MainCategory.vue'
 
     import { RefreshCcw, LogOut } from 'lucide-vue-next';
 
@@ -17,6 +18,7 @@
         components: {
             TabName,
             MainItem,
+            MainCategory,
             RefreshCcw,
             LogOut
         },
@@ -51,10 +53,7 @@
             </div>
         </div>
 
-        <div class="category">
-            <p>Paramètres</p>
-            <div class="category-line"></div>
-        </div>
+        <MainCategory title="Paramètres"/>
 
         <!-- reset token -->
         <RouterLink to="/login"><MainItem>
@@ -82,32 +81,6 @@
 </template>
 
 <style scoped>
-    .category {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-top: 24px;
-    }
-
-    .category p {
-        font-size: 16px;
-        line-height: 16px;
-        font-weight: 700;
-        margin-right: 12px;
-        letter-spacing: 1px;
-        margin: 0;
-        padding: 0;
-        opacity: 0.2;
-    }
-
-    .category-line {
-        flex: 1;
-        height: 2px;
-        background: var(--text);
-        border-radius: 2px;
-        opacity: 0.1;
-    }
-
     #profile {
         width: 100%;
         height: 170px !important;
