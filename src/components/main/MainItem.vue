@@ -21,7 +21,7 @@
         color: var(--text);
         align-items: center;
         gap: 18px;
-        margin-top: 10px;
+        margin-top: 12px;
     }
 
     .mainItem_el * {

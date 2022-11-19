@@ -44,11 +44,16 @@
         
         <div id="profile">
             <img :src="avatar" class="avatarBackground" />
-            <div class="profileData">
+            <div class="profileData" v-wave>
                 <img :src="avatar" class="avatar" />
                 <h3>Bonjour, {{firstName}} !</h3>
                 <p>Vous êtes en classe de {{className}} à {{establishment}}</p>
             </div>
+        </div>
+
+        <div class="category">
+            <p>Paramètres</p>
+            <div class="category-line"></div>
         </div>
 
         <!-- reset token -->
@@ -77,6 +82,32 @@
 </template>
 
 <style scoped>
+    .category {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .category p {
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: 700;
+        margin-right: 12px;
+        letter-spacing: 1px;
+        margin: 0;
+        padding: 0;
+        opacity: 0.2;
+    }
+
+    .category-line {
+        flex: 1;
+        height: 2px;
+        background: var(--text);
+        border-radius: 2px;
+        opacity: 0.1;
+    }
+
     #profile {
         width: 100%;
         height: 170px !important;
