@@ -69,7 +69,6 @@
             this.timeString = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 
             // wait
-            console.log(time, this.getWait(time))
             this.waitTime = this.getWait(time)
 
             // color
