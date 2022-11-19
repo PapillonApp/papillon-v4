@@ -27,6 +27,9 @@
                 localStorage.removeItem('loginData')
                 localStorage.removeItem('token')
                 location.reload()
+            },
+            refresh() {
+                refreshToken()
             }
         },
         data() {
@@ -56,7 +59,7 @@
         <MainCategory title="Paramètres"/>
 
         <!-- reset token -->
-        <RouterLink to="/login"><MainItem>
+        <MainItem v-on:click="refresh">
             <template #icon>
                 <RefreshCcw />
             </template>
@@ -64,7 +67,7 @@
                 <h3>Rafraîchir le token</h3>
                 <p>Actualiser les données téléchargées depuis l'instance Pronote</p>
             </template>
-        </MainItem></RouterLink>
+        </MainItem>
 
         <!-- logout -->
         <MainItem v-on:click="logout">

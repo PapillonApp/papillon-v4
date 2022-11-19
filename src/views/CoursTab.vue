@@ -50,6 +50,11 @@
                         // apply data
                         this.cours = response.data.data.timetable
 
+                        // error handling
+                        if(response.data.errors) {
+                            refreshToken()
+                        }
+
                         // check if empty
                         if(this.cours.length == 0) {
                             this.empty = true

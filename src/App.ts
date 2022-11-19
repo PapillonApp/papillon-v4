@@ -73,6 +73,10 @@ if(isAuthenticated) {
     }`;
     
     sendQL(user_request).then((data) => {
+        if(data.message == "Unknown session token") {
+            refreshToken()
+        }
+
         localStorage.setItem('userData', JSON.stringify(data.data.user));
     });
 }
@@ -176,4 +180,44 @@ window.addEventListener('online', (event) => {
         className: "notification success",
         gravity: "bottom"
     }).showToast();
+});
+
+/* auto re-login */
+function refreshToken() {
+    if(localStorage.getItem('loginData') != null) {
+        // get saved credentials
+        let loginData = JSON.parse(localStorage.getItem('loginData'))
+        
+        // auto login
+        Toastify({
+            text: "Reconnexion...",
+            className: "notification",
+            gravity: "bottom"
+        }).showToast();
+
+        fetch(constructAuthURL(loginData)).then((response) => response.json()).then((data) => {
+            if (data.token != undefined) {
+                localStorage.setItem('token', data.token);
+                location.reload();
+            }
+        });
+    }
+}
+
+// focus
+let lastblur = new Date();
+
+document.addEventListener("visibilitychange", (event) => {
+    if (document.visibilityState == "visible") {
+        // check if last blur was more than 5 minutes ago
+        let now = new Date();
+        let diff = now - lastblur;
+        if(diff > 300000) {
+            // pronote has probably expired since then
+            refreshToken();
+        }
+    }
+    else {
+        lastblur = new Date();
+    }
 });
