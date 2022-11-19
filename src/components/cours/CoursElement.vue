@@ -35,15 +35,11 @@
 
                 let waitString = "dans " + waitMinutes + " min"
 
-                if (waitMinutes < 0) {
-                    waitString = "il y a " + Math.abs(waitMinutes) + " min"
-                }
-
                 if (waitMinutes < 5) {
                     waitString = "maintenant"
                 }
 
-                if (waitMinutes < 0 && waitMinutes > -5) {
+                if (waitMinutes < 0) {
                     waitString = "terminé"
                 }
 

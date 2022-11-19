@@ -109,6 +109,14 @@ body {
     font-variation-settings: "wght" 500;
 }
 
+.notification.error {
+    background: #F13232 !important;
+}
+
+.notification.success {
+    background: #00B562 !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;

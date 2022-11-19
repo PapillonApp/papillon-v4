@@ -156,3 +156,20 @@ function nearestColor(colorHex){
     })
     return baseColors[index];
 }
+
+// online check
+window.addEventListener('offline', (event) => {
+    Toastify({
+        text: "Vous n'êtes plus connecté à internet.",
+        className: "notification error",
+        gravity: "bottom"
+    }).showToast();
+});
+
+window.addEventListener('online', (event) => {
+    Toastify({
+        text: "Vous êtes à nouveau connecté à internet.",
+        className: "notification success",
+        gravity: "bottom"
+    }).showToast();
+});
