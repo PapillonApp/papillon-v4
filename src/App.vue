@@ -23,8 +23,9 @@
 <style scoped>
   #main {
     height: -webkit-fill-available;
-    overflow: hidden;
+    overflow: scroll;
     width: 100%;
+    padding-bottom: 90px;
   }
 
   #NavigationBar {

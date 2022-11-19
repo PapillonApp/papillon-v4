@@ -2,11 +2,7 @@
     export default {
         props: {
             time: {
-                type: String,
-                required: true
-            },
-            wait: {
-                type: String,
+                type: Number,
                 required: true
             },
             name: {
@@ -26,12 +22,69 @@
                 required: true
             }
         },
+        data() {
+            return {
+                timeString: "",
+                waitTime : ""
+            }
+        },
+        methods: {
+            getWait(time) {
+                let wait = time.getTime() - new Date().getTime()
+                let waitMinutes = Math.floor(wait / 60000)
+
+                let waitString = "dans " + waitMinutes + " min"
+
+                if (waitMinutes < 0) {
+                    waitString = "il y a " + Math.abs(waitMinutes) + " min"
+                }
+
+                if (waitMinutes < 5) {
+                    waitString = "maintenant"
+                }
+
+                if (waitMinutes < 0 && waitMinutes > -5) {
+                    waitString = "terminé"
+                }
+
+                if (waitMinutes > 60) {
+                    waitString = "dans " + Math.floor(waitMinutes / 60) + " h"
+                }
+
+                if (Math.floor(waitMinutes / 60) > 24) {
+                    waitString = "dans " + Math.floor(waitMinutes / 1440) + " jour(s)"
+                }
+
+                return waitString;
+            }
+        },
         mounted() {
+            // time
+            let time = new Date(this.time)
+            
+            // correct timezone
+            time.setHours(time.getHours() - 1)
+
+            // timestamp to time
+            this.timeString = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+
+            // wait
+            console.log(time, this.getWait(time))
+            this.waitTime = this.getWait(time)
+
+            // color
             let color = this.color
             if(this.color == undefined) {
                 color = '#00B562'
             }
-            this.$el.style.setProperty('--color', color)
+
+            let finalColor = nearestColor(color).hex
+
+            if (finalColor == "#898989") {
+                finalColor = baseColors.random().hex
+            }
+
+            this.$el.style.setProperty('--color', finalColor)
         }
     };
  
@@ -41,7 +94,7 @@
     <div class="cours" v-wave>
         <div class="cours-color"></div>
         <div class="cours-data">
-            <small>{{time}} - {{wait}}</small>
+            <small>{{timeString}} - {{waitTime}}</small>
             <h3>{{name}}</h3>
             <p>{{room}} - {{teacher}}</p>
         </div>
