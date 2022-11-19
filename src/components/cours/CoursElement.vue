@@ -107,7 +107,7 @@
             <small>
                 {{timeString}} - {{waitTime}}
                 <span v-if="hasStatus" class="status">{{status}}</span>
-                <span v-if="cancelled" class="status cancelled">annulé</span>
+                <span v-if="cancelled" class="status cancelled">{{status}}</span>
             </small>
             <h3>{{name}}</h3>
             <p>{{room}} - {{teacher}}</p>
