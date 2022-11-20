@@ -10,7 +10,7 @@
         data() {
             return {
                 ent_list: ent_list,
-                cas : '',
+                cas : 'undefined',
                 username: '',
                 password: '',
                 ent: '',
@@ -18,6 +18,20 @@
         },
         methods: {
             login: function(event) {
+
+                if (this.ent == '' ||this.ent == 'undefined') {
+                    Toastify({
+                        text: "Merci de choisir un ENT",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: 'center',
+                        backgroundColor: "red",
+                        stopOnFocus: true,
+                    }).showToast();
+                    return
+                }
+
                 // collect data
                 let loginData = {
                     username: this.username,
@@ -97,8 +111,9 @@
             <input v-model="password" v-wave class="input" type="password" placeholder="mot de passe" />
 
             <input v-model="ent" v-wave class="input" type="url" placeholder="URL Pronote" />
-            <select v-model="cas" v-wave class="select" placeholder="votre ENT">
-                <option value="none" selected>Aucun</option>
+            <select v-model="cas" v-wave class="select">
+                <option value="undefined" selected="true" disabled hidden>choisissez votre ENT</option>
+                <option value="none">Aucun</option>
                 <option v-for="ent in ent_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
