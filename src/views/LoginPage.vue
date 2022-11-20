@@ -1,7 +1,8 @@
 <script lang="ts">
     import TabName from '/src/components/main/TabName.vue'
     import axios from 'axios'
-    import ent_list from '/src/ent_list.json'
+    import cas_list from '/src/ent_list.json'
+    import etab_list from '/src/etab_list.json'
     export default {
         name: 'LoginPage',
         components: {
@@ -9,20 +10,33 @@
         },
         data() {
             return {
-                ent_list: ent_list,
-                cas : '',
+                cas_list: cas_list,
+                etab_list: etab_list,
+                cas : 'undefined',
                 username: '',
                 password: '',
-                ent: '',
+                ent: 'undefined',
+                ent_custom: '',
             }
         },
         methods: {
             login: function(event) {
+
+                if (this.cas == 'undefined' || this.ent == 'undefined') {
+                    Toastify({
+                        text: "Merci de choisir un " + (this.cas == 'undefined' ? this.ent == 'undefined' ? "établissement et un ENT" : "ENT" : "établissement"),
+                        className: "notification",
+                        gravity: "bottom",
+                        backgroundColor: "red",
+                    }).showToast();
+                    return
+                }
+
                 // collect data
                 let loginData = {
                     username: this.username,
                     password: this.password,
-                    url: this.ent,
+                    url: this.ent == "custom" ? this.ent_custom : this.ent,
                     cas: this.cas
                 }
 
@@ -96,10 +110,18 @@
             <input v-model="username" v-wave class="input" type="text" placeholder="identifiant" />
             <input v-model="password" v-wave class="input" type="password" placeholder="mot de passe" />
 
-            <input v-model="ent" v-wave class="input" type="url" placeholder="URL Pronote" />
-            <select v-model="cas" v-wave class="select" placeholder="votre ENT">
-                <option value="none" selected>Aucun</option>
-                <option v-for="ent in ent_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
+            <select v-model="ent" v-wave class="select">
+                <option value="undefined" disabled>Choisissez votre établissement</option>
+                <option value="custom">url pronote personnalisée</option>
+                <option v-for="ent in etab_list" :value="ent.url" v-bind:key="ent.url">{{ ent.name }}</option>
+            </select>
+
+            <input v-model="ent_custom" v-wave class="input" type="text" placeholder="URL pronote personnalisée" v-if="ent == 'custom'"  />
+            
+            <select v-model="cas" v-wave class="select">
+                <option value="undefined" selected="true" disabled hidden>choisissez votre ENT</option>
+                <option value="none">Aucun</option>
+                <option v-for="ent in cas_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
 
@@ -109,7 +131,7 @@
 
 <style scoped>
     .loginBtn {
-        margin-top: 20px;
+        margin-top: 10px;
         padding: 13px 22px;
         background: var(--brand-color);
         color: #fff;
@@ -154,6 +176,7 @@
         border: 1px solid var(--border);
         color: var(--text) !important;
         border-radius: 5px;
+        margin-bottom: 10px;
     }
 
     select option {
