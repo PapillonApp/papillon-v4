@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import {useModalRouter} from 'jenesius-vue-modal'
 
 let allRoutes = []
 

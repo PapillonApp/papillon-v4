@@ -8,6 +8,8 @@
     import { CalendarOff, ServerCrash } from 'lucide-vue-next';
 
     import axios from 'axios'
+
+    import CoursModal from '../views/cours/CoursModal.vue'
     
     export default {
         name: 'CoursTab',
@@ -16,6 +18,7 @@
             CoursElement,
             NoItem,
             LoadingItem,
+            CoursModal,
             CalendarOff,
             ServerCrash
         },
@@ -24,7 +27,8 @@
                 cours: [],
                 loading: true,
                 empty: false,
-                error: ""
+                error: "",
+                showCoursModal: false
             }
         },
         methods: {
@@ -66,6 +70,16 @@
                         this.loading = false;
                         this.empty = false;
                     })
+            },
+            openCoursModal: function(cours) {
+                this.$vfm.show("coursModal", {
+                    subject: cours.subject,
+                    teacher: cours.teacher,
+                    room: cours.room,
+                    from: new Date(cours.from).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                    to: new Date(cours.to).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                    color: cours.color
+                })
             }
         },
         mounted() {
@@ -81,6 +95,21 @@
 <template>
     <TabName name="Emploi du temps" calendar logged />
     <div id="content">
+        <vue-final-modal v-model="showCoursModal" name="coursModal">
+            <template v-slot="{ params }">
+                <div class="modal coursModal">
+                    <div class="modal-header">
+                        <p>{{params.subject}}</p>
+                        <small>{{params.teacher}} - {{params.room}}</small>
+                    </div>
+                    <div class="modal-content">
+                        <p class="categoryTitle">Détail des horaires</p>
+                        <p>Commence le <B>{{params.from}}</B></p>
+                        <p>Se termine le <B>{{params.to}}</B></p>
+                    </div>
+                </div>
+            </template>
+        </vue-final-modal>
 
         <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
         
@@ -93,11 +122,27 @@
         </NoItem>
 
         <div class="list">
-            <CoursElement v-for="cours in cours" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+            <CoursElement v-for="cours in cours" v-on:click="openCoursModal(cours)" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
         </div>
-
     </div>
 </template>
 
 <style scoped>
+    .modal-header small {
+        text-transform: none;
+    }
+
+    hr {
+        margin: 20px 0px;
+        opacity: 0.2;
+    }
+
+    .modal-content .categoryTitle {
+        font-size: 16px;
+        font-weight: 400;
+        opacity: 0.5;
+        padding-bottom: 5px !important;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 12px;
+    }
 </style>
