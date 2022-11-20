@@ -22,6 +22,8 @@
         align-items: center;
         gap: 18px;
         margin-top: 12px;
+        justify-content: flex-start;
+        width: calc(100% - 40px);
     }
 
     .mainItem_el * {

@@ -77,6 +77,37 @@ body {
     gap: 12px;
 }
 
+.list a {
+    width: 100%;
+}
+
+.list.group {
+    gap: 0px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--element);
+}
+
+.list.group .mainItem {
+    margin: 0px;
+    border-radius: 0px;
+}
+
+.list.group .mainItem, .list.group a {
+    border-bottom: 1px solid var(--border);
+}
+
+.list.group .mainItem:first-child , .list.group a:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.list.group .mainItem:last-child, .list.group a:last-child {
+    border-bottom: none !important;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
 /* animations */
 @keyframes TabNameString {
     0% {
@@ -124,4 +155,68 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+#loginMain {
+    --padding: 32px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100vw - var(--padding) * 2);
+    height: calc(100vh - var(--padding) * 2);
+
+    padding: var(--padding);
+    padding-top: calc(env(safe-area-inset-top) + var(--padding) / 1.5);
+    
+    /* background: linear-gradient(16.4deg, #00B562 38.91%, #1A8DCE 100%); */
+    background: var(--background);
+
+    /* color: #fff; */
+    color: var(--text);
+
+    overflow-y: scroll;
+}
+
+#loginMain #logo {
+    height: 24px;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    #loginMain #logo {
+        filter: invert(1);
+    }
+}
+
+#loginMain .topNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#loginMain .terms {
+    opacity: 0.5;
+    padding: 5px 10px;
+    margin-right: -5px;
+    margin-top: 1px;
+    border-radius: 5px;
+}
+
+#loginMain h1 {
+    font-size: 36px;
+    line-height: 36px;
+    font-weight: 600;
+    
+    margin: 0;
+    margin-top: 24px;
+
+    color: var(--brand-color);
+}
+
+#loginMain p.desc {
+    font-size: 17px;
+    margin: 0;
+    margin-top: 8px;
+    margin-bottom: 21px;
+    opacity: 0.5;
 }

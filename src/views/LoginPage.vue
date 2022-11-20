@@ -98,7 +98,9 @@
 </script>
 
 <template>
-    <TabName name="bienvenue dans Pronote+" />
+    <RouterLink to="/setup">
+        <TabName name="bienvenue dans Pronote+" />
+    </RouterLink>
     <div id="content">
         <h1>connectez-vous à Pronote ou à un ENT</h1>
         <h4>utilisez vos identifiants Pronote ou ceux de votre ENT/EduConnect pour vous connecter.</h4>
