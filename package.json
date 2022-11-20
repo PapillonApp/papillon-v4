@@ -15,6 +15,7 @@
     "ical.js": "^1.5.0",
     "jenesius-vue-modal": "^1.8.2",
     "lucide-vue-next": "^0.101.0",
+    "swipe-detect": "^1.0.1",
     "toastify-js": "^1.12.0",
     "v-wave": "^1.5.0",
     "vue": "^3.2.41",

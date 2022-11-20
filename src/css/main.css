@@ -249,6 +249,8 @@ a {
 
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+
+    transition: transform 0.1s ease-in-out;
 }
 
 .modal * {
@@ -296,4 +298,39 @@ a {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+}
+
+.quietLoading {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    overflow: hidden;
+    border-radius: 300px;
+    z-index: 99999999999;
+}
+
+.quietLoadingBar {
+    width: 0%;
+    height: 100%;
+    background: var(--brand-color);
+    border-radius: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: quietLoading 1s linear infinite;
+}
+
+@keyframes quietLoading {
+    0% {
+        opacity: 1;
+        width: 50%;
+        transform: translateX(-50vw);
+    }
+    100% {
+        width: 50%;
+        transform: translateX(100vw);
+    }
 }

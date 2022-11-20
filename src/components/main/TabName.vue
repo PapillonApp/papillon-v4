@@ -57,6 +57,22 @@
 
                 document.dispatchEvent(new CustomEvent('dateChanged'));
             });
+
+            document.addEventListener('nextDate', function() {
+                let newDate = new Date();
+                newDate.setDate(rn.getDate() + 1);
+                let newDateStr = newDate.getFullYear() + '-' + lz(newDate.getMonth() + 1) + '-' + lz(newDate.getDate());
+                rnPicker.value = newDateStr;
+                rnPicker.dispatchEvent(new Event('change'));
+            });
+
+            document.addEventListener('prevDate', function() {
+                let newDate = new Date();
+                newDate.setDate(rn.getDate() - 1);
+                let newDateStr = newDate.getFullYear() + '-' + lz(newDate.getMonth() + 1) + '-' + lz(newDate.getDate());
+                rnPicker.value = newDateStr;
+                rnPicker.dispatchEvent(new Event('change'));
+            });
         })
     }
 

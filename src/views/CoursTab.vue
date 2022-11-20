@@ -5,6 +5,8 @@
 
     import LoadingItem from '@/components/main/LoadingItem.vue';
 
+    import swipeDetect from 'swipe-detect';
+
     import NoItem from '@/components/main/NoItem.vue';
     import { CalendarOff, ServerCrash, CalendarPlus } from 'lucide-vue-next';
 
@@ -32,6 +34,7 @@
                 cours: [],
                 hasCours: false,
                 loading: true,
+                inLoading: false,
                 empty: false,
                 error: "",
                 showCoursModal: false,
@@ -41,10 +44,15 @@
         methods: {
             getCours: function() {
                 // set vars
-                this.loading = true;
+                if(this.cours !== []) {
+                    this.inLoading = true;
+                }
+                else {
+                    this.loading = true;
+                }
+
                 this.empty = false;
                 this.error = "";
-                this.cours = [];
                 this.hasCours = false;
 
                 // get token
@@ -58,22 +66,27 @@
                     .then(response => {
                         // set loading to false
                         this.loading = false
+                        this.inLoading = false
+                        this.cours = []
 
                         // apply data
-                        this.cours = response.data.data.timetable
+                        setTimeout(() => {
+                            this.cours = response.data.data.timetable
+                        
 
-                        // error handling
-                        if(response.data.errors) {
-                            refreshToken()
-                        }
+                            // error handling
+                            if(response.data.errors) {
+                                refreshToken()
+                            }
 
-                        // check if empty
-                        if(this.cours.length == 0) {
-                            this.empty = true
-                        }
-                        else {
-                            this.hasCours = true
-                        }
+                            // check if empty
+                            if(this.cours.length == 0) {
+                                this.empty = true
+                            }
+                            else {
+                                this.hasCours = true
+                            }
+                        }, 10);
                     })
                     .catch(error => {
                         console.error(error);
@@ -92,6 +105,13 @@
                     to: new Date(cours.to).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
                     color: cours.color,
                     status: cours.status || "Se déroule normalement"
+                })
+
+                let modal = this.$refs.modal
+                swipeDetect(modal, (swipeDirection) => {
+                    if(swipeDirection == "down") {
+                        this.$vfm.hide("coursModal")
+                    }
                 })
             },
             addCurrentToCalendar: function() {
@@ -166,6 +186,16 @@
             document.addEventListener('dateChanged', () => {
                 this.getCours()
             })
+
+            let swipeUI = this.$refs.swipe
+            swipeDetect(swipeUI, (swipeDirection) => {
+                if(swipeDirection == "left") {
+                    document.dispatchEvent(new CustomEvent('nextDate'));
+                }
+                else if(swipeDirection == "right") {
+                    document.dispatchEvent(new CustomEvent('prevDate'));
+                }
+            })
         }
     } 
 </script>
@@ -175,7 +205,7 @@
     <div id="content">
         <vue-final-modal v-model="showCoursModal" name="coursModal">
             <template v-slot="{ params }">
-                <div class="modal coursModal">
+                <div class="modal coursModal" ref="modal">
                     <div class="modal-header">
                         <p>{{params.subject}}</p>
                         <small>{{params.teacher}} - {{params.room}}</small>
@@ -195,8 +225,12 @@
             </template>
         </vue-final-modal>
 
+        <div class="quietLoading" v-if="inLoading">
+            <div class="quietLoadingBar"></div>
+        </div>
+
         <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
-        
+
         <NoItem v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
             <CalendarOff />
         </NoItem>
@@ -205,8 +239,10 @@
             <ServerCrash />
         </NoItem>
 
-        <div class="list">
-            <CoursElement v-for="cours in cours" v-on:click="openCoursModal(cours)" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+        <div class="swipe" ref="swipe">
+            <div class="list">
+                <CoursElement v-for="cours in cours" v-on:click="openCoursModal(cours)" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+            </div>
         </div>
 
         <div v-if="hasCours" class="list group gr2">
@@ -249,5 +285,34 @@
 
     .gr2 {
         margin-top: 20px;
+        opacity: 0;
+        animation: gr2 0.2s 0.3s ease-in-out forwards;
+    }
+
+    @keyframes gr2 {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    }
+
+    .swipe {
+        overflow-x: scroll !important;
+        overflow-y: hidden;
+        width: calc(100% + 48px);
+        margin-left: -24px;
+    }
+
+    .swipe .list {
+        padding: 0px 24px;
+        width: calc(100% - 47px);
+    }
+
+    .swipe .noItem {
+        
     }
 </style>
