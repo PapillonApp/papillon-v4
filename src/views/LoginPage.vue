@@ -94,8 +94,8 @@
 
             <input id="url" v-wave class="input" type="url" placeholder="URL Pronote" />
             <select id="cas" v-wave class="select" placeholder="votre ENT">
-                <option value="none">Aucun</option>
-                <option v-for="ent in ent_list" :value="ent.cas">{{ ent.name }}</option>
+                <option value="none" selected>Aucun</option>
+                <option v-for="ent in ent_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
 
