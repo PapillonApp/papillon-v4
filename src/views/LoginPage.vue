@@ -10,16 +10,20 @@
         data() {
             return {
                 ent_list: ent_list,
+                cas : '',
+                username: '',
+                password: '',
+                ent: '',
             }
         },
         methods: {
             login: function(event) {
                 // collect data
                 let loginData = {
-                    username: document.getElementById('username').value,
-                    password: document.getElementById('password').value,
-                    url: document.getElementById('url').value,
-                    cas: document.getElementById('cas').value
+                    username: this.username,
+                    password: this.password,
+                    url: this.ent,
+                    cas: this.cas
                 }
 
                 // send login request
@@ -60,10 +64,10 @@
                 let loginData = JSON.parse(localStorage.getItem('loginData'))
 
                 // fill inputs
-                document.getElementById('username').value = loginData.username
-                document.getElementById('password').value = loginData.password
-                document.getElementById('url').value = loginData.url
-                document.getElementById('cas').value = loginData.cas
+                this.username = loginData.username
+                this.password = loginData.password
+                this.ent = loginData.url
+                this.cas = loginData.cas
                 
                 // auto login
                 this.login()
@@ -89,13 +93,13 @@
         </div>
 
         <div class="login">
-            <input id="username" v-wave class="input" type="text" placeholder="identifiant" />
-            <input id="password" v-wave class="input" type="password" placeholder="mot de passe" />
+            <input v-model="username" v-wave class="input" type="text" placeholder="identifiant" />
+            <input v-model="password" v-wave class="input" type="password" placeholder="mot de passe" />
 
-            <input id="url" v-wave class="input" type="url" placeholder="URL Pronote" />
-            <select id="cas" v-wave class="select" placeholder="votre ENT">
-                <option value="none">Aucun</option>
-                <option v-for="ent in ent_list" :value="ent.cas">{{ ent.name }}</option>
+            <input v-model="ent" v-wave class="input" type="url" placeholder="URL Pronote" />
+            <select v-model="cas" v-wave class="select" placeholder="votre ENT">
+                <option value="none" selected>Aucun</option>
+                <option v-for="ent in ent_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
 
@@ -142,10 +146,10 @@
     }
 
     select {
-        padding: 22px 17px !important;
+        padding: 11px 17px !important;
         font-size: 16px !important;
         width: 100%;
-        height: 45px;
+        height: 50px;
         background: var(--background);
         border: 1px solid var(--border);
         color: var(--text) !important;
