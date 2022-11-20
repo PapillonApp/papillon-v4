@@ -194,5 +194,10 @@
       "name": "ENT Mon Bureau Numérique via EduConnect",
       "cas": "monbureaunumerique-educonnect",
       "url": "cas.monbureaunumerique.fr"
+    },
+    {
+      "name": "Pas d'ENT",
+      "cas": "none",
+      "url": "index-education.net"
     }
 ]

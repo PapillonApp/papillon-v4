@@ -83,7 +83,7 @@
                 txt.innerHTML = text;
                 return txt.value;
             },
-            selectEtab(url) {
+            selectEtab(url, name) {
                 let etab = url;
                 if(url == "" || url == null) {
                     Toastify({
@@ -94,17 +94,26 @@
                 }
 
                 // get etab final url
-                axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.redirect-checker.net/?url='+url)}`)
+                axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.redirect-checker.net/?url='+url+'&timeout=5&maxhops=10&meta-refresh=1&format=json')}`)
                 .then(response => {
                     let resp = JSON.parse(response.data.contents);
                     let last = resp.data[resp.data.length-1];
-                    let cas_host = last.response.info.url_parsed.host;
+                    let cas_host = last.request.info.idn.host;
+
+                    if(cas_host.includes("index-education.net")) {
+                        cas_host = "index-education.net";
+                    }
+
+                    console.log(cas_host);
                     
                     let cas = cas_list.find(e => e.url === cas_host).cas
+
+                    console.log(cas);
 
                     // save url and cas in local storage
                     localStorage.setItem('etab', etab);
                     localStorage.setItem('cas', cas);
+                    localStorage.setItem('name', name);
 
                     // redirect to next page
                     location.href = '/setup_3';
@@ -112,8 +121,10 @@
                 .catch(error => {
                     // toutatice bypass bc of weird API
                     // replace index-education.net with pronote.toutatice.fr
+                    console.log(error);
+                    
                     if(url.includes("index-education.net")) {
-                        this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"));
+                        this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
                     }
 
                     // affiche un message d'erreur
@@ -171,7 +182,7 @@
         </div>
 
         <div class="list group" id="etabs">
-            <MainItem v-for="etab in etabs" @click="selectEtab(etab.url)">
+            <MainItem v-for="etab in etabs" @click="selectEtab(etab.url, etab.nomEtab)">
                 <template #icon>
                     <Locate />
                 </template>

@@ -18,7 +18,10 @@
         data() {
             return {
                 username: '',
-                password: ''
+                password: '',
+                url: localStorage.getItem('etab'),
+                cas: localStorage.getItem('cas'),
+                name: localStorage.getItem('name'),
             }
         },
         methods : {
@@ -27,8 +30,8 @@
                 let loginData = {
                     username: this.username,
                     password: this.password,
-                    url: localStorage.getItem('etab'),
-                    cas: localStorage.getItem('cas')
+                    url: this.url,
+                    cas: this.cas
                 }
 
                 // send login request
@@ -73,7 +76,7 @@
         </div>
 
         <h1>Indiquez vos identifiants</h1>
-        <p class="desc">Nous avons trouvé votre établissement ! Entrez vos identigiants pour continuer</p>
+        <p class="desc ae">nous avons trouvé votre établissement ! vous êtes au {{name}} et vous utilisez l'ENT {{cas}}</p>
 
         <div class="list group">
             <RouterLink to="/setup_2"><MainItem>
@@ -143,5 +146,9 @@
 
     .input:focus {
         outline: none;
+    }
+
+    .ae {
+        text-transform: none;
     }
 </style>
