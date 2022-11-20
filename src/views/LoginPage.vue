@@ -146,10 +146,10 @@
     }
 
     select {
-        padding: 22px 17px !important;
+        padding: 11px 17px !important;
         font-size: 16px !important;
         width: 100%;
-        height: 45px;
+        height: 50px;
         background: var(--background);
         border: 1px solid var(--border);
         color: var(--text) !important;
