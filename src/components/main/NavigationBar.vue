@@ -5,7 +5,7 @@
 
 <template>
     <div id="NavigationBar">
-        <RouterLink to="/" v-wave>
+        <RouterLink to="/cours" v-wave>
             <CalendarRange />
             <p>Cours</p>
         </RouterLink>
