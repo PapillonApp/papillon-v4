@@ -104,28 +104,33 @@
                         cas_host = "index-education.net";
                     }
 
+                    // more toutatice weird stuff
+                    if(cas_host.includes("pronote.toutatice.fr")) {
+                        cas_host = "www.toutatice.fr";
+                    }
+
                     console.log(cas_host);
                     
                     let cas = cas_list.find(e => e.url === cas_host).cas
 
-                    console.log(cas);
+                    if(last.response == false && url.includes("index-education.net")) {
+                        // car toutatice est chelou
+                        this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
+                    }
+                    else {
+                        // save url and cas in local storage
+                        localStorage.setItem('etab', etab);
+                        localStorage.setItem('cas', cas);
+                        localStorage.setItem('name', name);
 
-                    // save url and cas in local storage
-                    localStorage.setItem('etab', etab);
-                    localStorage.setItem('cas', cas);
-                    localStorage.setItem('name', name);
-
-                    // redirect to next page
-                    location.href = '/setup_3';
+                        // redirect to next page
+                        location.href = '/setup_3';
+                    }
                 })
                 .catch(error => {
                     // toutatice bypass bc of weird API
                     // replace index-education.net with pronote.toutatice.fr
                     console.log(error);
-                    
-                    if(url.includes("index-education.net")) {
-                        this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
-                    }
 
                     // affiche un message d'erreur
                     if(url.includes("pronote.toutatice.fr") || !url.includes("index-education.net")) {
