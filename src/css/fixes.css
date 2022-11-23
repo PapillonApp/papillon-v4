@@ -6,6 +6,10 @@
 /* adrod fixes */
 @supports not (-webkit-touch-callout: none) {
     #TabNameString {
-        margin-top: -3px !important;
+        margin-top: -4px !important;
+    }
+
+    .addToCalendar {
+        display: none;
     }
 }

@@ -260,8 +260,7 @@ a {
 
 .modal-header {
     background: var(--element);
-    padding: 0 24px;
-    height: 72px;
+    padding: 12px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;

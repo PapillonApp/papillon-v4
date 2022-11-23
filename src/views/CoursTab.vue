@@ -62,6 +62,7 @@
                 let coursURL = API + "/edt" + "?token=" + token + "&from=" + rnString;
 
                 // retreive data from API
+                console.log(coursURL)
                 axios.get(coursURL)
                     .then(response => {
                         // set loading to false
@@ -246,7 +247,7 @@
         </div>
 
         <div v-if="hasCours" class="list group gr2">
-            <MainItem v-on:click="addDayToCalendar">
+            <div class="addToCalendar"><MainItem v-on:click="addDayToCalendar">
                 <template #icon>
                     <CalendarPlus />
                 </template>
@@ -254,7 +255,7 @@
                     <h3>Ajouter cette journée au calendrier</h3>
                     <p>Ajouter tous les cours du jour dans votre calendrier</p>
                 </template>
-            </MainItem>
+            </MainItem></div>
         </div>
     </div>
 </template>
