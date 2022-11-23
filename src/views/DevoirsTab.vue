@@ -110,7 +110,7 @@
 
                 let hwDone = JSON.parse(localStorage.getItem('doneHw')) || []
                 // check if hw is already done
-                if(hwDone.includes(id)) {
+                if(hwDone.includes(hw.id)) {
                     this.currentIsDone = true
                 }
 

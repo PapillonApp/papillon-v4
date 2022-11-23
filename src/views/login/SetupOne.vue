@@ -28,7 +28,7 @@
     <div id="loginMain">
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">
-            <a class="terms" href="https://pronote.plus/assets/terms_privacy_25092022_rev0.pdf" v-wave>Termes & conditions</a>
+            <a class="terms" href="https://pronote.plus/assets/terms_privacy_23112022_rev0.pdf" v-wave>Termes & conditions</a>
         </div>
 
         <h1>Bienvenue dans Pronote+ 👋</h1>

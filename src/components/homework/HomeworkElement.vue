@@ -64,6 +64,9 @@
         color: var(--text);
         border-radius: 8px;
         display: flex;
+
+        opacity: 0%;
+        animation: TabNameStringUp 0.2s cubic-bezier(0,0,0,1) forwards;
     }
 
     .homework.done {
