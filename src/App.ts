@@ -87,46 +87,24 @@ Array.prototype.random = function() {
 }
 
 const baseColors = [
-    {
-      "hex": "#898989",
-      "name": "Grey",
-    },
-    {
-      "hex": "#E1006C",
-      "name": "Pink",
-    },
-    {
-      "hex": "#0FBA9B",
-      "name": "Lime",
-    },
-    {
-      "hex": "#F13232",
-      "name": "Red",
-    },
-    {
-      "hex": "#A725C8",
-      "name": "Purple",
-    },
-    {
-      "hex": "#00B562",
-      "name": "Green",
-    },
-    {
-      "hex": "#C84325",
-      "name": "Orange",
-    },
-    {
-      "hex": "#C87325",
-      "name": "Mustard",
-    },
-    {
-      "hex": "#9747FF",
-      "name": "Indigo",
-    },
-    {
-      "hex": "#1A8DCE",
-      "name": "Blue",
-    },
+    {"hex": "#898989","name": "Grey",},
+    {"hex": "#E1006C","name": "Pink",},
+    {"hex": "#0FBA9B","name": "Lime",},
+    {"hex": "#F13232","name": "Red",},
+    {"hex": "#A725C8","name": "Purple",},
+    {"hex": "#00B562","name": "Green",},
+    {"hex": "#C84325","name": "Orange",},
+    {"hex": "#C87325","name": "Mustard",},
+    {"hex": "#9747FF","name": "Indigo",},
+    {"hex": "#1A8DCE","name": "Blue",},
+    {"hex": "#C567FF","name": "Purple",},
+    {"hex": "#4791FF","name": "Blue",},
+    {"hex": "#FF6A3A","name": "Orange",},
+    {"hex": "#FFB629","name": "Mustard",},
+    {"hex": "#30B800","name": "Green",},
+    {"hex": "#F422AD","name": "Pink",},
+    {"hex": "#AF5757","name": "Red",},
+    {"hex": "#8CBC4F","name": "Lime",}
 ]
 
 function hexToRgb(hex) {
