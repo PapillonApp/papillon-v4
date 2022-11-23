@@ -102,15 +102,38 @@
                     htmlDescription: hw.htmlDescription,
                     files: hw.files,
                     noFiles: hw.files.length == 0,
+                    id: hw.id,
                 })
 
                 let modal = this.$refs.modal
                 swipeDetect(modal, (swipeDirection) => {
                     if(swipeDirection == "down") {
-                        this.$vfm.hide("coursModal")
+                        this.$vfm.hide("hwModal")
                     }
                 })
-            }
+            },
+            markAsDone: function(id) {
+                let hwDone = JSON.parse(localStorage.getItem('doneHw')) || []
+                // check if hw is already done
+                if(hwDone.includes(id)) {
+                    // remove hw from done
+                    hwDone.splice(hwDone.indexOf(id), 1)
+                    localStorage.setItem('doneHw', JSON.stringify(hwDone))
+                }
+                else {
+                    // add hw to done
+                    hwDone.push(id)
+                    localStorage.setItem('doneHw', JSON.stringify(hwDone))
+                }
+
+                // document event doneChanged
+                let event = new CustomEvent('doneChanged', {
+                    detail: {
+                        id: id
+                    }
+                })
+                document.dispatchEvent(event)
+            },
         },
         mounted() {
             this.getHomework()
@@ -134,7 +157,8 @@
 
 <template>
     <TabName name="Travail à faire" calendar logged />
-    <vue-final-modal v-model="showHwModal" name="hwModal">
+    <div id="content">
+        <vue-final-modal v-model="showHwModal" name="hwModal">
             <template v-slot="{ params }">
                 <div class="modal hwModal" ref="modal">
                     <div class="modal-header">
@@ -145,26 +169,28 @@
                         <p class="categoryTitle next">Description</p>
                         <p>{{params.description}}</p>
 
-                        <br/>
-                        <p class="categoryTitle next">Fichiers</p>
+                        <p class="categoryTitle">Fichiers</p>
                         <div class="files">
                             <div class="file" v-wave v-for="file in params.files" :key="file.id">
                                 <a :href="file.url" target="_blank">{{file.name}}</a>
                             </div>
                         </div>
                         <p v-if="params.noFiles">Aucun fichier</p>
+
+                        <p class="categoryTitle">Gestion du travail</p>
+                        <button v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
                     </div>
                 </div>
             </template>
-    </vue-final-modal>
-    <div id="content">
+        </vue-final-modal>
+    
         <div class="quietLoading" v-if="inLoading">
             <div class="quietLoadingBar"></div>
         </div>
 
-        <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
+        <LoadingItem v-if="loading" title="Récupération de vos devoirs..." subtitle="Veuillez patienter..." />
 
-        <NoItem v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+        <NoItem v-if="empty" title="Pas de devoirs enregistrés pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
             <CalendarOff />
         </NoItem>
 
@@ -174,7 +200,7 @@
 
         <div class="swipe" ref="swipe">
             <div class="list">
-                <HomeworkElement v-for="hw in homeworks" :subject="hw.subject" :description="hw.description" @click="openHwModal(hw)" />
+                <HomeworkElement v-for="hw in homeworks" :subject="hw.subject" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
             </div>
         </div>
     </div>

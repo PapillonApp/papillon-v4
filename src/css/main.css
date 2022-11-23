@@ -23,6 +23,7 @@
 /* setting vars */
 :root {
     --brand-color: #00B562;
+    --brand-color-light: #00B56222;
     --background: #FFFFFF;
     --element: #F4F4F4;
     --text: #000000;

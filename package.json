@@ -19,8 +19,10 @@
     "toastify-js": "^1.12.0",
     "v-wave": "^1.5.0",
     "vue": "^3.2.41",
+    "vue-directive-long-press": "^1.1.0",
     "vue-final-modal": "^3.4.11",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vue3-directive-long-press": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.68",
