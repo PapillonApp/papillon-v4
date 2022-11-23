@@ -9,6 +9,7 @@ import { vfmPlugin } from 'vue-final-modal'
 
 // feuilles de style
 import './css/main.css'
+import './css/fixes.css'
 
 // création de l'application
 const app = createApp(App)

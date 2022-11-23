@@ -240,5 +240,4 @@
         padding: 0px !important;
         font-size: 0px !important;
     }
-
 </style>
