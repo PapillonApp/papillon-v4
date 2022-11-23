@@ -96,8 +96,9 @@
                     })
             },
             openHwModal: function(hw) {
-                this.current = hw
                 this.currentIsDone = false
+                this.current = hw
+                
                 this.$vfm.show("hwModal", {
                     description: hw.description,
                     subject: hw.subject,
@@ -189,8 +190,8 @@
 
                         <p class="categoryTitle">Gestion du travail</p>
 
-                        <button v-if="currentIsDone" v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
-                        <button v-if="!currentIsDone" class="markAsNo" v-wave @click="markAsDone(params.id)">Marquer comme non fait</button>
+                        <button v-if="!currentIsDone" v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
+                        <button v-if="currentIsDone" class="markAsNo" v-wave @click="markAsDone(params.id)">Marquer comme non fait</button>
                     </div>
                 </div>
             </template>
