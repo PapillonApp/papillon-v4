@@ -39,6 +39,7 @@
                 error: "",
                 showHwModal: false,
                 current: null,
+                currentIsDone: false,
             }
         },
         methods: {
@@ -96,6 +97,7 @@
             },
             openHwModal: function(hw) {
                 this.current = hw
+                this.currentIsDone = false
                 this.$vfm.show("hwModal", {
                     description: hw.description,
                     subject: hw.subject,
@@ -104,6 +106,12 @@
                     noFiles: hw.files.length == 0,
                     id: hw.id,
                 })
+
+                let hwDone = JSON.parse(localStorage.getItem('doneHw')) || []
+                // check if hw is already done
+                if(hwDone.includes(id)) {
+                    this.currentIsDone = true
+                }
 
                 let modal = this.$refs.modal
                 swipeDetect(modal, (swipeDirection) => {
@@ -119,11 +127,13 @@
                     // remove hw from done
                     hwDone.splice(hwDone.indexOf(id), 1)
                     localStorage.setItem('doneHw', JSON.stringify(hwDone))
+                    this.currentIsDone = false
                 }
                 else {
                     // add hw to done
                     hwDone.push(id)
                     localStorage.setItem('doneHw', JSON.stringify(hwDone))
+                    this.currentIsDone = true
                 }
 
                 // document event doneChanged
@@ -178,7 +188,9 @@
                         <p v-if="params.noFiles">Aucun fichier</p>
 
                         <p class="categoryTitle">Gestion du travail</p>
-                        <button v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
+
+                        <button v-if="currentIsDone" v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
+                        <button v-if="!currentIsDone" class="markAsNo" v-wave @click="markAsDone(params.id)">Marquer comme non fait</button>
                     </div>
                 </div>
             </template>
@@ -214,6 +226,10 @@
     hr {
         margin: 20px 0px;
         opacity: 0.2;
+    }
+
+    .markAsNo {
+        background-color: #b90202 !important;
     }
 
     .modal-content .categoryTitle {
