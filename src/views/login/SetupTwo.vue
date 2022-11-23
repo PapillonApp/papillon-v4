@@ -83,6 +83,7 @@
                 txt.innerHTML = text;
                 return txt.value;
             },
+            
             selectEtab(url, name) {
                 let etab = url;
                 if(url == "" || url == null) {
@@ -94,11 +95,14 @@
                 }
 
                 // get etab final url
-                axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.redirect-checker.net/?url='+url+'&timeout=5&maxhops=10&meta-refresh=1&format=json')}`)
+                axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(url)}`)
                 .then(response => {
-                    let resp = JSON.parse(response.data.contents);
-                    let last = resp.data[resp.data.length-1];
-                    let cas_host = last.request.info.idn.host;
+                    
+                    let resp = response.data.url
+                    //cas_host = host with subdomain
+                    let cas_host = resp.split('/')[2];
+                    cas_host = cas_host.split('/')[0] || cas_host;
+                    console.log(cas_host);
 
                     if(cas_host.includes("index-education.net")) {
                         cas_host = "index-education.net";
@@ -111,9 +115,36 @@
 
                     console.log(cas_host);
                     
-                    let cas = cas_list.find(e => e.url === cas_host).cas
+                    
+                    let all_cas_same_host = cas_list.filter(cas => cas.url == cas_host);
+                    let cas = all_cas_same_host[0];
 
-                    if(last.response == false && url.includes("index-education.net")) {
+                    if (all_cas_same_host.length == 0) {
+                        Toastify({
+                            text: "Impossible de trouver le CAS de l'établissement",
+                            className: "notification error",
+                            gravity: "bottom",
+                        }).showToast();
+                    }else if (all_cas_same_host.length == 1) {
+                        // only one CAS for this host
+                        cas = all_cas_same_host[0].cas;
+                    }else if(all_cas_same_host.length > 1) {
+                        // multiple CAS for this host
+                        // show CAS selection
+                        // TODO: ehance this haha
+                       let nb_choices = prompt("Il y a plusieurs CAS pour cet établissement, veuillez choisir le bon en entrant le numéro correspondant à votre choix.\n\n" + all_cas_same_host.map((cas, i) => `${i+1} - ${cas.name}`).join("\n"));
+                       if (nb_choices == null || nb_choices == "" || all_cas_same_host[nb_choices-1] == null) {
+                            Toastify({
+                                text: "Vous n'avez pas choisi de CAS",
+                                className: "notification error",
+                                gravity: "bottom",
+                            }).showToast();
+                           return;
+                       } 
+                        cas = all_cas_same_host[parseInt(nb_choices)-1].cas;
+                    }
+                    // TODO: Vérifier si ca fonctionne pour toutatice
+                    if(url == resp && url.includes("index-education.net")) {
                         // car toutatice est chelou
                         this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
                     }
