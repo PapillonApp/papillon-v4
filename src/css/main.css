@@ -133,16 +133,18 @@ body {
 }
 
 .notification {
-    background: #222 !important;
+    background: var(--element) !important;
     box-shadow: none !important;
     text-align: left;
-    min-width: 80% !important;
-    max-width: 80% !important;
+    width: calc(94vw - 20px * 2) !important;
+    max-width: calc(94vw - 20px * 2) !important;
     border-radius: 7px;
-    padding: 14px 24px;
-    margin-bottom: env(safe-area-inset-bottom) !important;
+    padding: 12px 20px;
     font-size: 16px;
     font-variation-settings: "wght" 500;
+    text-transform: none;
+    bottom: calc(env(safe-area-inset-bottom) + 14px) !important;
+    left: 3vw !important;
 }
 
 .notification.error {

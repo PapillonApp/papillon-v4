@@ -3,7 +3,7 @@
     import MainItem from '../components/main/MainItem.vue'
     import MainCategory from '../components/main/MainCategory.vue'
 
-    import { RefreshCcw, LogOut } from 'lucide-vue-next';
+    import { RefreshCcw, LogOut, Bug } from 'lucide-vue-next';
 
     let userData = JSON.parse(localStorage.getItem('userData'))
 
@@ -20,7 +20,8 @@
             MainItem,
             MainCategory,
             RefreshCcw,
-            LogOut
+            LogOut,
+            Bug
         },
         methods: {
             logout() {
@@ -37,7 +38,8 @@
                 avatar,
                 firstName,
                 establishment,
-                className
+                className,
+                version : APP_VERSION
             }
         }
     }
@@ -77,6 +79,16 @@
             <template #content>
                 <h3>Se déconnecter</h3>
                 <p>Supprimer les données d'identification et de connexion</p>
+            </template>
+        </MainItem>
+
+        <MainItem class="beta">
+            <template #icon>
+                <Bug />
+            </template>
+            <template #content>
+                <h3>Programme beta</h3>
+                <p>Vous utilisez une version expérimentale de Pronote+ (version {{version}})</p>
             </template>
         </MainItem>
 
@@ -146,5 +158,10 @@
         font-weight: 400;
         opacity: 50%;
         text-transform: none;
+    }
+
+    .beta {
+        background: #ecb500;
+        color: #000 !important;
     }
 </style>

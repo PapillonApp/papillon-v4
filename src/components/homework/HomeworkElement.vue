@@ -30,7 +30,7 @@
             let listDone = localStorage.getItem('doneHw')
             if(listDone != null) {
                 let done = JSON.parse(listDone)
-                if(done.includes(this.id)) {
+                if(done.includes(this.id + rn.toDateString())) {
                     this.$el.classList.add('done')
                     this.done = true
                 }

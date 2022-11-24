@@ -125,7 +125,7 @@
 
                 let hwDone = JSON.parse(localStorage.getItem('doneHw')) || []
                 // check if hw is already done
-                if(hwDone.includes(hw.id)) {
+                if(hwDone.includes(hw.id + rn.toDateString())) {
                     this.currentIsDone = true
                 }
 
@@ -139,15 +139,15 @@
             markAsDone: function(id) {
                 let hwDone = JSON.parse(localStorage.getItem('doneHw')) || []
                 // check if hw is already done
-                if(hwDone.includes(id)) {
+                if(hwDone.includes(id + rn.toDateString())) {
                     // remove hw from done
-                    hwDone.splice(hwDone.indexOf(id), 1)
+                    hwDone.splice(hwDone.indexOf(id + rn.toDateString()), 1)
                     localStorage.setItem('doneHw', JSON.stringify(hwDone))
                     this.currentIsDone = false
                 }
                 else {
                     // add hw to done
-                    hwDone.push(id)
+                    hwDone.push(id + rn.toDateString())
                     localStorage.setItem('doneHw', JSON.stringify(hwDone))
                     this.currentIsDone = true
                 }

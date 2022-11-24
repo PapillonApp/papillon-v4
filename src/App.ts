@@ -1,6 +1,7 @@
 /* global vars */
 const API = "https://ams01.pronote.plus/";
 const API_VERSION = "v1";
+const APP_VERSION = "4.1b.0";
 
 /* error handling */
 const API_LOGIN_ERRORS = {
@@ -177,7 +178,7 @@ function refreshToken() {
             
             // auto login
             Toastify({
-                text: "Reconnexion...",
+                text: "Reconnexion à Pronote en cours...",
                 className: "notification",
                 gravity: "bottom"
             }).showToast();
