@@ -22,7 +22,7 @@ if ('serviceWorker' in navigator) {
 
 /* global functions */
 function constructAuthURL(authData) {
-    return API + "auth?url=" + authData.url + "&username=" + authData.username + "&password=" + authData.password + "&cas=" + authData.cas;
+    return API + "/auth?url=" + authData.url + "&username=" + authData.username + "&password=" + authData.password + "&cas=" + authData.cas;
 }
 
 /* time management */
@@ -64,28 +64,36 @@ function sendQL(schema) {
 }
 
 /* get basic user data */
-if(isAuthenticated) {
-    let user_request = `{
-        user {
-            name,
-            avatar,
-            studentClass {
-                name
-            },
-            establishment {
-                name
+function getData() {
+    if(isAuthenticated) {
+        let user_request = `{
+            user {
+                name,
+                avatar,
+                studentClass {
+                    name
+                },
+                establishment {
+                    name
+                }
             }
-        }
-    }`;
+        }`;
+        
+        sendQL(user_request).then((data) => {
+            if(data.message == "Unknown session token") {
+                refreshToken()
+            }
     
-    sendQL(user_request).then((data) => {
-        if(data.message == "Unknown session token") {
-            refreshToken()
-        }
-
-        localStorage.setItem('userData', JSON.stringify(data.data.user));
-    });
+            localStorage.setItem('userData', JSON.stringify(data.data.user));
+        });
+    }
 }
+
+getData();
+
+document.addEventListener('updatedToken', () => {
+    getData()
+})
 
 /* colors (stolen from https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894) */
 Array.prototype.random = function() {
