@@ -239,17 +239,23 @@ a {
     backdrop-filter: blur(5px);
 }
 
+@media screen and (prefers-color-scheme: light) {
+    .vfm__overlay {
+        background-color: rgba(202, 202, 202, 0.75) !important;
+    }
+}
+
 .modal {
     width: 95vw;
-    height: 80vh;
+    height: 60vh;
     background: var(--background);
     overflow: hidden;
-    position: absolute;
-    bottom: 0;
-    left: 2.5vw;
 
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+    position: absolute;
+    left: 2.5vw;
+    bottom: calc(env(safe-area-inset-bottom) + 10px);
+
+    border-radius: 12px;
 
     transition: transform 0.1s ease-in-out;
 }
@@ -282,10 +288,29 @@ a {
 }
 
 .modal-content {
-    padding: 24px;
+    padding: 0px;
     height: calc(100% - 72px);
     overflow-y: scroll;
     padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+}
+
+.modal-content-item {
+    display: flex;
+    padding: 15px 24px;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-content-item p {
+    font-size: 17px;
+    margin-top: 3px;
+    font-weight: 700;
+    color: var(--text);
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #content button {

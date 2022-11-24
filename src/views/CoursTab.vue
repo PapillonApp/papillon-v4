@@ -216,15 +216,10 @@
                         <small>{{params.teacher}} - {{params.room}}</small>
                     </div>
                     <div class="modal-content">
-                        <p class="categoryTitle next">Détail des horaires</p>
-                        <p>Commence le <B>{{params.from}}</B></p>
-                        <p>Se termine le <B>{{params.to}}</B></p>
-
-                        <p class="categoryTitle">Statut du cours</p>
-                        <p>{{params.status}}</p>
-
-                        <p class="categoryTitle">Ajouter au calendrier</p>
-                        <button v-wave v-on:click="addCurrentToCalendar">Ajouter au calendrier</button>
+                        <div class="modal-content-item" v-wave v-on:click="addCurrentToCalendar">
+                            <CalendarPlus />
+                            <p>Ajouter au calendrier</p>
+                        </div>
                     </div>
                 </div>
             </template>

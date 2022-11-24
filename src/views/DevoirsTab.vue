@@ -8,7 +8,7 @@
     import swipeDetect from 'swipe-detect';
 
     import NoItem from '@/components/main/NoItem.vue';
-    import { CalendarOff, ServerCrash, CalendarPlus } from 'lucide-vue-next';
+    import { CalendarOff, ServerCrash, CalendarPlus, Link, CheckCheck, ListX } from 'lucide-vue-next';
 
     import ical from 'ical-generator';
 
@@ -27,7 +27,10 @@
             CoursModal,
             CalendarOff,
             ServerCrash,
-            CalendarPlus
+            CalendarPlus,
+            Link,
+            CheckCheck,
+            ListX
         },
         data() {
             return {
@@ -193,21 +196,18 @@
                         <small>Détail du devoir</small>
                     </div>
                     <div class="modal-content">
-                        <p class="categoryTitle next">Description</p>
-                        <p>{{params.description}}</p>
+                        <a v-for="file in params.files" :href="file.url"><div class="modal-content-item" v-wave>
+                            <Link />
+                            <p>{{file.url}}</p>
+                        </div></a>
 
-                        <p class="categoryTitle">Fichiers</p>
-                        <div class="files">
-                            <div class="file" v-wave v-for="file in params.files" :key="file.id">
-                                <a :href="file.url" target="_blank">{{file.url}}</a>
-                            </div>
+                        <div class="modal-content-item" v-wave @click="markAsDone(params.id)">
+                            <CheckCheck v-if="!currentIsDone" />
+                            <ListX v-if="currentIsDone" />
+
+                            <p v-if="!currentIsDone">Marquer comme fait</p>
+                            <p v-if="currentIsDone">Marquer comme non fait</p>
                         </div>
-                        <p v-if="params.noFiles">Aucun fichier</p>
-
-                        <p class="categoryTitle">Gestion du travail</p>
-
-                        <button v-if="!currentIsDone" v-wave @click="markAsDone(params.id)">Marquer comme fait</button>
-                        <button v-if="currentIsDone" class="markAsNo" v-wave @click="markAsDone(params.id)">Marquer comme non fait</button>
                     </div>
                 </div>
             </template>
