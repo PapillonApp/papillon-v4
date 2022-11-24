@@ -48,7 +48,7 @@
         methods: {
             getHomework: function() {
                 // set vars
-                if(this.homeworks !== []) {
+                if(this.homeworks) {
                     this.inLoading = true;
                 }
                 else {
@@ -219,7 +219,7 @@
 
         <LoadingItem v-if="loading" title="Récupération de vos devoirs..." subtitle="Veuillez patienter..." />
 
-        <NoItem v-if="empty" title="Pas de devoirs enregistrés pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+        <NoItem ref="swipeEmpty" v-if="empty" title="Pas de devoirs enregistrés pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
             <CalendarOff />
         </NoItem>
 
@@ -285,6 +285,7 @@
         overflow-y: hidden;
         width: calc(100% + 48px);
         margin-left: -24px;
+        min-height: 80vh;
     }
 
     .swipe .list {

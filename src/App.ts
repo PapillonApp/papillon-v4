@@ -14,6 +14,11 @@ const API_LOGIN_ERRORS = {
     },
 }
 
+/* sw */
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+};
+
 /* global functions */
 function constructAuthURL(authData) {
     return API + "auth?url=" + authData.url + "&username=" + authData.username + "&password=" + authData.password + "&cas=" + authData.cas;

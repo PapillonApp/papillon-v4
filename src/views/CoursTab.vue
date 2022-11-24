@@ -40,15 +40,17 @@
                 showCoursModal: false,
                 current: [],
                 lastCoursTime: null,
+                initiatedSwipe : false,
+                initiatedSwipeLeft : false,
             }
         },
         methods: {
             getCours: function() {
                 // set vars
-                if(this.cours !== []) {
+                if(this.cours) {
                     this.inLoading = true;
                 }
-                else {
+                else { 
                     this.loading = true;
                 }
 
@@ -60,10 +62,9 @@
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let coursURL = API + "/edt" + "?token=" + token + "&from=" + rnString;
+                let coursURL = API + "edt" + "?token=" + token + "&from=" + rnString;
 
                 // retreive data from API
-                console.log(coursURL)
                 axios.get(coursURL)
                     .then(response => {
                         // set loading to false
@@ -80,19 +81,40 @@
                                 refreshToken()
                             }
 
+                            // check if response.data.data.timetable exists
+                            if(!response.data.data.timetable) {
+                                refreshToken()
+                            }
+
+
                             // check if empty
                             if(this.cours.length == 0) {
                                 this.empty = true
+
+                                if(this.initiatedSwipe) {
+                                    // swipe again
+                                    document.dispatchEvent(new CustomEvent('nextDate'));
+                                }
+
+                                if(this.initiatedSwipeLeft) {
+                                    // swipe again
+                                    document.dispatchEvent(new CustomEvent('prevDate'));
+                                }
+
                             }
                             else {
                                 this.hasCours = true
+                                this.initiatedSwipe = false;
+                                this.initiatedSwipeLeft = false;
 
                                 // remove duplicates
                                 for (let i = 0; i < this.cours.length; i++) {
                                     for (let j = i + 1; j < this.cours.length; j++) {
                                         if (this.cours[i].from == this.cours[j].from) {
-                                            this.cours.splice(j, 1)
+                                            if(this.cours[i].isCancelled == false) {
+                                                this.cours.splice(j, 1)
                                             j--
+                                            }
                                         }
                                     }
                                 }
@@ -206,9 +228,11 @@
             swipeDetect(swipeUI, (swipeDirection) => {
                 if(swipeDirection == "left") {
                     document.dispatchEvent(new CustomEvent('nextDate'));
+                    this.initiatedSwipe = true;
                 }
                 else if(swipeDirection == "right") {
                     document.dispatchEvent(new CustomEvent('prevDate'));
+                    this.initiatedSwipeLeft = true;
                 }
             })
         }
@@ -241,7 +265,7 @@
 
         <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
 
-        <NoItem v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+        <NoItem ref="swipeEmpty" v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
             <CalendarOff />
         </NoItem>
 
