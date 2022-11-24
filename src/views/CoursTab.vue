@@ -76,7 +76,7 @@
                         
 
                             // error handling
-                            if(response.data.errors) {
+                            if(response.data.errors || response.message) {
                                 refreshToken()
                             }
 
@@ -183,6 +183,10 @@
         },
         mounted() {
             this.getCours()
+
+            document.addEventListener('updatedToken', () => {
+                this.getCours()
+            })
 
             document.addEventListener('dateChanged', () => {
                 this.getCours()

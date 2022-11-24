@@ -176,7 +176,9 @@ function refreshToken() {
         fetch(constructAuthURL(loginData)).then((response) => response.json()).then((data) => {
             if (data.token != undefined) {
                 localStorage.setItem('token', data.token);
-                location.reload();
+                // broadcast event
+                let event = new CustomEvent('updatedToken', {detail: data.token});
+                document.dispatchEvent(event);
             }
         });
     }

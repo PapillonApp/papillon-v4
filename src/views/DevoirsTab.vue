@@ -60,7 +60,20 @@
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let coursURL = API + "/hw" + "?token=" + token + "&from=" + rnString;
+                let schema = `{
+                    homeworks(from: "${rnString}") {
+                        id
+                        description
+                        htmlDescription
+                        subject
+                        color,
+                        files {
+                            id,
+                            url
+                        }
+                    }
+                }`;
+                let coursURL = API + "/query" + "?token=" + token + "&schema=" + schema;
 
                 // retreive data from API
                 axios.get(coursURL)
@@ -72,7 +85,6 @@
 
                         setTimeout(() => {
                             this.homeworks = response.data.data.homeworks
-                        
 
                             // error handling
                             if(response.data.errors) {
@@ -153,6 +165,10 @@
                 this.getHomework()
             })
 
+            document.addEventListener('updatedToken', () => {
+                this.getHomework()
+            })
+
             let swipeUI = this.$refs.swipe
             swipeDetect(swipeUI, (swipeDirection) => {
                 if(swipeDirection == "left") {
@@ -183,7 +199,7 @@
                         <p class="categoryTitle">Fichiers</p>
                         <div class="files">
                             <div class="file" v-wave v-for="file in params.files" :key="file.id">
-                                <a :href="file.url" target="_blank">{{file.name}}</a>
+                                <a :href="file.url" target="_blank">{{file.url}}</a>
                             </div>
                         </div>
                         <p v-if="params.noFiles">Aucun fichier</p>
