@@ -41,6 +41,16 @@
                 className,
                 version : APP_VERSION
             }
+        },
+        mounted() {
+            document.addEventListener('userDataUpdated', () => {
+                let userData = JSON.parse(localStorage.getItem('userData'))
+
+                this.avatar = userData.avatar;
+                this.firstName = userData.name.split(' ').pop();
+                this.establishment = userData.establishment.name;
+                this.className = userData.studentClass.name;
+            })
         }
     }
 </script>

@@ -81,6 +81,11 @@
     if (props.logged) {
         let userData = JSON.parse(localStorage.getItem('userData'))
         avatar = userData.avatar;
+
+        document.addEventListener('userDataUpdated', () => {
+            let userData = JSON.parse(localStorage.getItem('userData'))
+            avatar = userData.avatar;
+        })
     }
 </script>
 

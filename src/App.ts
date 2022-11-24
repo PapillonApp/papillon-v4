@@ -85,6 +85,7 @@ function getData() {
             }
     
             localStorage.setItem('userData', JSON.stringify(data.data.user));
+            document.dispatchEvent(new CustomEvent('userDataUpdated'));
         });
     }
 }
