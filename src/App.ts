@@ -166,26 +166,35 @@ window.addEventListener('online', (event) => {
 });
 
 /* auto re-login */
-function refreshToken() {
-    if(localStorage.getItem('loginData') != null) {
-        // get saved credentials
-        let loginData = JSON.parse(localStorage.getItem('loginData'))
-        
-        // auto login
-        Toastify({
-            text: "Reconnexion...",
-            className: "notification",
-            gravity: "bottom"
-        }).showToast();
+let waitingForToken = false;
 
-        fetch(constructAuthURL(loginData)).then((response) => response.json()).then((data) => {
-            if (data.token != undefined) {
-                localStorage.setItem('token', data.token);
-                // broadcast event
-                let event = new CustomEvent('updatedToken', {detail: data.token});
-                document.dispatchEvent(event);
-            }
-        });
+function refreshToken() {
+    if(!waitingForToken) {
+        waitingForToken = true;
+        if(localStorage.getItem('loginData') != null) {
+            // get saved credentials
+            let loginData = JSON.parse(localStorage.getItem('loginData'))
+            
+            // auto login
+            Toastify({
+                text: "Reconnexion...",
+                className: "notification",
+                gravity: "bottom"
+            }).showToast();
+
+            fetch(constructAuthURL(loginData)).then((response) => response.json()).then((data) => {
+                if (data.token != undefined) {
+                    localStorage.setItem('token', data.token);
+                    // broadcast event
+                    let event = new CustomEvent('updatedToken', {detail: data.token});
+                    document.dispatchEvent(event);
+                    waitingForToken = false;
+                }
+            });
+        }
+    }
+    else {
+        console.error("Already waiting for token");
     }
 }
 
