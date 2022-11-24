@@ -38,7 +38,8 @@
                 empty: false,
                 error: "",
                 showCoursModal: false,
-                current: []
+                current: [],
+                lastCoursTime: null,
             }
         },
         methods: {
@@ -73,7 +74,6 @@
                         // apply data
                         setTimeout(() => {
                             this.cours = response.data.data.timetable
-                        
 
                             // error handling
                             if(response.data.errors || response.message) {
@@ -86,6 +86,16 @@
                             }
                             else {
                                 this.hasCours = true
+
+                                // remove duplicates
+                                for (let i = 0; i < this.cours.length; i++) {
+                                    for (let j = i + 1; j < this.cours.length; j++) {
+                                        if (this.cours[i].from == this.cours[j].from) {
+                                            this.cours.splice(j, 1)
+                                            j--
+                                        }
+                                    }
+                                }
                             }
                         }, 10);
                     })
