@@ -17,7 +17,7 @@ const API_LOGIN_ERRORS = {
 
 /* sw */
 if ('serviceWorker' in navigator) {
-    // navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('sw.js');
 };
 
 /* global functions */
