@@ -1,5 +1,5 @@
 /* global vars */
-const API = "https://ams01.pronote.plus/";
+const API = "https://api.pronote.plus";
 const API_VERSION = "v1";
 const APP_VERSION = "4.1b.0";
 
@@ -42,7 +42,7 @@ if (localStorage.getItem('loginData') !== null) {
 /* classic fetch */
 function fetchPapillon(endpoint, params) {
     // ajoute les paramètres à l'URL
-    let baseURL = API + endpoint + "?";
+    let baseURL = API + "/" + endpoint + "?";
     for (let key in params) {
         baseURL += "&" + key + "=" + params[key];
     }

@@ -62,7 +62,7 @@
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let coursURL = API + "edt" + "?token=" + token + "&from=" + rnString;
+                let coursURL = API + "/edt" + "?token=" + token + "&from=" + rnString;
 
                 // retreive data from API
                 axios.get(coursURL)
