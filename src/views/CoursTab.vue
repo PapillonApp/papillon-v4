@@ -315,6 +315,7 @@
         overflow-y: hidden;
         width: calc(100% + 48px);
         margin-left: -24px;
+        min-height: 80vh;
     }
 
     .swipe .list {
