@@ -72,6 +72,9 @@
 
             // wait
             this.waitTime = this.getWait(time)
+            setInterval(() => {
+                this.waitTime = this.getWait(time)
+            }, 1000)
 
             // color
             let color = this.color
