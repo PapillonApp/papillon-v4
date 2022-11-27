@@ -85,6 +85,7 @@
         document.addEventListener('userDataUpdated', () => {
             let userData = JSON.parse(localStorage.getItem('userData'))
             avatar = userData.avatar;
+            logChange('avatar updated with ' + avatar)
         })
     }
 </script>

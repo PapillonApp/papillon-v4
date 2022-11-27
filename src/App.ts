@@ -40,6 +40,21 @@ if (localStorage.getItem('loginData') !== null) {
     isAuthenticated = true;
 }
 
+/* dev */
+function logChange(event) {
+    console.warn("%c" + event, `
+        color: #00B562;
+        font-weight: 600;
+    `);
+}
+
+function logError(event) {
+    console.error("%c" + event, `
+        color: #00B562;
+        font-weight: 600;
+    `);
+}
+
 /* classic fetch */
 function fetchPapillon(endpoint, params) {
     // ajoute les paramètres à l'URL
