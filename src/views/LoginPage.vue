@@ -1,4 +1,5 @@
 <script lang="ts">
+    // @ts-nocheck
     import TabName from '/src/components/main/TabName.vue'
     import axios from 'axios'
     import cas_list from '/src/ent_list.json'

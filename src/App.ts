@@ -19,8 +19,7 @@ const API_LOGIN_ERRORS = {
 
 /* sw */
 if ('serviceWorker' in navigator) {
-    // navigator.serviceWorker.register('sw.js');
-    // fixer la géoloc
+    navigator.serviceWorker.register('sw.js');
 };
 
 /* global functions */
@@ -91,23 +90,9 @@ function fetchPapillon(endpoint, params) {
 
 /* send GraphQL query */
 function sendQL(schema) {
-    var myHeaders = new Headers();
-    myHeaders.append("Token", localStorage.getItem('token'));
-    myHeaders.append("Content-Type", "application/json");
+    let url = API + "/graphql?query=" + schema + "&token=" + localStorage.getItem('token');
 
-    var graphql = JSON.stringify({
-        query: schema,
-        variables: {}
-    })
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: graphql,
-        redirect: 'follow'
-    };
-
-    return fetch(API + "/graphql", requestOptions)
+    return fetch(url)
         .then((response) => response.json())
         .then((response) => {
             if(response.errors != undefined) {
@@ -116,6 +101,13 @@ function sendQL(schema) {
                         refreshToken();
                         return [];
                     }
+            }
+
+            if(response.message != undefined) {
+                if(response.message = "Unknown session token") {
+                    refreshToken();
+                    return [];
+                }
             }
 
             return response;

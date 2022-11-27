@@ -1,4 +1,5 @@
 <script lang="ts">
+    // @ts-nocheck
     export default {
         props: {
             time: {

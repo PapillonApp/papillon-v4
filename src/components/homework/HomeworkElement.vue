@@ -1,4 +1,5 @@
 <script lang="ts">
+    // @ts-nocheck
     import { CheckCheck } from 'lucide-vue-next';
 
     export default {

@@ -1,4 +1,5 @@
 <script lang="ts">
+    // @ts-nocheck
     import TabName from '../components/main/TabName.vue'
     import HomeworkElement from '@/components/homework/HomeworkElement.vue';
     import MainItem from '../components/main/MainItem.vue'
