@@ -180,13 +180,16 @@
                 else if(swipeDirection == "right") {
                     document.dispatchEvent(new CustomEvent('prevDate'));
                 }
-            })
+            }, 50)
         }
     } 
 </script>
 
 <template>
     <TabName name="Travail à faire" calendar logged />
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="content">
         <vue-final-modal v-model="showHwModal" name="hwModal">
             <template v-slot="{ params }">
@@ -196,6 +199,10 @@
                         <small>Détail du devoir</small>
                     </div>
                     <div class="modal-content">
+                        <div class="modal-content-header">
+                            <p>{{params.description}}</p>
+                        </div>
+
                         <a v-for="file in params.files" :href="file.url"><div class="modal-content-item" v-wave>
                             <Link />
                             <p>{{file.url}}</p>
@@ -212,22 +219,18 @@
                 </div>
             </template>
         </vue-final-modal>
-    
-        <div class="quietLoading" v-if="inLoading">
-            <div class="quietLoadingBar"></div>
-        </div>
-
-        <LoadingItem v-if="loading" title="Récupération de vos devoirs..." subtitle="Veuillez patienter..." />
-
-        <NoItem ref="swipeEmpty" v-if="empty" title="Pas de devoirs enregistrés pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
-            <CalendarOff />
-        </NoItem>
-
-        <NoItem v-if="error" title="Oups, quelque chose s'est mal passé !" :subtitle="error">
-            <ServerCrash />
-        </NoItem>
 
         <div class="swipe" ref="swipe">
+            <LoadingItem v-if="loading" title="Récupération de vos devoirs..." subtitle="Veuillez patienter..." />
+
+            <NoItem ref="swipeEmpty" v-if="empty" title="Pas de devoirs enregistrés pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+                <CalendarOff />
+            </NoItem>
+
+            <NoItem v-if="error" title="Oups, quelque chose s'est mal passé !" :subtitle="error">
+                <ServerCrash />
+            </NoItem>
+
             <div class="list">
                 <HomeworkElement v-for="hw in homeworks" :subject="hw.subject" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
             </div>
@@ -259,6 +262,11 @@
         margin-top: 24px;
     }
 
+    .modal-content-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border);
+    }
+
     .categoryTitle.next {
         margin-top: 0px;
     }
@@ -278,19 +286,6 @@
             opacity: 1;
             transform: translateY(0px);
         }
-    }
-
-    .swipe {
-        overflow-x: scroll !important;
-        overflow-y: hidden;
-        width: calc(100% + 48px);
-        margin-left: -24px;
-        min-height: 80vh;
-    }
-
-    .swipe .list {
-        padding: 0px 24px;
-        width: calc(100% - 47px);
     }
 
     .file {

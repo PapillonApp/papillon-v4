@@ -34,6 +34,21 @@ function lz(n) {
 let rn = new Date();
 let rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
 
+/* next date */
+document.addEventListener('nextDate', function() {
+    rn.setDate(rn.getDate() + 1);
+    rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
+    document.dispatchEvent(new CustomEvent('rnChanged'));
+});
+
+/* previous date */
+document.addEventListener('prevDate', function() {
+    rn.setDate(rn.getDate() - 1);
+    rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
+    document.dispatchEvent(new CustomEvent('rnChanged'));
+});
+
+
 /* check if logged in */
 let isAuthenticated = false;
 if (localStorage.getItem('loginData') !== null) {

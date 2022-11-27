@@ -54,20 +54,31 @@
                     this.loading = true;
                 }
 
-                this.empty = false;
-                this.error = "";
-                this.hasCours = false;
-
                 // get token
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let coursURL = API + "/edt" + "?token=" + token + "&from=" + rnString;
+                let schema = `{
+                    timetable(from: "${rnString}") {
+                        id
+                        subject,
+                        teacher,
+                        room,
+                        from,
+                        to,
+                        color,
+                        isCancelled
+                    }
+                }`;
+                let coursURL = API + "/query" + "?token=" + token + "&schema=" + schema;
 
                 // retreive data from API
                 axios.get(coursURL)
                     .then(response => {
-                        // set loading to false
+                        // reset vars
+                        this.empty = false;
+                        this.error = "";
+                        this.hasCours = false;
                         this.loading = false
                         this.inLoading = false
                         this.cours = []
@@ -90,17 +101,6 @@
                             // check if empty
                             if(this.cours.length == 0) {
                                 this.empty = true
-
-                                if(this.initiatedSwipe) {
-                                    // swipe again
-                                    document.dispatchEvent(new CustomEvent('nextDate'));
-                                }
-
-                                if(this.initiatedSwipeLeft) {
-                                    // swipe again
-                                    document.dispatchEvent(new CustomEvent('prevDate'));
-                                }
-
                             }
                             else {
                                 this.hasCours = true
@@ -234,13 +234,16 @@
                     document.dispatchEvent(new CustomEvent('prevDate'));
                     this.initiatedSwipeLeft = true;
                 }
-            })
+            }, 50)
         }
     } 
 </script>
 
 <template>
     <TabName name="Emploi du temps" calendar logged />
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="content">
         <vue-final-modal v-model="showCoursModal" name="coursModal">
             <template v-slot="{ params }">
@@ -259,37 +262,34 @@
             </template>
         </vue-final-modal>
 
-        <div class="quietLoading" v-if="inLoading">
-            <div class="quietLoadingBar"></div>
-        </div>
-
-        <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
-
-        <NoItem ref="swipeEmpty" v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
-            <CalendarOff />
-        </NoItem>
-
-        <NoItem v-if="error" title="Oups, quelque chose s'est mal passé !" :subtitle="error">
-            <ServerCrash />
-        </NoItem>
-
         <div class="swipe" ref="swipe">
+            <LoadingItem v-if="loading" title="Récupération de votre emploi du temps..." subtitle="Veuillez patienter..." />
+
+            <NoItem ref="swipeEmpty" v-if="empty" title="Pas de cours prévus pour cette journée" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+                <CalendarOff />
+            </NoItem>
+
+            <NoItem v-if="error" title="Oups, quelque chose s'est mal passé !" :subtitle="error">
+                <ServerCrash />
+            </NoItem>
+
             <div class="list">
-                <CoursElement v-for="cours in cours" v-on:click="openCoursModal(cours)" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+            </div>
+
+            <div v-if="hasCours" class="list gr2">
+                <div class="addToCalendar"><MainItem v-on:click="addDayToCalendar" class="light">
+                    <template #icon>
+                        <CalendarPlus />
+                    </template>
+                    <template #content>
+                        <h3>Ajouter cette journée au calendrier</h3>
+                        <p>Ajouter tous les cours du jour dans votre calendrier</p>
+                    </template>
+                </MainItem></div>
             </div>
         </div>
-
-        <div v-if="hasCours" class="list group gr2">
-            <div class="addToCalendar"><MainItem v-on:click="addDayToCalendar">
-                <template #icon>
-                    <CalendarPlus />
-                </template>
-                <template #content>
-                    <h3>Ajouter cette journée au calendrier</h3>
-                    <p>Ajouter tous les cours du jour dans votre calendrier</p>
-                </template>
-            </MainItem></div>
-        </div>
+        
     </div>
 </template>
 
@@ -318,7 +318,7 @@
     }
 
     .gr2 {
-        margin-top: 20px;
+        margin-top: 10px !important;
         opacity: 0;
         animation: gr2 0.2s 0.3s ease-in-out forwards;
     }
@@ -344,10 +344,18 @@
 
     .swipe .list {
         padding: 0px 24px;
-        width: calc(100% - 47px);
+        width: calc(100% - 47px) !important;
+    }
+
+    .swipe .list.group {
+        margin: 0px 24px;
+        width: calc(100% - 47px) !important;
+        padding: 0;
     }
 
     .swipe .noItem {
-        
+        width: calc(100vw - (50px * 2) + 1px) !important;
+        margin: 0 !important;
+        padding: 0px 50px !important;
     }
 </style>

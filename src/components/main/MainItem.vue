@@ -26,6 +26,13 @@
         width: calc(100% - 40px);
     }
 
+    .mainItem.light {
+        background: none !important;
+        border: 1px solid var(--element);
+        width: calc(100% - 40px - 2px);
+        color: var(--text);
+    }
+
     .mainItem_el * {
         margin: 0;
         padding: 0;

@@ -11,7 +11,8 @@
             },
             room: {
                 type: String,
-                required: true
+                required: false,
+                default: "Pas de salle"
             },
             teacher: {
                 type: String,
@@ -24,6 +25,11 @@
             status: {
                 type: String,
                 required: false
+            },
+            index: {
+                type: Number,
+                required: false,
+                default: 0
             }
         },
         data() {
@@ -90,6 +96,9 @@
 
             this.$el.style.setProperty('--color', finalColor)
 
+            // index
+            this.$el.style.setProperty('--index', this.index)
+
             // cancelled
             if(this.status == "Cours annulé" || this.status == "Prof. absent") {
                 this.cancelled = true
@@ -134,7 +143,8 @@
         overflow: hidden;
 
         opacity: 0%;
-        animation: TabNameStringUp 0.2s cubic-bezier(0,0,0,1) forwards;
+        animation: TabNameStringUp 0.3s cubic-bezier(0,0,0,1) forwards;
+        animation-delay: calc(var(--index) * 0.05s);
     }
 
     .cours.cancelled {

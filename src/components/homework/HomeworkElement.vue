@@ -8,7 +8,8 @@
         },
         data() {
             return {
-                done: false
+                done: false,
+                finalDescription: ""
             }
         },
         mounted() {
@@ -43,6 +44,11 @@
                     this.done = this.done
                 }
             })
+
+            this.finalDescription = this.description
+            if(this.description.length > 180) {
+                this.finalDescription = this.description.substring(0, 180) + "..."
+            }
         }
     }
 </script>
@@ -52,7 +58,7 @@
         <div class="hwcolor"></div>
         <div class="hwdata">
             <p>{{subject}} <span class="doneCheck"><CheckCheck/><p>Fait</p></span></p>
-            <small>{{description}}</small>
+            <small>{{finalDescription}}</small>
         </div>
     </div>
 </template>

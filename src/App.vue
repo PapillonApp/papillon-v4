@@ -22,7 +22,7 @@
 
 <style scoped>
   #main {
-    overflow: scroll;
+    overflow: hidden;
     width: 100%;
     height: -webkit-fill-available;
     padding-bottom: 90px;
