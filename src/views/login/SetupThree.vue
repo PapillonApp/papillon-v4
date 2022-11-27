@@ -34,14 +34,21 @@
                     cas: this.cas
                 }
 
-                // send login request
-                axios.get(constructAuthURL(loginData))
-                    .then((response) => {
-
-                        // check if token is valid
-                        if(response.data.token != undefined) {
+                fetch(API + "/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: loginData.username,
+                        password: loginData.password,
+                        url: loginData.url,
+                        cas: loginData.cas,
+                    }),
+                }).then((response) => response.json()).then((data) => {
+                    if(data.token != undefined) {
                             // save token
-                            localStorage.setItem('token', response.data.token)
+                            localStorage.setItem('token', data.token)
                             // save credentials
                             localStorage.setItem('loginData', JSON.stringify(loginData))
 
@@ -50,7 +57,7 @@
                         }
                         else {
                             // get error from dictionnary
-                            let error = API_LOGIN_ERRORS[response.data.message]
+                            let error = API_LOGIN_ERRORS[data.message]
                             // show error
                             Toastify({
                                 text: error.message,
@@ -58,11 +65,7 @@
                                 gravity: "bottom"
                             }).showToast();
                         }
-
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                });
             }
         }
     }
