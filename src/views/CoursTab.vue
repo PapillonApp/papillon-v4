@@ -70,11 +70,9 @@
                         isCancelled
                     }
                 }`;
-                let coursURL = API + "/query" + "?token=" + token + "&schema=" + schema;
 
                 // retreive data from API
-                axios.get(coursURL)
-                    .then(response => {
+                sendQL(schema).then((response) => {
                         // reset vars
                         this.empty = false;
                         this.error = "";
@@ -85,18 +83,7 @@
 
                         // apply data
                         setTimeout(() => {
-                            this.cours = response.data.data.timetable
-
-                            // error handling
-                            if(response.data.errors || response.message) {
-                                refreshToken()
-                            }
-
-                            // check if response.data.data.timetable exists
-                            if(!response.data.data.timetable) {
-                                refreshToken()
-                            }
-
+                            this.cours = response.data.timetable
 
                             // check if empty
                             if(this.cours.length == 0) {
@@ -120,12 +107,6 @@
                                 }
                             }
                         }, 10);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        this.error = error;
-                        this.loading = false;
-                        this.empty = false;
                     })
             },
             openCoursModal: function(cours) {
@@ -332,30 +313,5 @@
             opacity: 1;
             transform: translateY(0px);
         }
-    }
-
-    .swipe {
-        overflow-x: scroll !important;
-        overflow-y: hidden;
-        width: calc(100% + 48px);
-        margin-left: -24px;
-        min-height: 80vh;
-    }
-
-    .swipe .list {
-        padding: 0px 24px;
-        width: calc(100% - 47px) !important;
-    }
-
-    .swipe .list.group {
-        margin: 0px 24px;
-        width: calc(100% - 47px) !important;
-        padding: 0;
-    }
-
-    .swipe .noItem {
-        width: calc(100vw - (50px * 2) + 1px) !important;
-        margin: 0 !important;
-        padding: 0px 50px !important;
     }
 </style>

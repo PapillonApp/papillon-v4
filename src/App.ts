@@ -3,6 +3,8 @@ const API = "https://api.pronote.plus";
 const API_VERSION = "v1";
 const APP_VERSION = "4.1b.0";
 
+let waitingForToken = false;
+
 /* error handling */
 const API_LOGIN_ERRORS = {
     "Missing 'url', or 'username', or 'password', or header 'Content-Type: application/json'": {
@@ -87,11 +89,37 @@ function fetchPapillon(endpoint, params) {
     }).then((response) => response.json());
 }
 
+/* send GraphQL query */
 function sendQL(schema) {
-    return fetchPapillon("query", {
-        token: localStorage.getItem('token'),
-        schema: schema,
-    });
+    var myHeaders = new Headers();
+    myHeaders.append("Token", localStorage.getItem('token'));
+    myHeaders.append("Content-Type", "application/json");
+
+    var graphql = JSON.stringify({
+        query: schema,
+        variables: {}
+    })
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: graphql,
+        redirect: 'follow'
+    };
+
+    return fetch(API + "/graphql", requestOptions)
+        .then((response) => response.json())
+        .then((response) => {
+            if(response.errors != undefined) {
+                if(response.errors[0] = 
+                    "Unexpected error value: { code: 5, message: \"Session has expired due to inactivity or error\" }") {
+                        refreshToken();
+                        return [];
+                    }
+            }
+
+            return response;
+        })
 }
 
 /* get basic user data */
@@ -110,12 +138,10 @@ function getData() {
             }
         }`;
         
-        sendQL(user_request).then((data) => {
-            if(data.message == "Unknown session token") {
-                refreshToken()
-            }
-    
-            localStorage.setItem('userData', JSON.stringify(data.data.user));
+        // envoie la requête et retourne la réponse
+        sendQL(user_request).then((response) => {
+            console.log(response);
+            localStorage.setItem('userData', JSON.stringify(response.data.user));
             document.dispatchEvent(new CustomEvent('userDataUpdated'));
         });
     }
@@ -207,8 +233,6 @@ window.addEventListener('online', (event) => {
 });
 
 /* auto re-login */
-let waitingForToken = false;
-
 function refreshToken() {
     if(!waitingForToken) {
         waitingForToken = true;
@@ -223,7 +247,19 @@ function refreshToken() {
                 gravity: "bottom"
             }).showToast();
 
-            fetch(constructAuthURL(loginData)).then((response) => response.json()).then((data) => {
+            // send POST to API/auth/login
+            fetch(API + "/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: loginData.username,
+                    password: loginData.password,
+                    url: loginData.url,
+                    cas: loginData.cas,
+                }),
+            }).then((response) => response.json()).then((data) => {
                 if (data.token != undefined) {
                     localStorage.setItem('token', data.token);
                     // broadcast event

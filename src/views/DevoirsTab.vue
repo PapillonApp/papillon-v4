@@ -76,23 +76,16 @@
                         }
                     }
                 }`;
-                let coursURL = API + "/query" + "?token=" + token + "&schema=" + schema;
 
                 // retreive data from API
-                axios.get(coursURL)
-                    .then(response => {
+                sendQL(schema).then((response) => {
                         // set loading to false
                         this.loading = false
                         this.inLoading = false
                         this.homeworks = []
 
                         setTimeout(() => {
-                            this.homeworks = response.data.data.homeworks
-
-                            // error handling
-                            if(response.data.errors) {
-                                refreshToken()
-                            }
+                            this.homeworks = response.data.homeworks
 
                             // check if empty
                             if(this.homeworks.length == 0) {
