@@ -63,6 +63,7 @@
                     timetable(from: "${rnString}") {
                         id
                         subject,
+                        status,
                         teacher,
                         room,
                         from,
