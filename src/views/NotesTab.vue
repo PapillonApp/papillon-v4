@@ -29,7 +29,7 @@
             }
         },
         methods: {
-            getNotes: function() {
+            getNotes: function(period) {
                 // set vars
                 if(this.notes) {
                     this.inLoading = true;
@@ -44,7 +44,7 @@
                 // get marks url
                 let schema = `
                     {
-                        marks(period: "*") {
+                        marks(period: "${period}") {
                             subjects {
                                 name,
                                 color,
@@ -76,8 +76,17 @@
                     this.inLoading = false;
 
                     let marks = response.data.marks.subjects;
+
+                    // tenttative de fix
                     if(marks.length == 0) {
                         this.empty = true;
+
+                        if(period = "*") {
+                            this.getNotes("Semestre 1");
+                        }
+                        else if(period = "Semestre 1") {
+                            this.getNotes("Trimestre 1");
+                        }
                     }
                     else {
                         this.empty = false;
@@ -130,7 +139,7 @@
             }
         },
         mounted() {
-            this.getNotes()
+            this.getNotes("*");
         }
     }
 </script>
