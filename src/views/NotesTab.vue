@@ -31,7 +31,7 @@
         methods: {
             getNotes: function() {
                 // set vars
-                if(this.cours) {
+                if(this.notes) {
                     this.inLoading = true;
                 }
                 else { 
@@ -73,6 +73,8 @@
 
                 // get marks
                 sendQL(schema).then((response) => {
+                    this.inLoading = false;
+
                     let marks = response.data.marks.subjects;
                     if(marks.length == 0) {
                         this.empty = true;
@@ -135,6 +137,9 @@
 
 <template>
     <TabName name="Résultats" logged />
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="content">
         <NotesSubject
             v-for="(subject, index) in notes"

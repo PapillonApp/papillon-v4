@@ -233,36 +233,10 @@
 </template>
 
 <style scoped>
-    .modal-header small {
-        text-transform: none;
-    }
-
-    hr {
-        margin: 20px 0px;
-        opacity: 0.2;
-    }
+    
 
     .markAsNo {
         background-color: #b90202 !important;
-    }
-
-    .modal-content .categoryTitle {
-        font-size: 16px;
-        font-weight: 400;
-        opacity: 0.5;
-        padding-bottom: 5px !important;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 12px;
-        margin-top: 24px;
-    }
-
-    .modal-content-header {
-        padding: 15px 20px;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .categoryTitle.next {
-        margin-top: 0px;
     }
 
     .gr2 {
@@ -280,13 +254,5 @@
             opacity: 1;
             transform: translateY(0px);
         }
-    }
-
-    .file {
-        width: calc(100% - 18px * 2);
-        background: var(--element);
-        color: var(--text);
-        border-radius: 8px;
-        padding: 14px 18px;
     }
 </style>
