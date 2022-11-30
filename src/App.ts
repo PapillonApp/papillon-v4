@@ -19,7 +19,7 @@ const API_LOGIN_ERRORS = {
 
 /* sw */
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
+    // navigator.serviceWorker.register('sw.js');
 };
 
 /* global functions */
@@ -112,6 +112,25 @@ function sendQL(schema) {
 
             return response;
         })
+}
+
+/* empty service worker cache */
+function emptyCache(automatic) {
+    caches.keys().then(function(names) {
+        for (let name of names)
+            caches.delete(name);
+    });
+    if(!automatic) {
+        Toastify({
+            text: "Le cache va être vidé.",
+            className: "notification",
+            gravity: "bottom",
+            position: "center",
+        }).showToast();
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
+    }
 }
 
 /* get basic user data */
@@ -210,17 +229,19 @@ function nearestColor(colorHex){
 // online check
 window.addEventListener('offline', (event) => {
     Toastify({
-        text: "Vous n'êtes plus connecté à internet.",
+        text: "Vous n'êtes plus connecté à Internet.",
         className: "notification error",
-        gravity: "bottom"
+        gravity: "bottom",
+        position: "center",
     }).showToast();
 });
 
 window.addEventListener('online', (event) => {
     Toastify({
-        text: "Vous êtes à nouveau connecté à internet.",
+        text: "Vous êtes à nouveau connecté à Internet.",
         className: "notification success",
-        gravity: "bottom"
+        gravity: "bottom",
+        position: "center",
     }).showToast();
 });
 
@@ -236,7 +257,8 @@ function refreshToken() {
             Toastify({
                 text: "Reconnexion à Pronote en cours...",
                 className: "notification",
-                gravity: "bottom"
+                gravity: "bottom",
+                position: "center",
             }).showToast();
 
             // send POST to API/auth/login
@@ -258,6 +280,21 @@ function refreshToken() {
                     let event = new CustomEvent('updatedToken', {detail: data.token});
                     document.dispatchEvent(event);
                     waitingForToken = false;
+
+                    Toastify({
+                        text: "La reconnextion à Pronote a réussi.",
+                        className: "notification success",
+                        gravity: "bottom",
+                        position: "center",
+                    }).showToast();
+                }
+                else {
+                    Toastify({
+                        text: "La reconnextion a échoué. Veuillez réessayer ultérieurement.",
+                        className: "notification error",
+                        gravity: "bottom",
+                        position: "center",
+                    }).showToast();
                 }
             });
         }

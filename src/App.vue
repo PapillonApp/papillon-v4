@@ -22,10 +22,10 @@
 
 <style scoped>
   #main {
-    overflow: hidden;
+    height: 100%;
     width: 100%;
-    height: -webkit-fill-available;
-    padding-bottom: 90px;
+    position: relative;
+    overflow: hidden !important;
   }
 
   #NavigationBar {

@@ -4,7 +4,7 @@
     import MainItem from '../components/main/MainItem.vue'
     import MainCategory from '../components/main/MainCategory.vue'
 
-    import { RefreshCcw, LogOut, Bug } from 'lucide-vue-next';
+    import { RefreshCcw, LogOut, Bug, Trash2 } from 'lucide-vue-next';
 
     let userData = JSON.parse(localStorage.getItem('userData'))
 
@@ -22,7 +22,8 @@
             MainCategory,
             RefreshCcw,
             LogOut,
-            Bug
+            Bug,
+            Trash2
         },
         methods: {
             logout() {
@@ -32,6 +33,9 @@
             },
             refresh() {
                 refreshToken()
+            },
+            emptyCache() {
+                emptyCache()
             }
         },
         data() {
@@ -90,6 +94,17 @@
             <template #content>
                 <h3>Se déconnecter</h3>
                 <p>Supprimer les données d'identification et de connexion</p>
+            </template>
+        </MainItem>
+
+        <!-- empty cache -->
+        <MainItem v-on:click="emptyCache">
+            <template #icon>
+                <Trash2 />
+            </template>
+            <template #content>
+                <h3>Vider le cache</h3>
+                <p>Oublier les cours et pages pré-enregistrées</p>
             </template>
         </MainItem>
 

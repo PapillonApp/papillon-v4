@@ -51,6 +51,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text);
+    overflow: hidden;
 }
 
 /* darkmode */
@@ -70,8 +71,7 @@ body {
     padding: 24px;
     padding-top: calc(70px - 28px);
     overflow-y: scroll;
-    height: calc(100vh - 70px - 66px - 90px);
-    padding-bottom: 10px;
+    height: calc(100% - 115px - env(safe-area-inset-bottom) - calc(24px*2));
 }
 
 .list {
@@ -140,14 +140,14 @@ body {
     background: #222 !important;
     box-shadow: none !important;
     text-align: left;
-    width: calc(94vw - 20px * 2) !important;
-    max-width: calc(94vw - 20px * 2) !important;
+    width: calc(92vw - 24px * 2) !important;
+    max-width: calc(92vw - 24px * 2) !important;
     border-radius: 9px;
-    padding: 14px 20px;
+    padding: 15px 24px;
     font-size: 16px;
     font-variation-settings: "wght" 500;
     text-transform: none;
-    margin-bottom: 15px;
+    margin-bottom: 24px;
 }
 
 .notification.code {
@@ -380,7 +380,6 @@ a {
     overflow-y: hidden;
     width: calc(100% + 48px);
     margin-left: -24px;
-    min-height: 80vh;
 }
 
 .swipe .list {
