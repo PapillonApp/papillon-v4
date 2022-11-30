@@ -24,7 +24,7 @@
 
     if(props.calendar) {
         /* rn */
-        let dateStr = "2022/01/01";
+        let dateStr = "2022-01-01";
         let dateStrShow = "1 jan.";
 
         function updateDateStrings() {
@@ -35,7 +35,7 @@
             let monthNames = ["jan." , "fév." , "mars" , "avr." , "mai" , "juin" , "juil." , "août" , "sept." , "oct." , "nov." , "déc."];
             let monthString = monthNames[month];
 
-            dateStr = year + '-' + (month + 1) + '-' + day;
+            dateStr = year + '-' + lz((month + 1)) + '-' + lz(day);
             dateStrShow = day + ' ' + monthString;
         }
 
@@ -60,7 +60,7 @@
 
             document.addEventListener('rnChanged', function() {
                 updateDateStrings()
-                document.getElementById('rnPicker').value = dateStr;
+                document.getElementById('rnPicker').value = rnString;
                 document.getElementById('CalendarString').innerHTML = dateStrShow;
 
                 document.dispatchEvent(new CustomEvent('dateChanged'));

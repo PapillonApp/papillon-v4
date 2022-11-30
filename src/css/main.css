@@ -387,6 +387,13 @@ a {
     width: calc(100% - 47px) !important;
 }
 
+@supports not (-webkit-touch-callout: none) {
+    .swipe .list {
+        padding: 0px 24px;
+        width: inherit;
+    }
+}
+
 .swipe .list.group {
     margin: 0px 24px;
     width: calc(100% - 47px) !important;
