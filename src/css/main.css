@@ -136,6 +136,17 @@ body {
     }
 }
 
+@keyframes TabNameStringForwards {
+    0% {
+        transform: scale(80%);
+        opacity: 0%;
+    }
+    100% {
+        transform: scale(100%);
+        opacity: 100%;
+    }
+}
+
 .notification {
     background: #222 !important;
     box-shadow: none !important;
