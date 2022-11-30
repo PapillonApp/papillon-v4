@@ -226,7 +226,7 @@
             </NoItem>
 
             <div class="list">
-                <HomeworkElement v-for="hw in homeworks" :subject="hw.subject" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
+                <HomeworkElement v-for="(hw, index) in homeworks" :index="index" :subject="hw.subject" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
             </div>
         </div>
     </div>

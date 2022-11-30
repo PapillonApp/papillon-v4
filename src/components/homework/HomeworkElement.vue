@@ -3,7 +3,7 @@
     import { CheckCheck } from 'lucide-vue-next';
 
     export default {
-        props: ['subject', 'description', 'color', 'id'],
+        props: ['subject', 'description', 'color', 'id', 'index'],
         components: {
             CheckCheck
         },
@@ -50,6 +50,9 @@
             if(this.description.length > 180) {
                 this.finalDescription = this.description.substring(0, 180) + "..."
             }
+
+            // index
+            this.$el.style.setProperty('--index', this.index)
         }
     }
 </script>
@@ -73,7 +76,8 @@
         display: flex;
 
         opacity: 0%;
-        animation: TabNameStringUp 0.2s cubic-bezier(0,0,0,1) forwards;
+        animation: TabNameStringUp 0.3s cubic-bezier(0,0,0,1) forwards;
+        animation-delay: calc(var(--index) * 0.05s);
     }
 
     .homework.done {
