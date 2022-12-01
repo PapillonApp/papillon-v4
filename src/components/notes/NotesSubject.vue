@@ -130,4 +130,8 @@
     .averageFinal .average p {
         font-size: 16px !important;
     }
+
+    .myAverage .average * {
+        font-weight: 700 !important;
+    }
 </style>

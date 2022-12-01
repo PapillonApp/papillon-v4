@@ -21,7 +21,8 @@ app.use(router)
 app.use(vfmPlugin)
 app.use(VWave, {
     duration: 0.2,
-    initialOpacity: 0.4,
+    finalOpacity: 0.1,
+    tagName: 'vwave',
 })
 
 // montage de l'application

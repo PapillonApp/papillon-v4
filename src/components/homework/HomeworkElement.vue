@@ -78,6 +78,8 @@
         opacity: 0%;
         animation: TabNameStringUp 0.3s cubic-bezier(0,0,0,1) forwards;
         animation-delay: calc(var(--index) * 0.05s);
+
+        box-shadow: var(--shadow) !important;
     }
 
     .homework.done {
@@ -92,6 +94,7 @@
         align-items: flex-end;
         gap: 3px;
         padding: 0px 5px;
+        padding-top: 2px;
         margin-bottom: 2px;
     }
 
@@ -127,16 +130,20 @@
     }
 
     .homework p {
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 600;
         margin-bottom: 2px;
         display: flex;
         gap: 5px;
+        color: var(--color);
+    }
+
+    .homework .doneCheck * {
+        color: #fff !important;
     }
 
     .homework small {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 400;
-        opacity: 0.5;
     }
 </style>

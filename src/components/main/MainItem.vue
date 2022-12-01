@@ -24,13 +24,16 @@
         margin-top: 12px;
         justify-content: flex-start;
         width: calc(100% - 40px);
+
+        box-shadow: var(--shadow);
     }
 
     .mainItem.light {
         background: none !important;
-        border: 1px solid var(--element);
+        border: 1px solid var(--border-light);
         width: calc(100% - 40px - 2px);
         color: var(--text);
+        box-shadow: none !important;
     }
 
     .mainItem_el * {

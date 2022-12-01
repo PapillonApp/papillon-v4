@@ -3,7 +3,7 @@
     import NoItem from '@/components/main/NoItem.vue';
     import MainItem from '../components/main/MainItem.vue';
 
-    import { Newspaper } from 'lucide-vue-next'
+    import { Newspaper, Link } from 'lucide-vue-next'
 
     import swipeDetect from 'swipe-detect';
 
@@ -13,7 +13,8 @@
             TabName,
             NoItem,
             Newspaper,
-            MainItem
+            MainItem,
+            Link
         },
         data() {
             return {
@@ -32,7 +33,7 @@
         methods: {
             getNews: function() {
                 // set vars
-                if(this.notes) {
+                if(this.actus) {
                     this.inLoading = true;
                 }
                 else { 
@@ -63,6 +64,7 @@
                 // get marks
                 sendQL(schema).then((response) => {
                     this.actus = response.data.infos;
+                    this.inLoading = false;
 
                     // sort by date
                     this.actus.sort((a, b) => {
@@ -84,6 +86,7 @@
                 
                 this.$vfm.show("actuModal", {
                     description: actu.content,
+                    htmlDescription: actu.htmlContent,
                     title: actu.title,
                     author: actu.author,
                     files: actu.files,
@@ -118,7 +121,9 @@
                     </div>
                     <div class="modal-content">
                         <div class="modal-content-header">
-                            <p>{{params.description}}</p>
+                            <div class="htmlContent" v-html="params.htmlDescription">
+                                
+                            </div>
                         </div>
 
                         <a v-for="file in params.files" :href="file.url"><div class="modal-content-item" v-wave>

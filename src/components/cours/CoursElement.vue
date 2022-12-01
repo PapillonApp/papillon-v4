@@ -137,6 +137,7 @@
 
         background: var(--element);
         color: var(--text);
+        box-shadow: var(--shadow) !important;
 
         border-radius: 10px;
 
@@ -152,6 +153,7 @@
         background: var(--background);
         border: 1px solid var(--element);
         --color: #f1323255 !important;
+        box-shadow: none !important;
     }
 
     .cours * {

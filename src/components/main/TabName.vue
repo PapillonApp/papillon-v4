@@ -109,7 +109,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #FFFFFF 50%, #FFFFFF00 100%);
+        background: linear-gradient(180deg, var(--background) 50%, #FFFFFF00 100%);
     
         width: calc(100vw - 24px * 2);
 

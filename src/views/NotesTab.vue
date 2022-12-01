@@ -26,6 +26,8 @@
                 error: "",
                 studentAverage: "0",
                 classAverage: "0",
+                classMin: "0",
+                classMax: "0",
             }
         },
         methods: {
@@ -135,6 +137,33 @@
 
                     this.studentAverage = studentAverage.toFixed(2);
                     this.classAverage = classAverage.toFixed(2);
+
+                    // get min and max
+                    let min = 0;
+                    let max = 0;
+
+                    let minCount = 0;
+                    let maxCount = 0;
+
+                    for(let i = 0; i < this.notes.length; i++) {
+                        let subject = this.notes[i];
+                        let minSubject = subject.averages.min;
+                        let maxSubject = subject.averages.max;
+
+                        if(minSubject != null) {
+                            min += minSubject;
+                        }
+
+                        if(maxSubject != null) {
+                            max += maxSubject;
+                        }
+                    }
+
+                    let minAverage = min / this.notes.length;
+                    let maxAverage = max / this.notes.length;
+
+                    this.classMin = minAverage.toFixed(2);
+                    this.classMax = maxAverage.toFixed(2);
                 })
             }
         },
@@ -177,7 +206,7 @@
         <NotesSubject
             v-if="hasNotes"
             name="Moyenne générale"
-            class="averageFinal"
+            class="averageFinal myAverage"
             :average="studentAverage"
             :index="notes.length">
         </NotesSubject>
@@ -189,8 +218,36 @@
             :average="classAverage"
             :index="notes.length">
         </NotesSubject>
+
+        <div class="extremes">
+            <NotesSubject
+                v-if="hasNotes"
+                name="Moyenne -"
+                class="averageFinal"
+                :average="classMin"
+                :index="notes.length">
+            </NotesSubject>
+
+            <NotesSubject
+                v-if="hasNotes"
+                name="Moyenne +"
+                class="averageFinal"
+                :average="classMax"
+                :index="notes.length">
+            </NotesSubject>
+        </div>
     </div>
 </template>
 
 <style scoped>
+    .extremes {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        opacity: 0.5;
+    }
+
+    .extremes .averageFinal {
+        width: 50%;
+    }
 </style>

@@ -24,6 +24,11 @@ let mainTabs = [
     component: () => import('../views/NotesTab.vue')
   },
   {
+    path: '/content',
+    name: 'content',
+    component: () => import('../views/ContentTab.vue')
+  },
+  {
     path: '/actus',
     name: 'actus',
     component: () => import('../views/ActusTab.vue')

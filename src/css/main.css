@@ -24,11 +24,13 @@
 :root {
     --brand-color: #00B562;
     --brand-color-light: #00B56222;
-    --background: #FFFFFF;
-    --element: #F4F4F4;
+    --background: #f4f4f4;
+    --element: #ffffff;
     --text: #000000;
     --text-light: #00000055;
     --border: #00000022;
+    --border-light: #00000011;
+    --shadow: 0px 0.5px 3px #00000012;
 }
 
 /* setting basic CSS */
@@ -63,6 +65,8 @@ body {
         --text: #FFFFFF;
         --text-light: #ffffff55;
         --border: #ffffff22;
+        --border-light: #ffffff11;
+        --shadow: 0px 0.5px 3px #00000042;
     }
 }
 
@@ -91,6 +95,7 @@ body {
     border-radius: 12px;
     overflow: hidden;
     background: var(--element);
+    box-shadow: var(--shadow);
 }
 
 .list.group .mainItem {
@@ -325,7 +330,7 @@ a {
     padding: 15px 24px;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
 }
 
 .modal-content-item p {
@@ -429,7 +434,6 @@ a {
 
 .modal-content-header {
     padding: 15px 20px;
-    border-bottom: 1px solid var(--border);
 }
 
 .categoryTitle.next {
@@ -451,4 +455,8 @@ a {
 hr {
     margin: 20px 0px;
     opacity: 0.2;
+}
+
+vwave div {
+    /* filter: blur(10px); */
 }

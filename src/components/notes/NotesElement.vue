@@ -120,6 +120,8 @@
         opacity: 0%;
         animation: TabNameStringForwards 0.3s cubic-bezier(0,0,0,1) forwards;
         animation-delay: calc(var(--index) * 0.01s);
+
+        box-shadow: var(--shadow) !important;
     }
 
     .mark * {

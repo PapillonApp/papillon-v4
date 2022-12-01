@@ -125,9 +125,12 @@
     #profile {
         width: 100%;
         height: 170px !important;
-        overflow: hidden;
+        overflow: visible;
         position: relative;
         border-radius: 10px;
+
+        color: #fff;
+        box-shadow: var(--shadow) !important;
     }
 
     .avatarBackground {
