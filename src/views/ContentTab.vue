@@ -3,7 +3,7 @@
     import NoItem from '@/components/main/NoItem.vue';
     import MainItem from '../components/main/MainItem.vue';
 
-    import { Scroll, Link } from 'lucide-vue-next'
+    import { Scroll, Link, CalendarOff } from 'lucide-vue-next'
 
     import swipeDetect from 'swipe-detect';
 
@@ -14,6 +14,7 @@
             NoItem,
             Scroll,
             MainItem,
+            CalendarOff,
             Link
         },
         data() {
@@ -76,6 +77,13 @@
                     this.content.forEach((item) => {
                         item.smallDescription = item.description.substring(0, 120) + '...';
                     })
+
+                    if(this.content.length == 0) {
+                        this.empty = true;
+                    }
+                    else {
+                        this.empty = false;
+                    }
                 });
             },
             openContentModal: function(content) {
@@ -105,6 +113,16 @@
             document.addEventListener('dateChanged', () => {
                 this.getContent()
             })
+
+            let swipeUI = this.$refs.swipe
+            swipeDetect(swipeUI, (swipeDirection) => {
+                if(swipeDirection == "left") {
+                    document.dispatchEvent(new CustomEvent('nextDate'));
+                }
+                else if(swipeDirection == "right") {
+                    document.dispatchEvent(new CustomEvent('prevDate'));
+                }
+            }, 50)
         }
     }
 </script>
@@ -138,16 +156,22 @@
             </template>
         </vue-final-modal>
 
-        <div class="list group">
-            <MainItem v-for="(contentItem, index) in content" @click="openContentModal(contentItem)">
-                <template #icon>
-                    <Scroll />
-                </template>
-                <template #content>
-                    <h3>{{contentItem.subject}}</h3>
-                    <p>de {{contentItem.smallDescription}}</p>
-                </template>
-            </MainItem>
+        <div class="swipe" ref="swipe">
+            <NoItem ref="swipeEmpty" v-if="empty" title="Pas de contenus enregistrés ce jour là" subtitle="Utilisez le calendrier pour consulter les jours passés et à venir">
+                <Scroll />
+            </NoItem>
+
+            <div class="list group">
+                <MainItem v-for="(contentItem, index) in content" @click="openContentModal(contentItem)">
+                    <template #icon>
+                        <Scroll />
+                    </template>
+                    <template #content>
+                        <h3>{{contentItem.subject}}</h3>
+                        <p>{{contentItem.smallDescription}}</p>
+                    </template>
+                </MainItem>
+            </div>
         </div>
     </div>
 </template>

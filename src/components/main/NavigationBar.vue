@@ -38,6 +38,8 @@
         background-color: var(--background);
         padding: 3px 12px;
 
+        border-top: 1px solid var(--border-light);
+
         padding-bottom: calc(3px + env(safe-area-inset-bottom));
     }
 
@@ -71,11 +73,22 @@
         letter-spacing: -0.02em;
         text-align: center;
         margin-top: 5px;
+
+        opacity: 0%;
+        margin-bottom: -17px;
+
+        transition: margin-bottom 0.2s, opacity 0.1s;
     }
 
     #NavigationBar a.router-link-active {
         color: var(--brand-color);
         opacity: 100%;
         font-weight: 600;
+        transform: translateY(0px);
+    }
+
+    #NavigationBar a.router-link-active p {
+        opacity: 100%;
+        margin-bottom: 0px;
     }
 </style>

@@ -197,7 +197,8 @@
     }
 
     #Calendar {
-        background: rgba(0, 181, 98, 0.1);
+        background: transparent;
+        border: 1px solid var(--brand-color);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -206,6 +207,8 @@
         padding: 7px 6px !important;
         gap: 4px;
         border-radius: 8px;
+
+        margin-top: -2px;
 
         width: fit-content;
         padding-right: 0px !important;

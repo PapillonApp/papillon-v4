@@ -122,7 +122,7 @@
                     <div class="modal-content">
                         <div class="modal-content-header">
                             <div class="htmlContent" v-html="params.htmlDescription">
-                                
+
                             </div>
                         </div>
 
@@ -135,7 +135,7 @@
             </template>
         </vue-final-modal>
 
-        <NoItem v-if="empty" title="Pas encore d'actualités dans cet établissement" subtitle="Pour consulter vos messages, utilisez le client Pronote classique.">
+        <NoItem v-if="(actus.length == 0)" title="Pas encore d'actualités dans cet établissement" subtitle="Pour consulter vos messages, utilisez le client Pronote classique.">
             <Newspaper />
         </NoItem>
 

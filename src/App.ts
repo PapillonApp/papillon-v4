@@ -303,21 +303,3 @@ function refreshToken() {
         console.error("Already waiting for token");
     }
 }
-
-// focus
-let lastblur = new Date();
-
-document.addEventListener("visibilitychange", (event) => {
-    if (document.visibilityState == "visible") {
-        // check if last blur was more than 5 minutes ago
-        let now = new Date();
-        let diff = now - lastblur;
-        if(diff > 300000) {
-            // pronote has probably expired since then
-            refreshToken();
-        }
-    }
-    else {
-        lastblur = new Date();
-    }
-});
