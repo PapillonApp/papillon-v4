@@ -102,7 +102,6 @@
             document.addEventListener('updatedToken', () => {
                 this.getContent()
             })
-
             document.addEventListener('dateChanged', () => {
                 this.getContent()
             })
