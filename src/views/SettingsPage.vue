@@ -36,6 +36,10 @@
             },
             emptyCache() {
                 emptyCache()
+            },
+            showAbout() {
+                // redirect to "/about"
+                this.$router.push({ name: 'about' })
             }
         },
         data() {
@@ -108,12 +112,12 @@
             </template>
         </MainItem>
 
-        <MainItem class="beta">
+        <MainItem class="beta" v-on:click="showAbout">
             <template #icon>
                 <Bug />
             </template>
             <template #content>
-                <h3>Programme beta</h3>
+                <h3>A propos de Pronote+</h3>
                 <p>Vous utilisez une version expérimentale de Pronote+ (version {{version}})</p>
             </template>
         </MainItem>

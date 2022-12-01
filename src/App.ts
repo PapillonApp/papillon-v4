@@ -1,7 +1,7 @@
 /* global vars */
 const API = "https://api.pronote.plus";
-const API_VERSION = "v1";
-const APP_VERSION = "4.1b.0";
+const API_VERSION = "v2";
+const APP_VERSION = "4.1b.1";
 
 let waitingForToken = false;
 

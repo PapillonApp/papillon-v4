@@ -60,4 +60,13 @@
         line-height: 15px;
         opacity: 50%;
     }
+
+    .mainItem_content small {
+        font-size: 14px;
+        line-height: 14px;
+        opacity: 50%;
+        margin-bottom: 7px;
+        margin-top: -2px;
+        font-weight: 700;
+    }
 </style>

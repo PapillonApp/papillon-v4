@@ -45,6 +45,11 @@ let otherTabs = [
     path: '/settings',
     name: 'settings',
     component: () => import('../views/SettingsPage.vue')
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('../views/AboutTab.vue')
   }
 ]
 
