@@ -317,3 +317,8 @@ if(localStorage.getItem('brandColor') != null) {
 if(localStorage.getItem('fontFamily') != null) {
     document.documentElement.style.setProperty('--font-family', localStorage.getItem('fontFamily'));
 }
+
+// apply textTransform from localStorage
+if(localStorage.getItem('textTransform') != null) {
+    document.documentElement.style.setProperty('--text-transform', localStorage.getItem('textTransform'));
+}

@@ -38,7 +38,7 @@
                 type: Number,
                 required: false,
                 default: 0
-            }
+            },
         },
         data() {
             return {
@@ -48,11 +48,22 @@
                 finalMin: 0,
                 finalMax: 0,
                 mark20: 0,
+                finalScale: 0,
+                sur20: localStorage.getItem('sur20') == 'true',
             }
         },
         mounted() {
             this.mark20 = ((this.mark / this.scale) * 20).toFixed(1)
             this.finalMark = (parseInt(this.mark).toFixed(2)).toString()
+
+            if(this.sur20) {
+                this.finalMark = this.mark20
+                // change params scale
+                this.finalScale = 20
+            }
+            else {
+                this.finalScale = this.scale
+            }
 
             /* this.finalAverage = (((parseInt)(this.average) / this.scale) * 20).toFixed(2).toString()
             this.finalMin = (((parseInt)(this.min) / this.scale) * 20).toFixed(2).toString()
@@ -75,11 +86,11 @@
         <div class="markData">
             <div class="markName">
                 <p>{{finalDescription}}</p>
-                <span>coeff : {{coeff}} <a class="mark20" v-if="scale !== 20"> | {{mark20}}/20</a></span>
+                <span>coeff : {{coeff}} <a class="mark20" v-if="(scale !== 20 && sur20 == false)"> | {{mark20}}/20</a></span>
             </div>
             <div class="markValue">
                 <p>{{finalMark}}</p>
-                <span>/{{scale}}</span>
+                <span>/{{finalScale}}</span>
             </div>
         </div>
         <div class="markAverages">

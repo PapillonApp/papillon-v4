@@ -50,6 +50,8 @@
             resetsettings() {
                 localStorage.removeItem('brandColor')
                 localStorage.removeItem('fontFamily')
+                localStorage.removeItem('textTransform')
+                localStorage.removeItem('sur20')
                 location.reload()
             }
         },
@@ -101,6 +103,39 @@
                 // save it in localStorage
                 localStorage.setItem('fontFamily', e.target.value)
             })
+
+            // get text transform
+            let textTransform = getComputedStyle(document.documentElement).getPropertyValue('--text-transform').trim()
+
+            if(textTransform == "lowercase") {
+                document.querySelector('#lowercaseText').checked = true
+            }
+
+            // listen for changes
+            document.querySelector('#lowercaseText').addEventListener('change', (e) => {
+                if(e.target.checked) {
+                    document.documentElement.style.setProperty('--text-transform', "lowercase")
+
+                    // save it in localStorage
+                    localStorage.setItem('textTransform', "lowercase")
+                } else {
+                    document.documentElement.style.setProperty('--text-transform', "none")
+
+                    // save it in localStorage
+                    localStorage.setItem('textTransform', "none")
+                }
+            })
+
+            // listen for changes on sur20
+            document.querySelector('#sur20').addEventListener('change', (e) => {
+                if(e.target.checked) {
+                    // save it in localStorage
+                    localStorage.setItem('sur20', "true")
+                } else {
+                    // save it in localStorage
+                    localStorage.setItem('sur20', "false")
+                }
+            })
         }
     }
 </script>
@@ -151,6 +186,28 @@
                     <option value="Indie Flower">Indie Flower</option>
                     <option value="Exo 2">Exo 2</option>
                 </select>
+            </div>
+        </div>
+
+        <div class="setting">
+            <div class="settingName">
+                <h3>Utiliser des textes minuscules par défaut</h3>
+                <p class="settingDescription">Si vous préférez voir les textes de base, cochez cette case</p>
+            </div>
+            <div class="settingValue">
+                <input type="checkbox" checked id="lowercaseText" />
+            </div>
+        </div>
+
+        <MainCategory title="Tweaks"/>
+
+        <div class="setting">
+            <div class="settingName">
+                <h3>Mettre automatiquement les notes sur 20 (nécéssite un redémarrage)</h3>
+                <p class="settingDescription">Remplace les notes par leur calcul sur une base de 20 points.</p>
+            </div>
+            <div class="settingValue">
+                <input type="checkbox" id="sur20" />
             </div>
         </div>
 
@@ -373,6 +430,7 @@
         background: var(--background);
         box-shadow: var(--shadow);
         min-width: 35vw;
+        text-transform: none;
     }
 
     .setting select:focus {
