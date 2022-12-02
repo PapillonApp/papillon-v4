@@ -215,23 +215,23 @@
         <MainCategory title="options avancées"/>
 
         <!-- reset token -->
-        <MainItem v-on:click="refresh">
-            <template #icon>
-                <RefreshCcw />
-            </template>
-            <template #content>
-                <h3>Rafraîchir le token</h3>
-                <p>Actualiser les données téléchargées depuis l'instance Pronote</p>
-            </template>
-        </MainItem>
-
         <MainItem v-on:click="resetsettings">
             <template #icon>
                 <Delete />
             </template>
             <template #content>
                 <h3>Réinitialiser les paramètres</h3>
-                <p>Rétablit les paramètres par défaut sans se déconnecter</p>
+                <p>Rétablit les paramètres par défaut sans vous déconnecter de Pronote +</p>
+            </template>
+        </MainItem>
+
+        <MainItem v-on:click="refresh">
+            <template #icon>
+                <RefreshCcw />
+            </template>
+            <template #content>
+                <h3>Rafraîchir la connexion à Pronote</h3>
+                <p>Permet d'obtenir une nouvelle autorisation (token) auprès de votre établissement</p>
             </template>
         </MainItem>
 
@@ -241,8 +241,8 @@
                 <LogOut />
             </template>
             <template #content>
-                <h3>Se déconnecter</h3>
-                <p>Supprimer les données d'identification et de connexion</p>
+                <h3>Se déconnecter de Pronote+</h3>
+                <p>Éfface toutes vos données Pronote de l'application</p>
             </template>
         </MainItem>
 
@@ -253,7 +253,7 @@
             </template>
             <template #content>
                 <h3>Vider le cache</h3>
-                <p>Oublier les cours et pages pré-enregistrées</p>
+                <p>Vide complètement les données pré-enregistrées pour un chargement plus rapide (à utiliser en cas de données trop en retard)</p>
             </template>
         </MainItem>
 
