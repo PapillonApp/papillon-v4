@@ -92,52 +92,50 @@
                 let marks = this.marks;
                 console.log(marks);
 
-                    for (let i = 0; i < marks.length; i++) {
-                        let subject = marks[i];
+                // get best and worse subject average
+                let bestAverage = 0;
+                let worstAverage = 100;
 
-                        for (let j = 0; j < subject.marks.length; j++) {
-                            let mark = subject.marks[j];
+                let bestSubject = "";
+                let worstSubject = "";
 
-                            if (mark.scale == 20) {
-                                if (worstMark.length == 0) {
-                                    worstMark = [mark, subject];
-                                } else {
-                                    if (mark.value < worstMark[0].value) {
-                                        worstMark = [mark, subject];
-                                    }
-                                }
+                for (let i = 0; i < marks.length; i++) {
+                    let subject = marks[i];
 
-                                if (bestMark.length == 0) {
-                                    bestMark = [mark, subject];
-                                } else {
-                                    if (mark.value > bestMark[0].value) {
-                                        bestMark = [mark, subject];
-                                    }
-                                }
-                            }
-                        }
-
+                    if (subject.averages.student > bestAverage) {
+                        bestAverage = subject.averages.student;
+                        bestSubject = subject.name;
                     }
 
+                    if (subject.averages.student < worstAverage) {
+                        worstAverage = subject.averages.student;
+                        worstSubject = subject.name;
+                    }
 
-                    this.genDiap2(bestMark, worstMark);
+                    for (let j = 0; j < subject.marks.length; j++) {
+                        let mark = subject.marks[j];
+
+                        if (mark.value < worstMark.value || worstMark.length == 0) {
+                            worstMark = mark;
+                        }
+
+                        if (mark.value > bestMark.value || bestMark.length == 0) {
+                            bestMark = mark;
+                        }
+                    }   
+
+                }
+
+                    this.genDiap2(bestAverage, worstAverage, bestSubject, worstSubject, bestMark, worstMark);
                     console.log(bestMark);
             },
-            genDiap2(bestMark, worstMark) {
+            genDiap2(bestAverage, worstAverage, bestSubject, worstSubject, bestMark, worstMark) {
                 const canvas = createCanvas(720, 1280)
                 const ctx = canvas.getContext('2d')
 
-                // convertir la note en tofixed(2)
-                bestMark[0].value = parseInt(bestMark[0].value).toFixed(2);
-                worstMark[0].value = parseInt(worstMark[0].value).toFixed(2);
-
                 // separer les notes et la virgule
-                let bestMarkValue = bestMark[0].value.toString().split('.');
-                let worstMarkValue = worstMark[0].value.toString().split('.');
-
-                // get date string of both marks
-                let bestMarkDate = new Date(bestMark[0].date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                let worstMarkDate = new Date(worstMark[0].date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                let bestMarkValue = bestAverage.toString().split('.');
+                let worstMarkValue = worstAverage.toString().split('.');
 
                 // get diap2 image from /retrospective/diap2.svg
                 // and draw it on the canvas
@@ -153,13 +151,10 @@
                     ctx.fillText(bestMarkValue[0], 120, xPos)
 
                     ctx.font = 'bold  48px papillon'
-                    ctx.fillText("." + bestMarkValue[1] + " /" + bestMark[0].scale, 220, xPos)
+                    ctx.fillText("." + bestMarkValue[1] + " /20", 220, xPos)
 
                     ctx.font = '32px papillon'
-                    ctx.fillText('en ' + bestMark[1].name, 120, xPos + 50)
-
-                    ctx.font = '26px papillon'
-                    ctx.fillText('le ' + bestMarkDate, 120, xPos + 85)
+                    ctx.fillText('en ' + bestSubject, 120, xPos + 50)
 
                     // add 2nd text
                     ctx.fillStyle = '#ffffff'
@@ -172,13 +167,10 @@
                     ctx.fillText(worstMarkValue[0], 120, xPos)
 
                     ctx.font = 'bold  48px papillon'
-                    ctx.fillText("." + worstMarkValue[1] + " /" + worstMark[0].scale, 220, xPos)
+                    ctx.fillText("." + worstMarkValue[1] + " /20", 220, xPos)
 
                     ctx.font = '32px papillon'
-                    ctx.fillText('en ' + worstMark[1].name, 120, xPos + 50)
-
-                    ctx.font = '26px papillon'
-                    ctx.fillText('le ' + worstMarkDate, 120, xPos + 85)
+                    ctx.fillText('en ' + worstSubject, 120, xPos + 50)
 
                     // push the canvas to the items array
                     this.items.push(canvas.toDataURL())
