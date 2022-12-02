@@ -145,6 +145,9 @@ function getData() {
                 },
                 establishment {
                     name
+                },
+                groups {
+                    name
                 }
             }
         }`;
@@ -302,4 +305,15 @@ function refreshToken() {
     else {
         console.error("Already waiting for token");
     }
+}
+
+// customization
+// apply brand color from localStorage
+if(localStorage.getItem('brandColor') != null) {
+    document.documentElement.style.setProperty('--brand-color', localStorage.getItem('brandColor'));
+}
+
+// apply font from localStorage
+if(localStorage.getItem('fontFamily') != null) {
+    document.documentElement.style.setProperty('--font-family', localStorage.getItem('fontFamily'));
 }
