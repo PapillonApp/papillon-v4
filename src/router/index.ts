@@ -50,6 +50,11 @@ let otherTabs = [
     path: '/about',
     name: 'about',
     component: () => import('../views/AboutTab.vue')
+  },
+  {
+    path: '/recap',
+    name: 'recap',
+    component: () => import('../views/extras/RecapExtra.vue')
   }
 ]
 

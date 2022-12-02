@@ -1,3 +1,19 @@
+/* adding google fonts */
+/* import Open Sans from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+
+/* import Barlow from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Barlow:300,400,600');
+
+/* import Indie Flower from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+/* import Exo 2 from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Exo+2:300,400,600');
+
+/* import Lora from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Lora:300,400,600');
+
 /* importing fonts */
 @font-face {
     font-family: "Papillon";
@@ -32,6 +48,7 @@
     --border: #00000022;
     --border-light: #00000011;
     --shadow: 0px 0.5px 3px #00000012;
+    --font-family: "Papillon";
 }
 
 /* setting basic CSS */
@@ -40,7 +57,7 @@ html {
 }
 
 * {
-    font-family: "Papillon";
+    font-family: var(--font-family);
     -webkit-tap-highlight-color: transparent;
     text-transform: lowercase;
     -webkit-touch-callout: none;

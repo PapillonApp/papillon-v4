@@ -9,3 +9,10 @@
         margin-top: -4px !important;
     }
 }
+
+.vue-insta-stories img {
+    object-fit: cover !important;
+    object-position: top !important;
+    width: 100% !important;
+    height: 100%;
+}
