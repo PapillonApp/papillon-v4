@@ -86,7 +86,7 @@
         <div class="markData">
             <div class="markName">
                 <p>{{finalDescription}}</p>
-                <span>coeff : {{coeff}} <a class="mark20" v-if="(scale !== 20 && sur20 == false)"> | {{mark20}}/20</a></span>
+                <span>coeff : {{coeff}} <a class="mark20" v-if="(scale !== 20 && sur20 == false)"> | {{mark20}}/20</a> <a class="mark20" v-if="(scale !== 20 && sur20 == true)"> | {{mark}}/{{scale}}</a></span>
             </div>
             <div class="markValue">
                 <p>{{finalMark}}</p>
