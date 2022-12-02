@@ -1,7 +1,7 @@
 /* global vars */
 const API = "https://api.pronote.plus";
 const API_VERSION = "v2";
-const APP_VERSION = "4.1b.1";
+const APP_VERSION = "4.1b.2";
 
 let waitingForToken = false;
 
@@ -249,6 +249,7 @@ window.addEventListener('online', (event) => {
 });
 
 /* auto re-login */
+let tokenRefreshedRecently = false;
 function refreshToken() {
     if(!waitingForToken) {
         waitingForToken = true;
@@ -305,6 +306,17 @@ function refreshToken() {
     else {
         console.error("Already waiting for token");
     }
+    
+    if(tokenRefreshedRecently) {
+        location.reload(true);
+    }
+
+    tokenRefreshedRecently = true;
+    setTimeout(() => {
+        tokenRefreshedRecently = false;
+    }, 15000);
+
+    
 }
 
 // customization
