@@ -185,6 +185,7 @@
                     <option value="Barlow">Barlow</option>
                     <option value="Indie Flower">Indie Flower</option>
                     <option value="Exo 2">Exo 2</option>
+                    <option value="IBM Plex Mono">IBM Plex Mono</option>
                 </select>
             </div>
         </div>
