@@ -59,10 +59,6 @@ let otherTabs = [
 ]
 
 let loginTabs = [
-  { 
-    path: '/setup',
-    redirect: '/setup_1'
-  },
   {
     path: '/setup_1',
     name: 'setup_one',
@@ -78,6 +74,10 @@ let loginTabs = [
     name: 'setup_three',
     component: () => import('../views/login/SetupThree.vue')
   },
+  { 
+    path: '/setup',
+    redirect: '/setup_1'
+  }
 ]
 
 allRoutes = allRoutes.concat(mainTabs, otherTabs, loginTabs)
