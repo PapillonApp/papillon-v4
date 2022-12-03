@@ -20,6 +20,11 @@
                 default: 0
             }
         },
+        data() {
+            return {
+                finalAverage: this.average.toFixed(2),
+            }
+        },  
         mounted() {
             // color
             let color = this.color
