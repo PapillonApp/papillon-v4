@@ -22,7 +22,7 @@
         },
         data() {
             return {
-                finalAverage: this.average.toFixed(2),
+                finalAverage: parseInt(this.average).toFixed(2),
             }
         },  
         mounted() {
@@ -51,7 +51,7 @@
         <div class="subject_name">
             <div class="name">{{name}}</div>
             <div class="average" v-if="average">
-                <p>{{average}}</p>
+                <p>{{finalAverage}}</p>
                 <span>/20</span>
             </div>
         </div>
