@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     // @ts-nocheck
     import TabName from '/src/components/main/TabName.vue'
     import axios from 'axios'

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import TabName from '../components/main/TabName.vue'
     import NoItem from '@/components/main/NoItem.vue';
     import MainItem from '../components/main/MainItem.vue';

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     // @ts-nocheck
     import { CheckCheck } from 'lucide-vue-next';
 

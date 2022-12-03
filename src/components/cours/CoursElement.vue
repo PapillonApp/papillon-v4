@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     // @ts-nocheck
     export default {
         props: {

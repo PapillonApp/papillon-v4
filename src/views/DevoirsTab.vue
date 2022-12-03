@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     // @ts-nocheck
     import TabName from '../components/main/TabName.vue'
     import HomeworkElement from '@/components/homework/HomeworkElement.vue';
