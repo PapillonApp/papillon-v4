@@ -9,7 +9,7 @@
     import swipeDetect from 'swipe-detect';
 
     import NoItem from '@/components/main/NoItem.vue';
-    import { CalendarOff, ServerCrash, CalendarPlus } from 'lucide-vue-next';
+    import { CalendarOff, ServerCrash, CalendarPlus, AlertTriangle, Info } from 'lucide-vue-next';
 
     import ical from 'ical-generator';
 
@@ -28,7 +28,9 @@
             CoursModal,
             CalendarOff,
             ServerCrash,
-            CalendarPlus
+            CalendarPlus,
+            Info,
+            AlertTriangle
         },
         data() {
             return {
@@ -113,6 +115,13 @@
             },
             openCoursModal: function(cours) {
                 this.current = cours
+
+                // cancelled
+                let cancelled = false
+                if(cours.status == "Cours annulé" || cours.status == "Prof. absent" || cours.status == "Classe absente" || cours.status == "Prof./pers. absent" || cours.status == "Conseil de classe" || cours.status == "Reporté" || cours.status == "Sortie pédagogique") {
+                    cancelled = true
+                }
+
                 this.$vfm.show("coursModal", {
                     subject: cours.subject,
                     teacher: cours.teacher,
@@ -120,8 +129,12 @@
                     from: new Date(cours.from).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
                     to: new Date(cours.to).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
                     color: cours.color,
-                    status: cours.status || "Se déroule normalement"
+                    hasStatus: cours.status != null,
+                    isCancelled: cours.isCancelled || cancelled,
+                    status: cours.status
                 })
+
+                console.log(cours)
 
                 let modal = this.$refs.modal
                 swipeDetect(modal, (swipeDirection) => {
@@ -236,6 +249,12 @@
                         <small>{{params.teacher}} - {{params.room}}</small>
                     </div>
                     <div class="modal-content">
+                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" v-wave="false" >
+                            <Info v-if="!params.isCancelled" />
+                            <AlertTriangle v-else />
+                            <p v-if="!params.isCancelled">Ce cours a été modifié ({{ params.status }})</p>
+                            <p v-else>Ce cours n'est pas maintenu</p>
+                        </div>
                         <div class="modal-content-item" v-wave v-on:click="addCurrentToCalendar">
                             <CalendarPlus />
                             <p>Ajouter au calendrier</p>
@@ -294,6 +313,20 @@
         border-bottom: 1px solid var(--border);
         margin-bottom: 12px;
         margin-top: 24px;
+    }
+
+    .modal-content-item.ok {
+        color: #4791FF !important;
+    }
+    .modal-content-item.ok p {
+            color: #4791FF !important;
+    }
+
+    .modal-content-item.red {
+        color: #F13232 !important;
+    }
+    .modal-content-item.red p {
+        color: #F13232 !important;
     }
 
     .categoryTitle.next {
