@@ -330,7 +330,7 @@ a {
 
 .modal-content-item {
     display: flex;
-    padding: 15px 24px;
+    padding: 17px 24px;
     align-items: center;
     gap: 12px;
     border-top: 1px solid var(--border);
@@ -338,7 +338,7 @@ a {
 
 .modal-content-item p {
     font-size: 17px;
-    margin-top: 3px;
+    margin-top: 0px;
     font-weight: 700;
     color: var(--text);
     width: 100%;
