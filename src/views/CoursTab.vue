@@ -112,6 +112,7 @@
                                             } else if (this.cours[j].isCancelled == true) {
                                                 this.cours.splice(j, 1)
                                                 j--
+                                                i--
                                             }
                                         }
                                     }
