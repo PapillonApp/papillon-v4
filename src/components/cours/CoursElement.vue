@@ -95,13 +95,18 @@
                 finalColor = baseColors.random().hex
             }
 
+            // punishment
+            if (this.name.includes("Retenue")) {
+                finalColor = '#ff5050'
+            }
+
             this.$el.style.setProperty('--color', finalColor)
 
             // index
             this.$el.style.setProperty('--index', this.index)
 
             // cancelled
-            if(this.status == "Cours annulé" || this.status == "Prof. absent") {
+            if(this.status == "Cours annulé" || this.status == "Prof. absent" || this.status == "Classe absente" || this.status == "Prof./pers. absent" || this.status == "Conseil de classe" || this.status == "Reporté" || this.status == "Sortie pédagogique") {
                 this.cancelled = true
                 this.hasStatus = false
 
