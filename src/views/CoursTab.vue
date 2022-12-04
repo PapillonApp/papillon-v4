@@ -218,6 +218,43 @@
                     this.initiatedSwipeLeft = true;
                 }
             }, 50)
+
+            // check closest cours every 10 seconds
+            setInterval(() => {
+                // get the closest cours
+                let now = new Date()
+                let closestCours = null
+                let closestCoursTime = null
+
+                for (let i = 0; i < this.cours.length; i++) {
+                    let coursTime = new Date(this.cours[i].from)
+                    if (coursTime.getTime() > now.getTime()) {
+                        if (closestCoursTime == null) {
+                            closestCoursTime = coursTime
+                            closestCours = this.cours[i]
+                        }
+                        else {
+                            if (coursTime.getTime() < closestCoursTime.getTime()) {
+                                closestCoursTime = coursTime
+                                closestCours = this.cours[i]
+                            }
+                        }
+                    }
+                }
+
+                // add closestCours = true to the closest cours and false to the others
+                // check if rn is today
+                if(rn == new Date()) {
+                    for (let i = 0; i < this.cours.length; i++) {
+                        if (this.cours[i].from == closestCours.from) {
+                            this.cours[i].closestCours = true
+                        }
+                        else {
+                            this.cours[i].closestCours = false
+                        }
+                    }
+                }
+            }, 50)
         }
     } 
 </script>
@@ -257,7 +294,7 @@
             </NoItem>
 
             <div class="list">
-                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color" :closest="cours.closestCours"/>
             </div>
 
             <div v-if="hasCours" class="list gr2">

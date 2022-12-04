@@ -60,6 +60,8 @@
         width: 100%;
         height: 60px;
 
+        padding-bottom: 1px;
+
         color: var(--text);
         opacity: 42%;
 
@@ -73,6 +75,8 @@
         letter-spacing: -0.02em;
         text-align: center;
         margin-top: 5px;
+
+        font-weight: 600;
 
         opacity: 0%;
         margin-bottom: -17px;
