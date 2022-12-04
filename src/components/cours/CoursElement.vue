@@ -72,7 +72,11 @@
             let time = new Date(this.time)
             
             // correct timezone
-            time.setHours(time.getHours() - 1)
+            if (time.getTimezoneOffset() == -120) {
+                time.setHours(time.getHours() - 2)
+            } else if (fromTime.getTimezoneOffset() == -60) {
+                time.setHours(time.getHours() - 1)
+            }
 
             // timestamp to time
             this.timeString = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })

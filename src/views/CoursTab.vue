@@ -99,13 +99,19 @@
                                 this.initiatedSwipe = false;
                                 this.initiatedSwipeLeft = false;
 
+                                console.log(this.cours)
+
                                 // remove duplicates
                                 for (let i = 0; i < this.cours.length; i++) {
                                     for (let j = i + 1; j < this.cours.length; j++) {
                                         if (this.cours[i].from == this.cours[j].from) {
-                                            if(this.cours[i].isCancelled == false) {
+                                            if(this.cours[i].isCancelled == true) {
+                                                this.cours.splice(i, 1)
+                                                i--
+                                                j--
+                                            } else if (this.cours[j].isCancelled == true) {
                                                 this.cours.splice(j, 1)
-                                            j--
+                                                j--
                                             }
                                         }
                                     }
@@ -125,9 +131,15 @@
 
                 // get time
                 let fromTime = new Date(cours.from)
-                fromTime.setHours(fromTime.getHours() - 1)
                 let toTime = new Date(cours.to)
-                toTime.setHours(toTime.getHours() - 1)
+
+                if (fromTime.getTimezoneOffset() == -120) {
+                    fromTime.setHours(fromTime.getHours() - 2)
+                    toTime.setHours(toTime.getHours() - 2)
+                } else if (fromTime.getTimezoneOffset() == -60) {
+                    fromTime.setHours(fromTime.getHours() - 1)
+                    toTime.setHours(toTime.getHours() - 1)
+                }
 
                 this.$vfm.show("coursModal", {
                     subject: cours.subject,
@@ -155,8 +167,13 @@
                 let to = new Date(this.current.to)
 
                 // timzeone fix
-                from.setHours(from.getHours() - 1)
-                to.setHours(to.getHours() - 1)
+                if (from.getTimezoneOffset() == -120) {
+                    from.setHours(from.getHours() - 2)
+                    to.setHours(to.getHours() - 2)
+                } else if (fromTime.getTimezoneOffset() == -60) {
+                    from.setHours(from.getHours() - 1)
+                    to.setHours(to.getHours() - 1)
+                }
 
                 calendar.createEvent({
                     start: from,
