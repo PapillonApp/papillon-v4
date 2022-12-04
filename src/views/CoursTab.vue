@@ -107,11 +107,9 @@
                                         if (this.cours[i].from == this.cours[j].from) {
                                             if(this.cours[i].isCancelled == true) {
                                                 this.cours.splice(i, 1)
-                                                i--
                                                 j--
                                             } else if (this.cours[j].isCancelled == true) {
                                                 this.cours.splice(j, 1)
-                                                j--
                                                 i--
                                             }
                                         }
