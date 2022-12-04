@@ -97,8 +97,8 @@
 
                     // sort by latest mark date
                     marks.sort((a, b) => {
-                        let aDate = new Date(a.marks[a.marks.length - 1].date);
-                        let bDate = new Date(b.marks[b.marks.length - 1].date);
+                        let aDate = new Date(a.marks[a.marks.length - 1]?.date);
+                        let bDate = new Date(b.marks[b.marks.length - 1]?.date);
 
                         return bDate - aDate;
                     });
