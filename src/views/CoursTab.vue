@@ -9,7 +9,7 @@
     import swipeDetect from 'swipe-detect';
 
     import NoItem from '@/components/main/NoItem.vue';
-    import { CalendarOff, ServerCrash, CalendarPlus } from 'lucide-vue-next';
+    import { CalendarOff, ServerCrash, CalendarPlus, AlertTriangle, Info, Clock } from 'lucide-vue-next';
 
     import ical from 'ical-generator';
 
@@ -28,7 +28,10 @@
             CoursModal,
             CalendarOff,
             ServerCrash,
-            CalendarPlus
+            CalendarPlus,
+            Info,
+            AlertTriangle,
+            Clock
         },
         data() {
             return {
@@ -96,13 +99,20 @@
                                 this.initiatedSwipe = false;
                                 this.initiatedSwipeLeft = false;
 
+                                console.log(this.cours)
+
                                 // remove duplicates
                                 for (let i = 0; i < this.cours.length; i++) {
                                     for (let j = i + 1; j < this.cours.length; j++) {
                                         if (this.cours[i].from == this.cours[j].from) {
-                                            if(this.cours[i].isCancelled == false) {
+                                            if(this.cours[i].isCancelled == true) {
+                                                this.cours.splice(i, 1)
+                                                i--
+                                                j--
+                                            } else if (this.cours[j].isCancelled == true) {
                                                 this.cours.splice(j, 1)
-                                            j--
+                                                j--
+                                                i--
                                             }
                                         }
                                     }
@@ -113,14 +123,35 @@
             },
             openCoursModal: function(cours) {
                 this.current = cours
+
+                // cancelled
+                let cancelled = false
+                if(cours.status == "Cours annulé" || cours.status == "Prof. absent" || cours.status == "Classe absente" || cours.status == "Prof./pers. absent" || cours.status == "Conseil de classe" || cours.status == "Reporté" || cours.status == "Sortie pédagogique") {
+                    cancelled = true
+                }
+
+                // get time
+                let fromTime = new Date(cours.from)
+                let toTime = new Date(cours.to)
+
+                if (fromTime.getTimezoneOffset() == -120) {
+                    fromTime.setHours(fromTime.getHours() - 2)
+                    toTime.setHours(toTime.getHours() - 2)
+                } else if (fromTime.getTimezoneOffset() == -60) {
+                    fromTime.setHours(fromTime.getHours() - 1)
+                    toTime.setHours(toTime.getHours() - 1)
+                }
+
                 this.$vfm.show("coursModal", {
                     subject: cours.subject,
                     teacher: cours.teacher,
                     room: cours.room,
-                    from: new Date(cours.from).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-                    to: new Date(cours.to).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                    from: fromTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    to: toTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     color: cours.color,
-                    status: cours.status || "Se déroule normalement"
+                    hasStatus: cours.status != null,
+                    isCancelled: cours.isCancelled || cancelled,
+                    status: cours.status
                 })
 
                 let modal = this.$refs.modal
@@ -137,8 +168,13 @@
                 let to = new Date(this.current.to)
 
                 // timzeone fix
-                from.setHours(from.getHours() - 1)
-                to.setHours(to.getHours() - 1)
+                if (from.getTimezoneOffset() == -120) {
+                    from.setHours(from.getHours() - 2)
+                    to.setHours(to.getHours() - 2)
+                } else if (from.getTimezoneOffset() == -60) {
+                    from.setHours(from.getHours() - 1)
+                    to.setHours(to.getHours() - 1)
+                }
 
                 calendar.createEvent({
                     start: from,
@@ -273,6 +309,16 @@
                         <small>{{params.teacher}} - {{params.room}}</small>
                     </div>
                     <div class="modal-content">
+                        <div class="modal-content-item" v-if="!params.isCancelled" v-wave>
+                            <Clock />
+                            <p>De {{ params.from }} à {{ params.to }}</p>
+                        </div>
+                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" v-wave>
+                            <Info v-if="!params.isCancelled" />
+                            <AlertTriangle v-else />
+                            <p v-if="!params.isCancelled">Ce cours a été modifié ({{ params.status }})</p>
+                            <p v-else>Ce cours n'est pas maintenu</p>
+                        </div>
                         <div class="modal-content-item" v-wave v-on:click="addCurrentToCalendar">
                             <CalendarPlus />
                             <p>Ajouter au calendrier</p>
@@ -331,6 +377,21 @@
         border-bottom: 1px solid var(--border);
         margin-bottom: 12px;
         margin-top: 24px;
+    }
+
+    .modal-content-item.ok {
+        color: #4791FF !important;
+    }
+    .modal-content-item.ok p {
+        color: #4791FF !important;
+        white-space: inherit;
+    }
+
+    .modal-content-item.red {
+        color: #F13232 !important;
+    }
+    .modal-content-item.red p {
+        color: #F13232 !important;
     }
 
     .categoryTitle.next {

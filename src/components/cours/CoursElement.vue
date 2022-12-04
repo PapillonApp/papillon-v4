@@ -77,7 +77,11 @@
             let time = new Date(this.time)
             
             // correct timezone
-            time.setHours(time.getHours() - 1)
+            if (time.getTimezoneOffset() == -120) {
+                time.setHours(time.getHours() - 2)
+            } else if (time.getTimezoneOffset() == -60) {
+                time.setHours(time.getHours() - 1)
+            }
 
             // timestamp to time
             this.timeString = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
@@ -100,13 +104,18 @@
                 finalColor = baseColors.random().hex
             }
 
+            // punishment
+            if (this.name.includes("Retenue")) {
+                finalColor = '#ff5050'
+            }
+
             this.$el.style.setProperty('--color', finalColor)
 
             // index
             this.$el.style.setProperty('--index', this.index)
 
             // cancelled
-            if(this.status == "Cours annulé" || this.status == "Prof. absent") {
+            if(this.status == "Cours annulé" || this.status == "Prof. absent" || this.status == "Classe absente" || this.status == "Prof./pers. absent" || this.status == "Conseil de classe" || this.status == "Reporté" || this.status == "Sortie pédagogique") {
                 this.cancelled = true
                 this.hasStatus = false
 

@@ -42,16 +42,15 @@ body:
   - type: input
     attributes:
       label: Version
-      placeholder: "3.7.2"
+      placeholder: "4.0.0"
     validations:
       required: true
   - type: dropdown
     attributes:
       label: Environnement
       options:
-        - PWA Dev (app.pronote.plus)
-        - PWA Stable (v3.pronote.plus)
-        - Androïd APK
+        - PWA Dev (dev.pronote.plus)
+        - PWA Stable (v4.pronote.plus)
         - iOS Profil d'installation
     validations:
       required: true
