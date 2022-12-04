@@ -196,6 +196,11 @@
       "url": "cas.monbureaunumerique.fr"
     },
     {
+      "name": "ENT Auvergne Rhone Alpes via EduConnect",
+      "cas": "auvergnerhonealpes-educonnect",
+      "url": "cas.ent.auvergnerhonealpes.fr"
+    },
+    {
       "name": "Pas d'ENT",
       "cas": "none",
       "url": "index-education.net"
