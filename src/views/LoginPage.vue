@@ -66,19 +66,33 @@
                             window.location.href = '/'
                         }
                         else {
-                            // get error from dictionnary
-                            let error = API_LOGIN_ERRORS[data.message]
-                            // show error
-                            Toastify({
-                                text: error.message,
-                                className: "notification",
-                                gravity: "bottom"
-                            }).showToast();
+                            if(data.message) {
+                                // get error from dictionnary
+                                let error = API_LOGIN_ERRORS[data.message]
+                                // show error
+                                Toastify({
+                                    text: error.message,
+                                    className: "notification error",
+                                    gravity: "bottom"
+                                }).showToast();
+                            }
+                            else {
+                                // show error
+                                Toastify({
+                                    text: "Identifiants incorrects.",
+                                    className: "notification error",
+                                    gravity: "bottom"
+                                }).showToast();
+                            }
                         }
 
                     })
                     .catch((error) => {
-                        console.log(error)
+                        Toastify({
+                                text: error,
+                                className: "notification error",
+                                gravity: "bottom"
+                            }).showToast();
                     })
             }
         },
@@ -143,6 +157,10 @@
 </template>
 
 <style scoped>
+    #content {
+        height: 100%;
+    }
+
     .loginBtn {
         margin-top: 10px;
         padding: 13px 22px;
