@@ -9,7 +9,7 @@
     import swipeDetect from 'swipe-detect';
 
     import NoItem from '@/components/main/NoItem.vue';
-    import { CalendarOff, ServerCrash, CalendarPlus, AlertTriangle, Info } from 'lucide-vue-next';
+    import { CalendarOff, ServerCrash, CalendarPlus, AlertTriangle, Info, Clock } from 'lucide-vue-next';
 
     import ical from 'ical-generator';
 
@@ -30,7 +30,8 @@
             ServerCrash,
             CalendarPlus,
             Info,
-            AlertTriangle
+            AlertTriangle,
+            Clock
         },
         data() {
             return {
@@ -122,12 +123,18 @@
                     cancelled = true
                 }
 
+                // get time
+                let fromTime = new Date(cours.from)
+                fromTime.setHours(fromTime.getHours() - 1)
+                let toTime = new Date(cours.to)
+                toTime.setHours(toTime.getHours() - 1)
+
                 this.$vfm.show("coursModal", {
                     subject: cours.subject,
                     teacher: cours.teacher,
                     room: cours.room,
-                    from: new Date(cours.from).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
-                    to: new Date(cours.to).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+                    from: fromTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    to: toTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     color: cours.color,
                     hasStatus: cours.status != null,
                     isCancelled: cours.isCancelled || cancelled,
@@ -247,7 +254,11 @@
                         <small>{{params.teacher}} - {{params.room}}</small>
                     </div>
                     <div class="modal-content">
-                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" >
+                        <div class="modal-content-item" v-if="!params.isCancelled" v-wave>
+                            <Clock />
+                            <p>De {{ params.from }} à {{ params.to }}</p>
+                        </div>
+                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" v-wave>
                             <Info v-if="!params.isCancelled" />
                             <AlertTriangle v-else />
                             <p v-if="!params.isCancelled">Ce cours a été modifié ({{ params.status }})</p>
