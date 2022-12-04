@@ -328,7 +328,8 @@
         color: #4791FF !important;
     }
     .modal-content-item.ok p {
-            color: #4791FF !important;
+        color: #4791FF !important;
+        white-space: inherit;
     }
 
     .modal-content-item.red {
