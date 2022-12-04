@@ -159,7 +159,7 @@
             <img src="/retrospective.svg" />
         </div>
 
-        <MainCategory title="paramètres"/>
+        <MainCategory title="Paramètres"/>
 
         <div class="setting">
             <div class="settingName">
@@ -178,14 +178,14 @@
             </div>
             <div class="settingValue">
                 <select id="brandFont">
-                    <option value="Papillon">Papillon (Défaut)</option>
+                    <option value="Open Sans">Open Sans (Défaut)</option>
                     <option value="system-ui">Système</option>
-                    <option value="Open Sans">Open Sans</option>
+                    <option value="Manjari">Manjari</option>
                     <option value="Lora">Lora</option>
                     <option value="Barlow">Barlow</option>
                     <option value="Indie Flower">Indie Flower</option>
                     <option value="Exo 2">Exo 2</option>
-                    <option value="IBM Plex Mono">IBM Plex Mono</option>
+                    <option value="IBM Plex Sans">IBM Plex Sans</option>
                 </select>
             </div>
         </div>
@@ -212,7 +212,7 @@
             </div>
         </div>
 
-        <MainCategory title="options avancées"/>
+        <MainCategory title="Options avancées"/>
 
         <!-- reset token -->
         <MainItem v-on:click="resetsettings">

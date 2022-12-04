@@ -27,6 +27,11 @@
                 type: String,
                 required: false
             },
+            closest: {
+                type: Boolean,
+                required: false,
+                default: false
+            },
             index: {
                 type: Number,
                 required: false,
@@ -117,13 +122,20 @@
                 // add class to this.$el
                 this.$el.classList.add('cancelled')
             }
+
+            // closest
+            setInterval(() => {
+                if(this.closest) {
+                    this.$el.classList.add('closest')
+                }
+            }, 10);
         }
     };
  
 </script>
 
 <template>
-    <div class="cours" v-wave>
+    <div class="cours">
         <div class="cours-color"></div>
         <div class="cours-data">
             <small>
@@ -144,25 +156,31 @@
         order: 0;
         flex-grow: 0;
 
-        background: var(--element);
         color: var(--text);
-        box-shadow: var(--shadow) !important;
 
-        border-radius: 10px;
+        border-radius: 11px;
 
         display: flex;
-        overflow: hidden;
+        overflow: visible;
 
         opacity: 0%;
         animation: TabNameStringUp 0.3s cubic-bezier(0,0,0,1) forwards;
         animation-delay: calc(var(--index) * 0.05s);
+        margin-bottom: 3px;
+        margin-top: 3px;
+    }
+
+    .cours.closest {
+        /* border: 1px solid var(--border); */
+        background: var(--element);
+        box-shadow: var(--shadow);
+        padding: 7px 10px;
+        margin-bottom: 0px;
+        margin-top: 0px;
     }
 
     .cours.cancelled {
-        background: var(--background);
-        border: 1px solid var(--element);
         --color: #f1323255 !important;
-        box-shadow: none !important;
     }
 
     .cours * {
@@ -171,32 +189,33 @@
     }
 
     .cours-color {
-        width: 6px;
+        width: 4px;
         background: var(--color);
-        border-radius: 10px 0px 0px 10px;
+        border-radius: 10px;
     }
 
     .cours-data {
-        padding: 11px;
-        padding-left: 17px;
+        padding: 0px;
+        padding-bottom: 0px;
+        padding-left: 13px;
     }
 
     .cours-data small {
         font-size: 15px;
-        line-height: 15px;
         letter-spacing: 0.005em;
         text-align: left;
-        margin-bottom: 5px;
         color: var(--text-light);
     }
 
     .cours-data h3 {
         font-size: 20px;
         line-height: 20px;
+        font-weight: 600;
         letter-spacing: 0.005em;
         text-align: left;
         color: var(--color);
         margin-bottom: 15px;
+        margin-top: 2px;
     }
 
     .cours-data p {
@@ -206,6 +225,7 @@
         text-align: left;
         opacity: 0.5;
         text-transform: none;
+        margin-bottom: 5px;
     }
 
     .cours .status {

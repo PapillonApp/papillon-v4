@@ -133,9 +133,11 @@
     #TabNameString {
         font-size: 18px;
         line-height: 18px;
-        letter-spacing: 0.005em;
         text-align: left;
-        transform: translateY(1px);
+
+        letter-spacing: -0.015em;
+
+        margin-top: -2px;
 
         font-weight: 600;
 
@@ -203,7 +205,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
         padding: 7px 6px !important;
         gap: 4px;
         border-radius: 8px;

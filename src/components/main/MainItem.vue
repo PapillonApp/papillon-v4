@@ -15,7 +15,7 @@
 <style>
     .mainItem {
         display: flex;
-        padding: 10px 20px;
+        padding: 8px 20px;
         border-radius: 10px;
         background-color: var(--element);
         color: var(--text);
@@ -24,6 +24,7 @@
         margin-top: 12px;
         justify-content: flex-start;
         width: calc(100% - 40px);
+        padding-bottom: 12px;
 
         box-shadow: var(--shadow);
     }

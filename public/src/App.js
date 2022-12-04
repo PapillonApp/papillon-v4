@@ -186,7 +186,6 @@ const baseColors = [
     {"hex": "#C567FF","name": "Purple",},
     {"hex": "#4791FF","name": "Blue",},
     {"hex": "#FF6A3A","name": "Orange",},
-    {"hex": "#FFB629","name": "Mustard",},
     {"hex": "#30B800","name": "Green",},
     {"hex": "#F422AD","name": "Pink",},
     {"hex": "#AF5757","name": "Red",},
