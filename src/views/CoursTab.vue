@@ -134,8 +134,6 @@
                     status: cours.status
                 })
 
-                console.log(cours)
-
                 let modal = this.$refs.modal
                 swipeDetect(modal, (swipeDirection) => {
                     if(swipeDirection == "down") {
@@ -249,7 +247,7 @@
                         <small>{{params.teacher}} - {{params.room}}</small>
                     </div>
                     <div class="modal-content">
-                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" v-wave="false" >
+                        <div class="modal-content-item" :class="{ red: params.isCancelled, ok: !params.isCancelled }" v-if="params.hasStatus" >
                             <Info v-if="!params.isCancelled" />
                             <AlertTriangle v-else />
                             <p v-if="!params.isCancelled">Ce cours a été modifié ({{ params.status }})</p>
