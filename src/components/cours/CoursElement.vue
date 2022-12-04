@@ -74,7 +74,7 @@
             // correct timezone
             if (time.getTimezoneOffset() == -120) {
                 time.setHours(time.getHours() - 2)
-            } else if (fromTime.getTimezoneOffset() == -60) {
+            } else if (time.getTimezoneOffset() == -60) {
                 time.setHours(time.getHours() - 1)
             }
 

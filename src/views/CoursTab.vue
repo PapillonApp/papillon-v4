@@ -170,7 +170,7 @@
                 if (from.getTimezoneOffset() == -120) {
                     from.setHours(from.getHours() - 2)
                     to.setHours(to.getHours() - 2)
-                } else if (fromTime.getTimezoneOffset() == -60) {
+                } else if (from.getTimezoneOffset() == -60) {
                     from.setHours(from.getHours() - 1)
                     to.setHours(to.getHours() - 1)
                 }
