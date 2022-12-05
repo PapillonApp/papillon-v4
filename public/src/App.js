@@ -6,6 +6,7 @@ const APP_VERSION = "4.1b.2";
 let waitingForToken = false;
 
 /* error handling */
+// liste des messages d'erreur et leurs interprétations
 const API_LOGIN_ERRORS = {
     "Missing 'url', or 'username', or 'password', or header 'Content-Type: application/json'": {
         "code": 1,
@@ -18,24 +19,31 @@ const API_LOGIN_ERRORS = {
 }
 
 /* sw */
+// permet la consultation de l'app hors ligne
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js');
 };
 
 /* global functions */
+// (inutile depuis la nouvelle api v2)
 function constructAuthURL(authData) {
     return API + "/auth?url=" + authData.url + "&username=" + authData.username + "&password=" + authData.password + "&cas=" + authData.cas;
 }
 
 /* time management */
+// ajoute les zéros devant les nombres inférieurs à 10
 function lz(n) {
     return n < 10 ? "0" + n : n;
 }
 
+// rn est la variable qui conserve la date actuelle
 let rn = new Date();
-let rnToday = new Date();
+// rnToday reste la date du jour
+const rnToday = new Date();
+// rnString est la variable qui conserve la date actuelle sous forme de chaîne de caractères lisible par l'API
 let rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
 
+/* Navigation dans la date */
 /* next date */
 document.addEventListener('nextDate', function() {
     rn.setDate(rn.getDate() + 1);
@@ -52,12 +60,14 @@ document.addEventListener('prevDate', function() {
 
 
 /* check if logged in */
+// garde l'état d'authentification
 let isAuthenticated = false;
 if (localStorage.getItem('loginData') !== null) {
     isAuthenticated = true;
 }
 
-/* dev */
+/* dev -> commentaires */
+// (presque inutile maintenant)
 function logChange(event) {
     console.warn("%c" + event, `
         color: #00B562;
@@ -73,6 +83,7 @@ function logError(event) {
 }
 
 /* classic fetch */
+// permettait de contacter l'API (inutile avec l'API v2)
 function fetchPapillon(endpoint, params) {
     // ajoute les paramètres à l'URL
     let baseURL = API + "/" + endpoint + "?";
@@ -90,6 +101,7 @@ function fetchPapillon(endpoint, params) {
 }
 
 /* send GraphQL query */
+// envoie des requêtes GraphQL à l'API v2
 function sendQL(schema) {
     let url = API + "/graphql?query=" + schema + "&token=" + localStorage.getItem('token');
 
@@ -116,6 +128,7 @@ function sendQL(schema) {
 }
 
 /* empty service worker cache */
+// permet de réinitialiser le cache du service worker
 function emptyCache(automatic) {
     caches.keys().then(function(names) {
         for (let name of names)
@@ -135,6 +148,7 @@ function emptyCache(automatic) {
 }
 
 /* get basic user data */
+// récupe les données de l'utilisateur depuis l'API v2
 function getData() {
     if(isAuthenticated) {
         let user_request = `{
@@ -162,8 +176,10 @@ function getData() {
     }
 }
 
+// execute getData() au chargement de la page
 getData();
 
+// si on est connecté, on récupère les données de l'utilisateur
 document.addEventListener('updatedToken', () => {
     getData()
 })
@@ -173,6 +189,7 @@ Array.prototype.random = function() {
     return this[Math.floor(Math.random() * this.length)];
 }
 
+// liste des couleurs disponibles pour les cours
 const baseColors = [
     {"hex": "#898989","name": "Grey",},
     {"hex": "#E1006C","name": "Pink",},
@@ -193,6 +210,7 @@ const baseColors = [
     {"hex": "#8CBC4F","name": "Lime",}
 ]
 
+// convertit un hex en rgb
 function hexToRgb(hex) {
     var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
@@ -248,7 +266,7 @@ window.addEventListener('online', (event) => {
     }).showToast();
 });
 
-/* auto re-login */
+/* auto re-login if disconnected */
 let tokenRefreshedRecently = false;
 function refreshToken() {
     if(!waitingForToken) {
