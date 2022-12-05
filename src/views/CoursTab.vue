@@ -101,8 +101,6 @@
                                 this.initiatedSwipe = false;
                                 this.initiatedSwipeLeft = false;
 
-                                console.log(this.cours)
-
                                 // remove duplicates
                                 for (let i = 0; i < this.cours.length; i++) {
                                     for (let j = i + 1; j < this.cours.length; j++) {
