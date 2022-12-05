@@ -169,7 +169,6 @@ function getData() {
         
         // envoie la requête et retourne la réponse
         sendQL(user_request).then((response) => {
-            console.log(response);
             localStorage.setItem('userData', JSON.stringify(response.data.user));
             document.dispatchEvent(new CustomEvent('userDataUpdated'));
         });
