@@ -160,6 +160,6 @@
     }
 
     .htmlContent {
-        zoom: 1.3;
+        zoom: 1.2;
     }
 </style>
