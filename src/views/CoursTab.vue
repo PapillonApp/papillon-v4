@@ -280,6 +280,9 @@
                 // check if rn is today
                 if(this.currentDate.getDate() == rnToday.getDate()) {
                     for (let i = 0; i < this.cours.length; i++) {
+                        if (closestCours == null) {
+                            break;
+                        }
                         if (this.cours[i].from == closestCours.from) {
                             this.cours[i].closestCours = true
                         }
@@ -338,7 +341,7 @@
             </NoItem>
 
             <div class="list">
-                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :time="cours.from" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color" :closest="cours.closestCours"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.from" :to="cours.to" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color" :closest="cours.closestCours"/>
             </div>
 
             <div v-if="hasCours" class="list gr2">
