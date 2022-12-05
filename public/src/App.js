@@ -33,6 +33,7 @@ function lz(n) {
 }
 
 let rn = new Date();
+let rnToday = new Date();
 let rnString = rn.getFullYear() + "-" + lz(rn.getMonth() + 1) + "-" + lz(rn.getDate());
 
 /* next date */

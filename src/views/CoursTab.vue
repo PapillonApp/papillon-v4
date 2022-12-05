@@ -43,6 +43,7 @@
                 error: "",
                 showCoursModal: false,
                 current: [],
+                currentDate: new Date(),
                 lastCoursTime: null,
                 initiatedSwipe : false,
                 initiatedSwipeLeft : false,
@@ -85,6 +86,7 @@
                         this.loading = false
                         this.inLoading = false
                         this.cours = []
+                        this.currentDate = rn;
 
                         // apply data
                         setTimeout(() => {
@@ -278,7 +280,7 @@
 
                 // add closestCours = true to the closest cours and false to the others
                 // check if rn is today
-                if(rn == new Date()) {
+                if(this.currentDate.getDate() == rnToday.getDate()) {
                     for (let i = 0; i < this.cours.length; i++) {
                         if (this.cours[i].from == closestCours.from) {
                             this.cours[i].closestCours = true
