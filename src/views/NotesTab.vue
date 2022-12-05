@@ -104,7 +104,7 @@
 
                     // sort all marks by subject with latest mark
                     marks.sort((a, b) => {
-                        return new Date(b.marks[0].date) - new Date(a.marks[0].date);
+                        return new Date(b.marks[0]?.date) - new Date(a.marks[0]?.date);
                     })
 
                     this.notes = marks;
