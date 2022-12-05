@@ -95,13 +95,17 @@
                         this.hasNotes = true;
                     }
 
-                    // sort by latest mark date
-                    marks.sort((a, b) => {
-                        let aDate = new Date(a.marks[a.marks.length - 1]?.date);
-                        let bDate = new Date(b.marks[b.marks.length - 1]?.date);
+                    // sort every subject by latest mark
+                    marks.forEach((subject) => {
+                        subject.marks.sort((a, b) => {
+                            return new Date(b.date) - new Date(a.date);
+                        })
+                    })
 
-                        return bDate - aDate;
-                    });
+                    // sort all marks by subject with latest mark
+                    marks.sort((a, b) => {
+                        return new Date(b.marks[0].date) - new Date(a.marks[0].date);
+                    })
 
                     this.notes = marks;
 
