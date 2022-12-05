@@ -2,7 +2,11 @@
     // @ts-nocheck
     export default {
         props: {
-            time: {
+            from: {
+                type: Number,
+                required: true
+            },
+            to: {
                 type: Number,
                 required: true
             },
@@ -47,9 +51,12 @@
             }
         },
         methods: {
-            getWait(time) {
-                let wait = time.getTime() - new Date().getTime()
+            getWait(begin, end) {
+                let wait = begin.getTime() - new Date().getTime()
                 let waitMinutes = Math.floor(wait / 60000)
+
+                let courseLenght = end.getTime() - begin.getTime()
+                let courseLenghtMinutes = Math.floor(courseLenght / 60000)
 
                 let waitString = "dans " + waitMinutes + " min"
 
@@ -57,8 +64,13 @@
                     waitString = "maintenant"
                 }
 
+                // Affiche "en cours" si le cours a commencé et qu'il n'est pas fini
+                // Si le cours est fini, affiche "terminé" (en fonction de courseLenghtMinutes)
                 if (waitMinutes < -2) {
-                    waitString = "en cours"
+                    waitString = 'en cours'
+                    if (waitMinutes < -courseLenghtMinutes) {
+                        waitString = 'terminé'
+                    }
                 }
 
                 if (waitMinutes > 60) {
@@ -69,31 +81,30 @@
                     waitString = "dans " + Math.floor(waitMinutes / 1440) + " jour(s)"
                 }
 
-                if (waitMinutes < -50) {
-                    waitString = "terminé"
-                }
-
                 return waitString;
             }
         },
         mounted() {
             // time
-            let time = new Date(this.time)
+            let begin = new Date(this.from)
+            let end = new Date(this.to)
             
             // correct timezone
-            if (time.getTimezoneOffset() == -120) {
-                time.setHours(time.getHours() - 2)
-            } else if (time.getTimezoneOffset() == -60) {
-                time.setHours(time.getHours() - 1)
+            if (begin.getTimezoneOffset() == -120) {
+                begin.setHours(begin.getHours() - 2)
+                end.setHours(end.getHours() - 2)
+            } else if (begin.getTimezoneOffset() == -60) {
+                begin.setHours(begin.getHours() - 1)
+                end.setHours(end.getHours() - 1)
             }
 
             // timestamp to time
-            this.timeString = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+            this.timeString = begin.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 
             // wait
-            this.waitTime = this.getWait(time)
+            this.waitTime = this.getWait(begin, end)
             setInterval(() => {
-                this.waitTime = this.getWait(time)
+                this.waitTime = this.getWait(begin, end)
             }, 1000)
 
             // color
