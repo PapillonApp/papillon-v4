@@ -186,6 +186,7 @@
                     <option value="Indie Flower">Indie Flower</option>
                     <option value="Exo 2">Exo 2</option>
                     <option value="IBM Plex Sans">IBM Plex Sans</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
                 </select>
             </div>
         </div>

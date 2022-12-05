@@ -158,4 +158,8 @@
         line-height: 22px;
         text-transform: none;
     }
+
+    .htmlContent {
+        zoom: 1.3;
+    }
 </style>

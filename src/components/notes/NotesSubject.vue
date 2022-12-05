@@ -22,7 +22,7 @@
         },
         data() {
             return {
-                finalAverage: parseInt(this.average).toFixed(2),
+                finalAverage: parseFloat(this.average).toFixed(2),
             }
         },  
         mounted() {

@@ -54,7 +54,7 @@
         },
         mounted() {
             this.mark20 = ((this.mark / this.scale) * 20).toFixed(1)
-            this.finalMark = (parseInt(this.mark).toFixed(2)).toString()
+            this.finalMark = (parseFloat(this.mark).toFixed(2)).toString()
 
             if(this.sur20) {
                 this.finalMark = this.mark20
@@ -69,9 +69,9 @@
             this.finalMin = (((parseInt)(this.min) / this.scale) * 20).toFixed(2).toString()
             this.finalMax = (((parseInt)(this.max) / this.scale) * 20).toFixed(2).toString() */
 
-            this.finalAverage = parseInt(this.average).toFixed(2).toString()
-            this.finalMin = parseInt(this.min).toFixed(2).toString()
-            this.finalMax = parseInt(this.max).toFixed(2).toString()
+            this.finalAverage = parseFloat(this.average).toFixed(2).toString()
+            this.finalMin = parseFloat(this.min).toFixed(2).toString()
+            this.finalMax = parseFloat(this.max).toFixed(2).toString()
 
             this.finalDescription = this.description || "Sans description"
 
