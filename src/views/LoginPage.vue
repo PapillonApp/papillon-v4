@@ -124,18 +124,18 @@
 
 <template>
     <RouterLink to="/setup">
-        <TabName name="bienvenue dans Pronote+" />
+        <TabName name="Bienvenue dans Pronote+" />
     </RouterLink>
     <div id="content">
-        <h1>connectez-vous à Pronote ou à un ENT</h1>
-        <h4>utilisez vos identifiants Pronote ou ceux de votre ENT/EduConnect pour vous connecter.</h4>
+        <h1>Connectez-vous à Pronote ou à un ENT</h1>
+        <h4>Utilisez vos identifiants Pronote ou ceux de votre ENT/EduConnect pour vous connecter.</h4>
         <div id="ents">
             <div class="ent-list"></div>
         </div>
 
         <div class="login">
-            <input v-model="username" v-wave class="input" type="text" placeholder="identifiant" />
-            <input v-model="password" v-wave class="input" type="password" placeholder="mot de passe" />
+            <input v-model="username" v-wave class="input" type="text" placeholder="Identifiant" />
+            <input v-model="password" v-wave class="input" type="password" placeholder="Mot de passe" />
 
             <select v-model="ent" v-wave class="select">
                 <option value="undefined" disabled>Choisissez votre établissement</option>
@@ -146,13 +146,13 @@
             <input v-model="ent_custom" v-wave class="input" type="text" placeholder="URL pronote personnalisée" v-if="ent == 'custom'"  />
             
             <select v-model="cas" v-wave class="select">
-                <option value="undefined" selected="true" disabled hidden>choisissez votre ENT</option>
+                <option value="undefined" selected="true" disabled hidden>Choisissez votre ENT</option>
                 <option value="none">Aucun</option>
                 <option v-for="ent in cas_list" :value="ent.cas" v-bind:key="ent.cas">{{ ent.name }}</option>
             </select>
         </div>
 
-        <button v-wave class="loginBtn" v-on:click="login">se connecter</button>
+        <button v-wave class="loginBtn" v-on:click="login">Se connecter</button>
     </div>
 </template>
 
