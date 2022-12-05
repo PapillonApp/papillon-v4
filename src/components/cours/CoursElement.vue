@@ -53,12 +53,12 @@
 
                 let waitString = "dans " + waitMinutes + " min"
 
-                if (waitMinutes < 5) {
+                if (waitMinutes < 2) {
                     waitString = "maintenant"
                 }
 
-                if (waitMinutes < 0) {
-                    waitString = "terminé"
+                if (waitMinutes < -2) {
+                    waitString = "en cours"
                 }
 
                 if (waitMinutes > 60) {
@@ -67,6 +67,10 @@
 
                 if (Math.floor(waitMinutes / 60) > 24) {
                     waitString = "dans " + Math.floor(waitMinutes / 1440) + " jour(s)"
+                }
+
+                if (waitMinutes < -50) {
+                    waitString = "terminé"
                 }
 
                 return waitString;
