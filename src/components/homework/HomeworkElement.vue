@@ -119,8 +119,9 @@
     }
 
     .hwdata {
-        padding: 12px 18px;
+        padding: 10px 18px;
         width: 100%;
+        padding-bottom: 12px;
     }
 
     .hwcolor {
