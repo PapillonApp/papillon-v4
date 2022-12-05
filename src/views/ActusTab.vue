@@ -159,7 +159,7 @@
         text-transform: none;
     }
 
-    .htmlContent {
+    .modal-content-header {
         zoom: 1.2;
     }
 </style>
