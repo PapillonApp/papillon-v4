@@ -280,7 +280,7 @@
                 // check if rn is today
                 if(this.currentDate.getDate() == rnToday.getDate()) {
                     for (let i = 0; i < this.cours.length; i++) {
-                        if (closestCours == null) {
+                        if (closestCours === null) {
                             break;
                         }
                         if (this.cours[i].from == closestCours.from) {
