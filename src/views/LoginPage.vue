@@ -4,7 +4,7 @@
     import axios from 'axios'
     import cas_list from '/src/ent_list.json'
     import etab_list from '/src/etab_list.json'
-import { json } from 'stream/consumers'
+
     export default {
         name: 'LoginPage',
         components: {
