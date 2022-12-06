@@ -1,7 +1,7 @@
 /* global vars */
-const API = "https://api.pronote.plus";
-const API_VERSION = "v2";
-const APP_VERSION = "4.1b.2";
+const API = "https://python.api.just-tryon.tech";
+const API_VERSION = "v3";
+const APP_VERSION = "4.1b.3";
 
 let waitingForToken = false;
 
@@ -151,27 +151,17 @@ function emptyCache(automatic) {
 // récupe les données de l'utilisateur depuis l'API v2
 function getData() {
     if(isAuthenticated) {
-        let user_request = `{
-            user {
-                name,
-                avatar,
-                studentClass {
-                    name
-                },
-                establishment {
-                    name
-                },
-                groups {
-                    name
-                }
-            }
-        }`;
-        
-        // envoie la requête et retourne la réponse
-        sendQL(user_request).then((response) => {
-            localStorage.setItem('userData', JSON.stringify(response.data.user));
-            document.dispatchEvent(new CustomEvent('userDataUpdated'));
-        });
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+          
+        fetch("https://python.api.just-tryon.tech/user?token=PWAqqQH4lWDqcPcnbGLGOA", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                localStorage.setItem('userData', JSON.stringify(result));
+                document.dispatchEvent(new CustomEvent('userDataUpdated'));
+            })
     }
 }
 
@@ -271,53 +261,51 @@ function refreshToken() {
     if(!waitingForToken) {
         waitingForToken = true;
         if(localStorage.getItem('loginData') != null) {
-            // get saved credentials
-            let loginData = JSON.parse(localStorage.getItem('loginData'))
-            
-            // auto login
-            Toastify({
-                text: "Reconnexion à Pronote en cours...",
-                className: "notification",
-                gravity: "bottom",
-                position: "center",
-            }).showToast();
+            let loginData = JSON.parse(localStorage.getItem('loginData'));
+            var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-            // send POST to API/auth/login
-            fetch(API + "/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: loginData.username,
-                    password: loginData.password,
-                    url: loginData.url,
-                    cas: loginData.cas,
-                }),
-            }).then((response) => response.json()).then((data) => {
-                if (data.token != undefined) {
-                    localStorage.setItem('token', data.token);
-                    // broadcast event
-                    let event = new CustomEvent('updatedToken', {detail: data.token});
-                    document.dispatchEvent(event);
-                    waitingForToken = false;
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("url", loginData.url);
+                urlencoded.append("cas", loginData.cas);
+                urlencoded.append("username", loginData.username);
+                urlencoded.append("password", loginData.password);
 
-                    Toastify({
-                        text: "La reconnextion à Pronote a réussi.",
-                        className: "notification success",
-                        gravity: "bottom",
-                        position: "center",
-                    }).showToast();
-                }
-                else {
-                    Toastify({
-                        text: "La reconnextion a échoué. Veuillez réessayer ultérieurement.",
-                        className: "notification error",
-                        gravity: "bottom",
-                        position: "center",
-                    }).showToast();
-                }
-            });
+                var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+                };
+
+                fetch("https://python.api.just-tryon.tech/generatetoken", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if(result.token != false) {
+                        // save credentials
+                        localStorage.setItem('token', result.token)
+                        let event = new CustomEvent('updatedToken', {detail: result.token});
+                        document.dispatchEvent(event);
+                        waitingForToken = false;
+                    } else {
+                        if(result.error.split('(')[0] == "HTTPSConnectionPool") {
+                            Toastify({
+                                text: "L'établissement suivant n'existe pas sur cet ENT.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                        else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
+                            Toastify({
+                                text: "Identifiants incorrects.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                    }
+                })
         }
     }
     else {

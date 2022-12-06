@@ -128,7 +128,7 @@
                         }).showToast();
                     }else if (all_cas_same_host.length == 1) {
                         // only one CAS for this host
-                        cas = all_cas_same_host[0].cas;
+                        cas = all_cas_same_host[0].py;
                     }else if(all_cas_same_host.length > 1) {
                         // multiple CAS for this host
                         // show CAS selection
@@ -142,7 +142,7 @@
                             }).showToast();
                            return;
                        } 
-                        cas = all_cas_same_host[parseInt(nb_choices)-1].cas;
+                        cas = all_cas_same_host[parseInt(nb_choices)-1].py;
                     }
                     // TODO: Vérifier si ca fonctionne pour toutatice
                     if(url == resp && url.includes("index-education.net")) {

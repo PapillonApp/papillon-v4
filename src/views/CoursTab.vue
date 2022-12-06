@@ -63,22 +63,14 @@
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let schema = `{
-                    timetable(from: "${rnString}") {
-                        id
-                        subject,
-                        status,
-                        teacher,
-                        room,
-                        from,
-                        to,
-                        color,
-                        isCancelled
-                    }
-                }`;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
 
-                // retreive data from API
-                sendQL(schema).then((response) => {
+                fetch(API + `/timetable?dateString=${rnString}&token=${token}`, requestOptions)
+                .then(response => response.json())
+                .then(response => {
                         // reset vars
                         this.empty = false;
                         this.error = "";
@@ -90,7 +82,7 @@
 
                         // apply data
                         setTimeout(() => {
-                            this.cours = response.data.timetable
+                            this.cours = response
 
                             // check if empty
                             if(this.cours.length == 0) {
@@ -129,8 +121,8 @@
                 }
 
                 // get time
-                let fromTime = new Date(cours.from)
-                let toTime = new Date(cours.to)
+                let fromTime = new Date(cours.start)
+                let toTime = new Date(cours.end)
 
                 if (fromTime.getTimezoneOffset() == -120) {
                     fromTime.setHours(fromTime.getHours() - 2)
@@ -208,8 +200,8 @@
 
                     if(cours.isCancelled == false) {
                         calendar.createEvent({
-                            start: from,
-                            end: to,
+                            start: start,
+                            end: end,
                             summary: cours.subject,
                             description: 'Cours de ' + cours.subject + ' avec ' + cours.teacher + ' dans la salle ' + cours.room,
                             location: cours.room
@@ -338,7 +330,7 @@
             </NoItem>
 
             <div class="list">
-                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.from" :to="cours.to" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color" :closest="cours.closestCours"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.start" :to="cours.end" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.background_color" :closest="cours.closestCours"/>
             </div>
 
             <div v-if="hasCours" class="list gr2">

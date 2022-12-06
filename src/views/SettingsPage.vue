@@ -8,10 +8,10 @@
 
     let userData = JSON.parse(localStorage.getItem('userData'))
 
-    let avatar = userData.avatar;
+    let avatar = userData.profile_picture;
     let name = userData.name;
-    let establishment = userData.establishment.name;
-    let className = userData.studentClass.name;
+    let establishment = userData.establishment;
+    let className = userData.class;
 
     let firstName = name.split(' ').pop();
 
