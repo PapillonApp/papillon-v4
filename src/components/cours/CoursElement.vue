@@ -143,6 +143,9 @@
                 if(this.closest) {
                     this.$el.classList.add('closest')
                 }
+                else {
+                    this.$el.classList.remove('closest')
+                }
             }, 10);
         }
     };
