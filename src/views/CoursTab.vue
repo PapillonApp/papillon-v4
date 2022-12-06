@@ -253,7 +253,7 @@
                 let closestCoursTime = null
 
                 for (let i = 0; i < this.cours.length; i++) {
-                    let coursTime = new Date(this.cours[i].from)
+                    let coursTime = new Date(this.cours[i].start)
                     if (coursTime.getTime() > now.getTime()) {
                         if (closestCoursTime == null) {
                             closestCoursTime = coursTime
@@ -272,7 +272,7 @@
                 // check if rn is today
                 if(this.currentDate.getDate() == rnToday.getDate()) {
                     for (let i = 0; i < this.cours.length; i++) {
-                        if (this.cours[i].from == closestCours.from) {
+                        if (this.cours[i] == closestCours) {
                             this.cours[i].closestCours = true
                         }
                         else {
