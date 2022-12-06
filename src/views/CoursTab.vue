@@ -279,9 +279,6 @@
                 // add closestCours = true to the closest cours and false to the others
                 // check if rn is today
                 if(this.currentDate.getDate() == rnToday.getDate()) {
-                    if (closestCours === null) {
-                            break;
-                    }
                     for (let i = 0; i < this.cours.length; i++) {
                         if (this.cours[i].from == closestCours.from) {
                             this.cours[i].closestCours = true
