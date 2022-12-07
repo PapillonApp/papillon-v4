@@ -356,8 +356,8 @@
     }
 
     .beta {
-        background: #ecb500;
-        color: #000 !important;
+        background: var(--brand-color);
+        color: #fff !important;
     }
 
     .retrospective {
