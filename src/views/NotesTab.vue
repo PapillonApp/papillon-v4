@@ -198,13 +198,24 @@
                 // sort subject marks by date
                 this.notes.forEach(subject => {
                     subject.marks.sort((a, b) => {
-                        return b.date - a.date;
+                        let bDate = new Date(a.date);
+                        let aDate = new Date(b.date);
+
+                        return bDate - aDate;
                     });
+                });
+
+                // invert subject marks
+                this.notes.forEach(subject => {
+                    subject.marks.reverse();
                 });
 
                 // sort subjects by date
                 this.notes.sort((a, b) => {
-                    return b.marks[0].date - a.marks[0].date;
+                    let bDate = new Date(a.marks[0].date);
+                    let aDate = new Date(b.marks[0].date);
+
+                    return bDate - aDate;
                 });
 
                 console.log(this.notes);
