@@ -4,14 +4,14 @@
     import MainItem from '../components/main/MainItem.vue'
     import MainCategory from '../components/main/MainCategory.vue'
 
-    import { RefreshCcw, LogOut, Bug, Trash2, Cake, Delete } from 'lucide-vue-next';
+    import { RefreshCcw, LogOut, Bug, Trash2, Cake, Delete, FileClock } from 'lucide-vue-next';
 
     let userData = JSON.parse(localStorage.getItem('userData'))
 
-    let avatar = userData.avatar;
+    let avatar = userData.profile_picture;
     let name = userData.name;
-    let establishment = userData.establishment.name;
-    let className = userData.studentClass.name;
+    let establishment = userData.establishment;
+    let className = userData.class;
 
     let firstName = name.split(' ').pop();
 
@@ -25,7 +25,8 @@
             Bug,
             Trash2,
             Cake,
-            Delete
+            Delete,
+            FileClock
         },
         methods: {
             logout() {
@@ -53,7 +54,11 @@
                 localStorage.removeItem('textTransform')
                 localStorage.removeItem('sur20')
                 location.reload()
-            }
+            },
+            showLogs() {
+                // redirect to "/logs"
+                this.$router.push({ name: 'logs' })
+            },
         },
         data() {
             return {
@@ -141,7 +146,7 @@
 </script>
 
 <template>
-    <TabName name="Mon compte" logged />
+    <TabName name="Mon compte" logged back />
     <div id="content">
         
         <div id="profile">
@@ -247,6 +252,17 @@
             </template>
         </MainItem>
 
+        <!-- log -->
+        <MainItem v-on:click="showLogs">
+            <template #icon>
+                <FileClock />
+            </template>
+            <template #content>
+                <h3>Voir les logs</h3>
+                <p>Permet de consulter l'historique de la console du navigateur même depuis l'application mobile.</p>
+            </template>
+        </MainItem>
+
         <!-- empty cache -->
         <MainItem v-on:click="emptyCache">
             <template #icon>
@@ -340,8 +356,8 @@
     }
 
     .beta {
-        background: #ecb500;
-        color: #000 !important;
+        background: var(--brand-color);
+        color: #fff !important;
     }
 
     .retrospective {

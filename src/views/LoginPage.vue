@@ -4,6 +4,7 @@
     import axios from 'axios'
     import cas_list from '/src/ent_list.json'
     import etab_list from '/src/etab_list.json'
+
     export default {
         name: 'LoginPage',
         components: {
@@ -42,58 +43,51 @@
                 }
 
                 // send login request
-                fetch(API + "/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        username: loginData.username,
-                        password: loginData.password,
-                        url: loginData.url,
-                        cas: loginData.cas,
-                    }),
-                }).then((response) => response.json()).then((data) => {
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-                        // check if token is valid
-                        if(data.token != undefined) {
-                            // save token
-                            localStorage.setItem('token', data.token)
-                            // save credentials
-                            localStorage.setItem('loginData', JSON.stringify(loginData))
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("url", loginData.url);
+                urlencoded.append("ent", loginData.cas);
+                urlencoded.append("username", loginData.username);
+                urlencoded.append("password", loginData.password);
 
-                            // redirect to home
-                            window.location.href = '/'
-                        }
-                        else {
-                            if(data.message) {
-                                // get error from dictionnary
-                                let error = API_LOGIN_ERRORS[data.message]
-                                // show error
-                                Toastify({
-                                    text: error.message,
-                                    className: "notification error",
-                                    gravity: "bottom"
-                                }).showToast();
-                            }
-                            else {
-                                // show error
-                                Toastify({
-                                    text: "Identifiants incorrects.",
-                                    className: "notification error",
-                                    gravity: "bottom"
-                                }).showToast();
-                            }
-                        }
+                var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+                };
 
-                    })
-                    .catch((error) => {
-                        Toastify({
-                                text: error,
+                fetch("https://python.api.just-tryon.tech/generatetoken", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if(result.token != false) {
+                        // save credentials
+                        localStorage.setItem('loginData', JSON.stringify(loginData))
+                        localStorage.setItem('token', result.token)
+
+                        // redirect to home
+                        location.href = '/';
+                    } else {
+                        if(result.error.split('(')[0] == "HTTPSConnectionPool") {
+                            Toastify({
+                                text: "L'établissement suivant n'existe pas sur cet ENT.",
                                 className: "notification error",
-                                gravity: "bottom"
+                                gravity: "bottom",
+                                backgroundColor: "red",
                             }).showToast();
-                    })
+                        }
+                        else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
+                            Toastify({
+                                text: "Identifiants incorrects.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                    }
+                })
             }
         },
         mounted() {

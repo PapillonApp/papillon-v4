@@ -40,30 +40,17 @@
                     this.loading = true;
                 }
 
-                // get token
-                let token = localStorage.getItem('token')
-                
-                // get marks url
-                let schema = `
-                    {
-                        infos {
-                            id,
-                            date,
-                            title,
-                            author,
-                            content,
-                            htmlContent,
-                            files {
-                                id,
-                                url
-                            }
-                        }
-                    }
-                `;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
 
-                // get marks
-                sendQL(schema).then((response) => {
-                    this.actus = response.data.infos;
+                let token = localStorage.getItem('token')
+
+                fetch(API + `/news?token=${token}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    this.actus = result;
                     this.inLoading = false;
 
                     // sort by date
@@ -78,6 +65,10 @@
                         if(item.title == null) {
                             item.title = "Sans titre";
                         }
+
+                        // get htmlcontent
+                        let htmlContent = item.html_content[0].texte.V;
+                        item.htmlContent = htmlContent;
                     });
                 });
             },
@@ -102,6 +93,10 @@
         },
         mounted() {
             this.getNews();
+
+            document.addEventListener('updatedToken', () => {
+                this.getNews()
+            })
         }
     }
 </script>
@@ -161,5 +156,14 @@
 
     .modal-content-header {
         zoom: 1.2;
+    }
+
+    .modal-content-header div {
+        font-family: var(--font-family) !important;
+    }
+
+    .htmlContent {
+        font-family: var(--font-family) !important;
+        margin-bottom: 60px;
     }
 </style>

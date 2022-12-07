@@ -23,10 +23,13 @@
                 url: localStorage.getItem('etab'),
                 cas: localStorage.getItem('cas'),
                 name: localStorage.getItem('name'),
+                inLoading: false,
             }
         },
         methods : {
             login() {
+                this.inLoading = true;
+
                 // collect data
                 let loginData = {
                     username: this.username,
@@ -35,44 +38,70 @@
                     cas: this.cas
                 }
 
-                fetch(API + "/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        username: loginData.username,
-                        password: loginData.password,
-                        url: loginData.url,
-                        cas: loginData.cas,
-                    }),
-                }).then((response) => response.json()).then((data) => {
-                    if(data.token != undefined) {
-                            // save token
-                            localStorage.setItem('token', data.token)
-                            // save credentials
-                            localStorage.setItem('loginData', JSON.stringify(loginData))
+                // send login request
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-                            // redirect to home
-                            window.location.href = '/'
-                        }
-                        else {
-                            // get error from dictionnary
-                            let error = API_LOGIN_ERRORS[data.message]
-                            // show error
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("url", loginData.url);
+                urlencoded.append("ent", loginData.cas);
+                urlencoded.append("username", loginData.username);
+                urlencoded.append("password", loginData.password);
+
+                var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+                };
+
+                fetch(API + "/generatetoken", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    this.inLoading = false;
+                    if(result.token != false) {
+                        // save credentials
+                        localStorage.setItem('loginData', JSON.stringify(loginData))
+                        localStorage.setItem('token', result.token)
+
+                        // redirect to home
+                        location.href = '/';
+                    } else {
+                        if(result.error.split('(')[0] == "HTTPSConnectionPool") {
                             Toastify({
-                                text: error.message,
-                                className: "notification",
-                                gravity: "bottom"
+                                text: "L'établissement suivant n'existe pas sur cet ENT.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
                             }).showToast();
                         }
-                });
+                        else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
+                            Toastify({
+                                text: "Identifiants incorrects.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                        else {
+                            Toastify({
+                                text: "Une erreur est survenue. Veuillez réessayer.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                    }
+                })
             }
         }
     }
 </script>
 
 <template>
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="loginMain">
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">

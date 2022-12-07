@@ -63,22 +63,15 @@
                 let token = localStorage.getItem('token')
                 
                 // get cours url
-                let schema = `{
-                    timetable(from: "${rnString}") {
-                        id
-                        subject,
-                        status,
-                        teacher,
-                        room,
-                        from,
-                        to,
-                        color,
-                        isCancelled
-                    }
-                }`;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
 
-                // retreive data from API
-                sendQL(schema).then((response) => {
+                fetch(API + `/timetable?dateString=${rnString}&token=${token}`, requestOptions)
+                .then(response => response.json())
+                .then(response => {
+                    if(response !== "notfound" || result != "expired") {
                         // reset vars
                         this.empty = false;
                         this.error = "";
@@ -90,7 +83,7 @@
 
                         // apply data
                         setTimeout(() => {
-                            this.cours = response.data.timetable
+                            this.cours = response
 
                             // check if empty
                             if(this.cours.length == 0) {
@@ -115,8 +108,32 @@
                                         }
                                     }
                                 }
+
+                                // sort cours by start time
+                                this.cours.sort((a, b) => {
+                                    return new Date(a.start) - new Date(b.start);
+                                });
+
+                                // if 2 cours at the same time, remove the one with is_cancelled = true
+                                for (let i = 0; i < this.cours.length; i++) {
+                                    for (let j = i + 1; j < this.cours.length; j++) {
+                                        if (this.cours[i].start == this.cours[j].start) {
+                                            if(this.cours[i].is_cancelled == true) {
+                                                this.cours.splice(i, 1)
+                                                j--
+                                            } else if (this.cours[j].is_cancelled == true) {
+                                                this.cours.splice(j, 1)
+                                                i--
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }, 10);
+                    }
+                    else {
+                        refreshToken()
+                    }
                     })
             },
             openCoursModal: function(cours) {
@@ -129,8 +146,8 @@
                 }
 
                 // get time
-                let fromTime = new Date(cours.from)
-                let toTime = new Date(cours.to)
+                let fromTime = new Date(cours.start)
+                let toTime = new Date(cours.end)
 
                 if (fromTime.getTimezoneOffset() == -120) {
                     fromTime.setHours(fromTime.getHours() - 2)
@@ -208,8 +225,8 @@
 
                     if(cours.isCancelled == false) {
                         calendar.createEvent({
-                            start: from,
-                            end: to,
+                            start: start,
+                            end: end,
                             summary: cours.subject,
                             description: 'Cours de ' + cours.subject + ' avec ' + cours.teacher + ' dans la salle ' + cours.room,
                             location: cours.room
@@ -237,7 +254,7 @@
                 this.getCours()
             })
 
-            document.addEventListener('dateChanged', () => {
+            document.addEventListener('rnChanged', () => {
                 this.getCours()
             })
 
@@ -261,7 +278,7 @@
                 let closestCoursTime = null
 
                 for (let i = 0; i < this.cours.length; i++) {
-                    let coursTime = new Date(this.cours[i].from)
+                    let coursTime = new Date(this.cours[i].start)
                     if (coursTime.getTime() > now.getTime()) {
                         if (closestCoursTime == null) {
                             closestCoursTime = coursTime
@@ -280,7 +297,7 @@
                 // check if rn is today
                 if(this.currentDate.getDate() == rnToday.getDate()) {
                     for (let i = 0; i < this.cours.length; i++) {
-                        if (this.cours[i].from == closestCours.from) {
+                        if (this.cours[i] == closestCours) {
                             this.cours[i].closestCours = true
                         }
                         else {
@@ -338,7 +355,7 @@
             </NoItem>
 
             <div class="list">
-                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.from" :to="cours.to" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.color" :closest="cours.closestCours"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.start" :to="cours.end" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.background_color" :closest="cours.closestCours"/>
             </div>
 
             <div v-if="hasCours" class="list gr2">
