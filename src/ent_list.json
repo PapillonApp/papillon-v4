@@ -75,7 +75,7 @@
       "name": "Académie de Limoges",
       "cas": "ac-limoges",
       "url": "mon.lyceeconnecte.fr",
-      "py": ""
+      "py": "lyceeconnecte_aquitaine"
     },
     {
       "name": "Académie de Lyon",
