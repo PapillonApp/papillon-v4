@@ -1,7 +1,7 @@
 /* global vars */
 const API = "https://python.api.just-tryon.tech";
 const API_VERSION = "v3";
-const APP_VERSION = "4.1b.3";
+const APP_VERSION = "4.2.0";
 
 let waitingForToken = false;
 
