@@ -20,7 +20,8 @@
         },
         data() {
             return {
-                etabs: []
+                etabs: [],
+                inLoading: false,
             }
         },
         methods: {
@@ -40,6 +41,9 @@
             askPostal() {
                 // demande le code postal
                 let postal = prompt("Entrez votre code postal");
+
+                // commence le chargement
+                this.inLoading = true;
 
                 // obtient la localisation depuis l'API (html encoded)
                 axios.get('https://api.allorigins.win/get?url=https%3A%2F%2Fpositionstack.com%2Fgeo_api.php%3Fquery%3Dfrance%2B' + postal)
@@ -77,6 +81,9 @@
                     method: "POST"})
                     .done((data) => {
                         this.etabs = data;
+
+                        // fin du chargement
+                        this.inLoading = false;
                     })
             },
             decodeHtml(text) {
@@ -95,9 +102,15 @@
                     }).showToast();
                 }
 
+                // démarre le chargement
+                this.inLoading = true;
+
                 // get etab final url
                 axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(url)}`)
                 .then(response => {
+
+                    // fin du chargement
+                    this.inLoading = false;
                     
                     let resp = response.data.url
                     //cas_host = host with subdomain
@@ -150,6 +163,14 @@
                         this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
                     }
                     else {
+                        // add eleve.html to cas etab if missing
+                        if(!etab.includes("eleve.html")) {
+                            etab = etab + "eleve.html";
+                        }
+
+                        // put etab to lowercase
+                        etab = etab.toLowerCase();
+
                         // save url and cas in local storage
                         localStorage.setItem('etab', etab);
                         localStorage.setItem('cas', cas);
@@ -179,6 +200,9 @@
 </script>
 
 <template>
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="loginMain">
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">

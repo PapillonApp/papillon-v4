@@ -159,8 +159,13 @@ function getData() {
         fetch("https://python.api.just-tryon.tech/user?token="+localStorage.getItem('token'), requestOptions)
             .then(response => response.json())
             .then(result => {
-                localStorage.setItem('userData', JSON.stringify(result));
-                document.dispatchEvent(new CustomEvent('userDataUpdated'));
+                if(result !== "notfound") {
+                    localStorage.setItem('userData', JSON.stringify(result));
+                    document.dispatchEvent(new CustomEvent('userDataUpdated'));
+                }
+                else {
+                    refreshToken();
+                }
             })
     }
 }

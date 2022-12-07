@@ -48,7 +48,7 @@
 
                 var urlencoded = new URLSearchParams();
                 urlencoded.append("url", loginData.url);
-                urlencoded.append("cas", loginData.cas);
+                urlencoded.append("ent", loginData.cas);
                 urlencoded.append("username", loginData.username);
                 urlencoded.append("password", loginData.password);
 

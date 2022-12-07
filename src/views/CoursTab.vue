@@ -71,6 +71,7 @@
                 fetch(API + `/timetable?dateString=${rnString}&token=${token}`, requestOptions)
                 .then(response => response.json())
                 .then(response => {
+                    if(response !== "notfound") {
                         // reset vars
                         this.empty = false;
                         this.error = "";
@@ -109,6 +110,10 @@
                                 }
                             }
                         }, 10);
+                    }
+                    else {
+                        refreshToken()
+                    }
                     })
             },
             openCoursModal: function(cours) {

@@ -23,10 +23,13 @@
                 url: localStorage.getItem('etab'),
                 cas: localStorage.getItem('cas'),
                 name: localStorage.getItem('name'),
+                inLoading: false,
             }
         },
         methods : {
             login() {
+                this.inLoading = true;
+
                 // collect data
                 let loginData = {
                     username: this.username,
@@ -41,7 +44,7 @@
 
                 var urlencoded = new URLSearchParams();
                 urlencoded.append("url", loginData.url);
-                urlencoded.append("cas", loginData.cas);
+                urlencoded.append("ent", loginData.cas);
                 urlencoded.append("username", loginData.username);
                 urlencoded.append("password", loginData.password);
 
@@ -52,9 +55,10 @@
                 redirect: 'follow'
                 };
 
-                fetch(API + "generatetoken", requestOptions)
+                fetch(API + "/generatetoken", requestOptions)
                 .then(response => response.json())
                 .then(result => {
+                    this.inLoading = false;
                     if(result.token != false) {
                         // save credentials
                         localStorage.setItem('loginData', JSON.stringify(loginData))
@@ -79,6 +83,14 @@
                                 backgroundColor: "red",
                             }).showToast();
                         }
+                        else {
+                            Toastify({
+                                text: "Une erreur est survenue. Veuillez réessayer.",
+                                className: "notification error",
+                                gravity: "bottom",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
                     }
                 })
             }
@@ -87,6 +99,9 @@
 </script>
 
 <template>
+    <div class="quietLoading" v-if="inLoading">
+        <div class="quietLoadingBar"></div>
+    </div>
     <div id="loginMain">
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">
