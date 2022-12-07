@@ -108,6 +108,26 @@
                                         }
                                     }
                                 }
+
+                                // sort cours by start time
+                                this.cours.sort((a, b) => {
+                                    return new Date(a.start) - new Date(b.start);
+                                });
+
+                                // if 2 cours at the same time, remove the one with is_cancelled = true
+                                for (let i = 0; i < this.cours.length; i++) {
+                                    for (let j = i + 1; j < this.cours.length; j++) {
+                                        if (this.cours[i].start == this.cours[j].start) {
+                                            if(this.cours[i].is_cancelled == true) {
+                                                this.cours.splice(i, 1)
+                                                j--
+                                            } else if (this.cours[j].is_cancelled == true) {
+                                                this.cours.splice(j, 1)
+                                                i--
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }, 10);
                     }
@@ -234,7 +254,7 @@
                 this.getCours()
             })
 
-            document.addEventListener('dateChanged', () => {
+            document.addEventListener('rnChanged', () => {
                 this.getCours()
             })
 

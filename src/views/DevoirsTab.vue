@@ -60,33 +60,28 @@
                 this.error = "";
                 this.hasCours = false;
 
-                // get token
-                let token = localStorage.getItem('token')
-                
-                // get cours url
-                let schema = `{
-                    homeworks(from: "${rnString}") {
-                        id
-                        description
-                        htmlDescription
-                        subject
-                        color,
-                        files {
-                            id,
-                            url
-                        }
-                    }
-                }`;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
 
-                // retreive data from API
-                sendQL(schema).then((response) => {
+                // current date
+                let currentDate = rnString
+
+                // get token from localstorage
+                let token = localStorage.getItem('token')
+
+                fetch(API + `/homework?dateFrom=${currentDate}&dateTo=${currentDate}&token=${token}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if(result !== "notfound") {
                         // set loading to false
                         this.loading = false
                         this.inLoading = false
                         this.homeworks = []
 
                         setTimeout(() => {
-                            this.homeworks = response.data.homeworks
+                            this.homeworks = result
 
                             // check if empty
                             if(this.homeworks.length == 0) {
@@ -96,13 +91,14 @@
                                 this.hasCours = true
                             }
                         }, 10);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        this.error = error;
-                        this.loading = false;
-                        this.empty = false;
-                    })
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    this.error = error;
+                    this.loading = false;
+                    this.empty = false;
+                })
             },
             openHwModal: function(hw) {
                 this.currentIsDone = false
@@ -157,13 +153,16 @@
         },
         mounted() {
             this.getHomework()
+            console.error("getHomework normal")
 
-            document.addEventListener('dateChanged', () => {
+            document.addEventListener('rnChanged', () => {
                 this.getHomework()
+                console.error("getHomework dateChanged")
             })
 
             document.addEventListener('updatedToken', () => {
                 this.getHomework()
+                console.error("getHomework newToken")
             })
 
             let swipeUI = this.$refs.swipe

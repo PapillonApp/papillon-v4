@@ -46,10 +46,11 @@
                 this.inLoading = true;
 
                 // obtient la localisation depuis l'API (html encoded)
-                axios.get('https://api.allorigins.win/get?url=https%3A%2F%2Fpositionstack.com%2Fgeo_api.php%3Fquery%3Dfrance%2B' + postal)
-                    .then(response => {
+                axios.get('https://api.androne.dev/papillon-v4/cors.php?url=https%3A%2F%2Fpositionstack.com%2Fgeo_api.php%3Fquery%3Dfrance%2B' + postal)
+                    .then(response => {                      
+                        console.log(decodeHtml(response.data.content))
                         // affiche la localisation
-                        let resp = JSON.parse(response.data.contents).data[0];
+                        let resp = JSON.parse(decodeHtml(response.data.content)).data[0];
                         let latitude = resp.latitude;
                         let longitude = resp.longitude;
 

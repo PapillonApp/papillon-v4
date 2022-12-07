@@ -147,6 +147,11 @@ function emptyCache(automatic) {
     }
 }
 
+/* decode HTML string */
+function decodeHtml(html) {
+    return $('<div>').html(html).text();
+}
+
 /* get basic user data */
 // récupe les données de l'utilisateur depuis l'API v2
 function getData() {
@@ -272,7 +277,7 @@ function refreshToken() {
 
                 var urlencoded = new URLSearchParams();
                 urlencoded.append("url", loginData.url);
-                urlencoded.append("cas", loginData.cas);
+                urlencoded.append("ent", loginData.cas);
                 urlencoded.append("username", loginData.username);
                 urlencoded.append("password", loginData.password);
 
