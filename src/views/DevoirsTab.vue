@@ -153,16 +153,13 @@
         },
         mounted() {
             this.getHomework()
-            console.error("getHomework normal")
 
             document.addEventListener('rnChanged', () => {
                 this.getHomework()
-                console.error("getHomework dateChanged")
             })
 
             document.addEventListener('updatedToken', () => {
                 this.getHomework()
-                console.error("getHomework newToken")
             })
 
             let swipeUI = this.$refs.swipe
