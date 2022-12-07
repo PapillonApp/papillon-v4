@@ -9,3 +9,22 @@
     width: 100% !important;
     height: 100%;
 }
+
+@supports not (-webkit-touch-callout: none) {
+    /* CSS for other than iOS devices */ 
+    .swipe {
+        padding: 0px;
+        width: 100% !important;
+        margin-left: 0;
+    }
+
+    .swipe .noItem {
+        padding: 0 !important;
+        width: inherit !important;
+    }
+
+    .swipe .list {
+        padding: 0px;
+        width: inherit !important;
+    }
+}

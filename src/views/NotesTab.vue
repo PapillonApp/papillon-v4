@@ -251,15 +251,6 @@
                         }]
                     },
                     options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    max: 20,
-                                    min: 0
-                                }
-                            }]
-                        },
                         plugins: {
                             legend: {
                                 display: false

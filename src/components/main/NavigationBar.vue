@@ -23,7 +23,7 @@
         </RouterLink>
         <RouterLink to="/discussions" v-wave>
             <MessageSquare />
-            <p>Chat</p>
+            <p>Discu.</p>
         </RouterLink>
     </div>
 </template>

@@ -24,6 +24,12 @@
                 this.warns = console.warns
                 this.errors = console.errors,
                 this.oldErrors = JSON.parse(localStorage.getItem('errors'))
+
+                // remove empty log strings
+                this.logs = this.logs.filter(log => log != '')
+                this.warns = this.warns.filter(log => log != '')
+                this.errors = this.errors.filter(log => log != '')
+                this.oldErrors = this.oldErrors.filter(log => log != '')
             },
             emptyLogs() {
                 localStorage.setItem('errors', JSON.stringify([]))
