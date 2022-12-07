@@ -4,7 +4,7 @@
     import MainItem from '../components/main/MainItem.vue'
     import MainCategory from '../components/main/MainCategory.vue'
 
-    import { RefreshCcw, LogOut, Bug, Trash2, Cake, Delete } from 'lucide-vue-next';
+    import { RefreshCcw, LogOut, Bug, Trash2, Cake, Delete, FileClock } from 'lucide-vue-next';
 
     let userData = JSON.parse(localStorage.getItem('userData'))
 
@@ -25,7 +25,8 @@
             Bug,
             Trash2,
             Cake,
-            Delete
+            Delete,
+            FileClock
         },
         methods: {
             logout() {
@@ -53,7 +54,11 @@
                 localStorage.removeItem('textTransform')
                 localStorage.removeItem('sur20')
                 location.reload()
-            }
+            },
+            showLogs() {
+                // redirect to "/logs"
+                this.$router.push({ name: 'logs' })
+            },
         },
         data() {
             return {
@@ -244,6 +249,17 @@
             <template #content>
                 <h3>Se déconnecter de Pronote+</h3>
                 <p>Éfface toutes vos données Pronote de l'application</p>
+            </template>
+        </MainItem>
+
+        <!-- log -->
+        <MainItem v-on:click="showLogs">
+            <template #icon>
+                <FileClock />
+            </template>
+            <template #content>
+                <h3>Voir les logs</h3>
+                <p>Permet de consulter l'historique de la console du navigateur même depuis l'application mobile.</p>
             </template>
         </MainItem>
 

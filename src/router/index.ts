@@ -60,13 +60,17 @@ let otherTabs = [
     path: '/recap',
     name: 'recap',
     component: () => import('../views/extras/RecapExtra.vue')
-  }
-  ,
+  },
   {
     path: '/conversation/:id',
     name: 'conversation',
     props: true,
     component: () => import('../views/extras/DiscussionConversation.vue')
+  },
+  {
+    path: '/logs',
+    name: 'logs',
+    component: () => import('../views/extras/LogsView.vue')
   }
 ]
 

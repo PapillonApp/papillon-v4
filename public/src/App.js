@@ -335,6 +335,70 @@ function refreshToken() {
     
 }
 
+// logging
+console.stdlog = console.log.bind(console);
+console.stdwarn = console.warn.bind(console);
+console.stderror = console.error.bind(console);
+
+console.logs = [];
+console.warns = [];
+console.errors = [];
+
+console.log = function(){
+    // remove args being not strings
+    let argString = "";
+    for(let i = 0; i < arguments.length; i++) {
+        if(typeof arguments[i] == "string") {
+            argString += arguments[i];
+        }
+    }
+
+    console.logs.push(argString);
+    console.stdlog.apply(console, arguments);
+    document.dispatchEvent(new CustomEvent('consoleLog'));
+}
+
+console.warn = function(){
+    // remove args being not strings
+    let argString = "";
+    for(let i = 0; i < arguments.length; i++) {
+        if(typeof arguments[i] == "string") {
+            argString += arguments[i];
+        }
+    }
+
+    console.warns.push(argString);
+    console.stdwarn.apply(console, arguments);
+    document.dispatchEvent(new CustomEvent('consoleLog'));
+}
+
+console.error = function(){
+    // remove args being not strings
+    let argString = "";
+    for(let i = 0; i < arguments.length; i++) {
+        if(typeof arguments[i] == "string") {
+            argString += arguments[i];
+        }
+    }
+
+    console.errors.push(argString);
+    console.stderror.apply(console, arguments);
+    document.dispatchEvent(new CustomEvent('consoleLog'));
+
+    // append to localStorage
+    if(localStorage.getItem('errors') != null) {
+        let errors = JSON.parse(localStorage.getItem('errors'));
+        errors.push(argString);
+        localStorage.setItem('errors', JSON.stringify(errors));
+    }
+    else {
+        // get errors from localStorage
+        let errors = [];
+        errors.push(argString);
+        localStorage.setItem('errors', JSON.stringify(errors));
+    }
+}
+
 // customization
 // apply brand color from localStorage
 if(localStorage.getItem('brandColor') != null) {
