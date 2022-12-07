@@ -19,6 +19,7 @@
         data() {
             return {
                 notes: [],
+                allMarks: [],
                 hasNotes: false,
                 loading: true,
                 inLoading: false,
@@ -31,7 +32,7 @@
             }
         },
         methods: {
-            getNotes: function(period) {
+            getNotes: function() {
                 // set vars
                 if(this.notes) {
                     this.inLoading = true;
@@ -40,139 +41,127 @@
                     this.loading = true;
                 }
 
-                // get token
-                let token = localStorage.getItem('token')
-                
-                // get marks url
-                let schema = `
-                    {
-                        marks(period: "${period}") {
-                            subjects {
-                                name,
-                                color,
-                                averages {
-                                    student,
-                                    studentClass,
-                                    min,
-                                    max
-                                }
-                                marks {
-                                    id,
-                                    title,
-                                    value,
-                                    scale,
-                                    average,
-                                    coefficient,
-                                    min,
-                                    max,
-                                    date,
-                                    isAway
-                                }
-                            }   
-                        }
-                    }
-                `;
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
 
-                // get marks
-                sendQL(schema).then((response) => {
+                let token = localStorage.getItem('token')
+
+                fetch(API + `/grades?token=${token}`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
                     this.inLoading = false;
 
-                    let marks = response.data.marks.subjects;
+                    let marks = result;
+                    
+                    // add subjects to array with all their marks
+                    marks.grades.forEach(mark => {
+                        // create an array for the subject with name and an empty array for marks
 
-                    // tenttative de fix
-                    if(marks.length == 0) {
-                        this.empty = true;
+                        // find subject index
+                        let subjectIndexMain = this.notes.findIndex(subject => subject.name == mark.subject);
 
-                        if(period = "*") {
-                            this.getNotes("Semestre 1");
+                        // get random item from baseColors
+                        let randomColor = baseColors[Math.floor(Math.random() * baseColors.length)].hex;
+
+                        if(subjectIndexMain == -1) {
+                            let newSubject = {
+                                name: mark.subject,
+                                marks: [],
+                                averages: {
+                                    student: 0,
+                                    class: 0,
+                                    min: 0,
+                                    max: 0
+                                },
+                                color: randomColor
+                            }
+
+                            this.notes.push(newSubject);
                         }
-                        else if(period = "Semestre 1") {
-                            this.getNotes("Trimestre 1");
-                        }
-                    }
-                    else {
-                        this.empty = false;
-                        this.hasNotes = true;
-                    }
 
-                    // sort every subject by latest mark
-                    marks.forEach((subject) => {
-                        subject.marks.sort((a, b) => {
-                            return new Date(b.date) - new Date(a.date);
-                        })
-                    })
+                        // add mark to subject array
+                        let newMark = mark;
 
-                    // sort all marks by subject with latest mark
-                    marks.sort((a, b) => {
-                        return new Date(b.marks[0]?.date) - new Date(a.marks[0]?.date);
-                    })
+                        newMark.grade.value = parseFloat(newMark.grade.value.replace(",", "."));
+                        newMark.grade.max = parseFloat(newMark.grade.max.replace(",", "."));
+                        newMark.grade.min = parseFloat(newMark.grade.min.replace(",", "."));
+                        newMark.grade.coefficient = parseFloat(newMark.grade.coefficient.replace(",", "."));
+                        newMark.grade.average = parseFloat(newMark.grade.average.replace(",", "."));
+                        newMark.grade.out_of = parseFloat(newMark.grade.out_of.replace(",", "."));
 
-                    this.notes = marks;
+                        // parse date to Date object
+                        newMark.date = new Date(newMark.date);
 
-                    // calculate averages
+                        // find subject index
+                        let subjectIndex = this.notes.findIndex(subject => subject.name == mark.subject);
+
+                        // add mark to subject
+                        this.notes[subjectIndex].marks.push(newMark);
+                    });
+
+                    // add averages to subjects
+                    marks.averages.forEach(average => {
+                        let subjectIndex = this.notes.findIndex(subject => subject.name == average.subject);
+
+                        this.notes[subjectIndex].averages.student = parseFloat(average.average.replace(",", "."));
+                        this.notes[subjectIndex].averages.class = parseFloat(average.class_average.replace(",", "."));
+                        this.notes[subjectIndex].averages.min = parseFloat(average.min.replace(",", "."));
+                        this.notes[subjectIndex].averages.max = parseFloat(average.max.replace(",", "."));
+                    });
+
+                    this.hasNotes = true;
+
+                    // calculate student average
                     let studentAverage = 0;
-                    let classAverage = 0;
                     let studentAverageCount = 0;
+                    let classAverage = 0;
                     let classAverageCount = 0;
+                    let classMin = 0;
+                    let classMinCount = 0;
+                    let classMax = 0;
+                    let classMaxCount = 0;
 
-                    for(let i = 0; i < this.notes.length; i++) {
-                        let subject = this.notes[i];
-                        let studentAverageSubject = subject.averages.student;
-                        let classAverageSubject = subject.averages.studentClass;
+                    // parseFloat to avoid string concatenation
+                    marks.averages.forEach(average => {
+                        studentAverage += parseFloat(average.average.replace(",", "."));
+                        studentAverageCount++;
+                        classAverage += parseFloat(average.class_average.replace(",", "."));
+                        classAverageCount++;
+                        classMin += parseFloat(average.min.replace(",", "."));
+                        classMinCount++;
+                        classMax += parseFloat(average.max.replace(",", "."));
+                        classMaxCount++;
+                    });
 
-                        if(studentAverageSubject != null) {
-                            studentAverage += studentAverageSubject;
-                            studentAverageCount++;
-                        }
+                    this.studentAverage = parseFloat(studentAverage / studentAverageCount).toFixed(2);
+                    this.classAverage = parseFloat(classAverage / classAverageCount).toFixed(2);
+                    this.classMin = parseFloat(classMin / classMinCount).toFixed(2);
+                    this.classMax = parseFloat(classMax / classMaxCount).toFixed(2);
 
-                        if(classAverageSubject != null) {
-                            classAverage += classAverageSubject;
-                            classAverageCount++;
-                        }
+                    if(result.overall_average) {
+                        this.studentAverage = parseFloat(result.overall_average.replace(",", "."));
                     }
-
-                    if(studentAverageCount != 0) {
-                        studentAverage = studentAverage / studentAverageCount;
-                    }
-
-                    if(classAverageCount != 0) {
-                        classAverage = classAverage / classAverageCount;
-                    }
-
-                    this.studentAverage = studentAverage.toFixed(2);
-                    this.classAverage = classAverage.toFixed(2);
-
-                    // get min and max
-                    let min = 0;
-                    let max = 0;
-
-                    let minCount = 0;
-                    let maxCount = 0;
-
-                    for(let i = 0; i < this.notes.length; i++) {
-                        let subject = this.notes[i];
-                        let minSubject = subject.averages.min;
-                        let maxSubject = subject.averages.max;
-
-                        if(minSubject != null) {
-                            min += minSubject;
-                        }
-
-                        if(maxSubject != null) {
-                            max += maxSubject;
-                        }
-                    }
-
-                    let minAverage = min / this.notes.length;
-                    let maxAverage = max / this.notes.length;
-
-                    this.classMin = minAverage.toFixed(2);
-                    this.classMax = maxAverage.toFixed(2);
                 })
+                
+                // sort subject marks by date
+                this.notes.forEach(subject => {
+                    subject.marks.sort((a, b) => {
+                        return b.date - a.date;
+                    });
+                });
+
+                // sort subjects by date
+                this.notes.sort((a, b) => {
+                    return b.marks[0].date - a.marks[0].date;
+                });
+
+                console.log(this.notes);
             }
         },
         mounted() {
-            this.getNotes("*");
+            this.getNotes();
         }
     }
 </script>
@@ -194,14 +183,13 @@
                     v-for="(mark, index) in subject.marks"
                     :subject="subject.name"
                     :description="mark.title"
-                    :mark="mark.value"
-                    :scale="mark.scale"
-                    :average="mark.average"
-                    :min="mark.min"
-                    :max="mark.max"
-                    :coeff="mark.coefficient"
+                    :mark="mark.grade.value"
+                    :scale="mark.grade.out_of"
+                    :average="mark.grade.average"
+                    :min="mark.grade.min"
+                    :max="mark.grade.max"
+                    :coeff="mark.grade.coefficient"
                     :date="mark.date"
-                    :isAway="mark.isAway"
                     :index="index"
                     />
             </template>

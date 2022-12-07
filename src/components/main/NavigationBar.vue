@@ -17,10 +17,6 @@
             <LineChart />
             <p>Notes</p>
         </RouterLink>
-        <RouterLink to="/content" v-wave>
-            <Scroll />
-            <p>Contenu</p>
-        </RouterLink>
         <RouterLink to="/actus" v-wave>
             <Newspaper />
             <p>Actus</p>
