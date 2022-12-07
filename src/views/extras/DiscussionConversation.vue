@@ -123,7 +123,8 @@
         padding: 10px 15px;
         border-radius: 10px;
         border-top-left-radius: 3px;
-        width: 80%;
+        max-width: 80%;
+        width: fit-content;
         font-weight: 500;
         word-break: break-word;
     }
