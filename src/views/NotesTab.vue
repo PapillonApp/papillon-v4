@@ -29,6 +29,7 @@
                 classAverage: "0",
                 classMin: "0",
                 classMax: "0",
+                averageEvolution: []
             }
         },
         methods: {
@@ -51,6 +52,7 @@
                 fetch(API + `/grades?token=${token}`, requestOptions)
                 .then(response => response.json())
                 .then(result => {
+                    if(result != "notfound" || result != "expired") {
                     this.inLoading = false;
 
                     let marks = result;
@@ -143,6 +145,54 @@
                     if(result.overall_average) {
                         this.studentAverage = parseFloat(result.overall_average.replace(",", "."));
                     }
+
+                    // get all marks
+                    let markList = marks.grades;
+
+                    // sort marks by date
+                    markList.sort((a, b) => {
+                        return b.date - a.date;
+                    });
+
+                    let allMarksList = [];
+                    markList.forEach(mark => {
+                        if(!isNaN(mark.grade.value) && !isNaN(mark.grade.out_of)) {
+                            allMarksList.push(mark.grade.value / mark.grade.out_of * 20);
+                        }
+                    });
+
+                    // sort marks by date
+                    allMarksList.sort((a, b) => {
+                        return b.date - a.date;
+                    });
+
+                    let averageEvolution = [];
+
+                    // for each mark, calculate the average until this mark
+                    allMarksList.forEach(mark => {
+                        // calculate average
+                        let average = 0;
+                        let averageCount = 0;
+
+                        allMarksList.forEach(mark2 => {
+                            average += mark2;
+                            averageCount++;
+                        });
+
+                        let FinalAverage = average / averageCount;
+                        averageEvolution.push(FinalAverage.toFixed(2));
+
+                        // remove mark from list
+                        let markIndex = allMarksList.indexOf(mark);
+                        allMarksList.splice(markIndex, 1);
+                    });
+
+                    this.averageEvolution = averageEvolution;
+                    document.dispatchEvent(new Event('updatedGraph'));
+                }
+                else {
+                    refreshToken();
+                }
                 })
                 
                 // sort subject marks by date
@@ -162,6 +212,50 @@
         },
         mounted() {
             this.getNotes();
+
+            document.addEventListener('updatedToken', () => {
+                this.getNotes()
+            })
+
+            document.addEventListener('updatedGraph', () => {
+                // create chart
+                let ctx = document.getElementById('myChart').getContext('2d');
+
+                let myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: this.averageEvolution,
+                        datasets: [{
+                            label: 'Évolution de la moyenne',
+                            data: this.averageEvolution,
+                            backgroundColor: [
+                                'rgba(255, 255, 255, 0)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 255, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    max: 20,
+                                    min: 0
+                                }
+                            }]
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            enabled: false
+                        }
+                    }
+                });
+            })
         }
     }
 </script>
@@ -228,10 +322,23 @@
                 :index="notes.length">
             </NotesSubject>
         </div>
+
+        <div class="graph averageGraph">
+            <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
     </div>
 </template>
 
 <style scoped>
+    .graph {
+        background-color: var(--element);
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        zoom: 0.9;
+        margin-top: 20px;
+    }
+
     .extremes {
         display: flex;
         flex-direction: row;

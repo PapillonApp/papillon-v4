@@ -4,6 +4,7 @@ const API_VERSION = "v3";
 const APP_VERSION = "4.2.0";
 
 let waitingForToken = false;
+let currentDiscussion = [];
 
 /* error handling */
 // liste des messages d'erreur et leurs interprétations

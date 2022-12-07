@@ -3,13 +3,6 @@
     display: none;
 }
 
-/* adrod fixes */
-@supports not (-webkit-touch-callout: none) {
-    #TabNameString {
-        margin-top: -4px !important;
-    }
-}
-
 .vue-insta-stories img {
     object-fit: cover !important;
     object-position: top !important;

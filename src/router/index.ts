@@ -32,6 +32,11 @@ let mainTabs = [
     path: '/actus',
     name: 'actus',
     component: () => import('../views/ActusTab.vue')
+  },
+  {
+    path: '/discussions',
+    name: 'discussions',
+    component: () => import('../views/DiscussionsTab.vue')
   }
 ]
 
@@ -55,6 +60,13 @@ let otherTabs = [
     path: '/recap',
     name: 'recap',
     component: () => import('../views/extras/RecapExtra.vue')
+  }
+  ,
+  {
+    path: '/conversation/:id',
+    name: 'conversation',
+    props: true,
+    component: () => import('../views/extras/DiscussionConversation.vue')
   }
 ]
 

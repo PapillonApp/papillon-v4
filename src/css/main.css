@@ -468,3 +468,8 @@ vwave div {
 input[type="checkbox"] {
     padding: 10px;
 }
+
+.link {
+    color: inherit;
+    text-decoration: underline !important;
+}

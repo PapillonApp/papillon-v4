@@ -1,6 +1,6 @@
 <script setup>
     import PapillonLogo from '../icons/PapillonLogo.vue'
-    import { CalendarDays } from 'lucide-vue-next';
+    import { CalendarDays, ArrowLeft } from 'lucide-vue-next';
 
     import { ref, onMounted } from 'vue'
 
@@ -16,6 +16,11 @@
             default: false
         },
         logged: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        back : {
             type: Boolean,
             required: false,
             default: false
@@ -80,12 +85,19 @@
             logChange('avatar updated with ' + avatar)
         })
     }
+
+    function goBack() {
+        window.history.back();
+    }
 </script>
 
 <template>
     <div id="TabName">
         <div class="tabLeft">
             <PapillonLogo id="PapillonLogo" />
+            <a v-if="back" to="/home" id="BackButton" v-wave @click="goBack()">
+                <ArrowLeft />
+            </a>
             <p id="TabNameString">{{name}}</p>
         </div>
         <div class="tabRight">
@@ -105,6 +117,15 @@
 </template>
 
 <style scoped>
+    #BackButton {
+        margin-right: 10px !important;
+        padding: 0px 10px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -2px !important;
+    }
+
     #TabName {
         position: fixed;
         top: 0;
@@ -135,9 +156,11 @@
         line-height: 18px;
         text-align: left;
 
+        margin-top: -4px !important;
+
         letter-spacing: -0.015em;
 
-        margin-top: -2px;
+        margin-top: 0px;
 
         font-weight: 600;
 

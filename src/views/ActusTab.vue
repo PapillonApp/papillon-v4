@@ -93,6 +93,10 @@
         },
         mounted() {
             this.getNews();
+
+            document.addEventListener('updatedToken', () => {
+                this.getNews()
+            })
         }
     }
 </script>
@@ -156,5 +160,10 @@
 
     .modal-content-header div {
         font-family: var(--font-family) !important;
+    }
+
+    .htmlContent {
+        font-family: var(--font-family) !important;
+        margin-bottom: 60px;
     }
 </style>

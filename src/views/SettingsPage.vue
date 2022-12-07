@@ -141,7 +141,7 @@
 </script>
 
 <template>
-    <TabName name="Mon compte" logged />
+    <TabName name="Mon compte" logged back />
     <div id="content">
         
         <div id="profile">

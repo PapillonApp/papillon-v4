@@ -1,6 +1,6 @@
 <script setup>
     /* icons (from https://lucide.dev/) */
-    import { CalendarRange, BookOpenCheck, LineChart, Newspaper, Scroll } from 'lucide-vue-next';
+    import { CalendarRange, BookOpenCheck, LineChart, Newspaper, Scroll, MessageSquare } from 'lucide-vue-next';
 </script>
 
 <template>
@@ -20,6 +20,10 @@
         <RouterLink to="/actus" v-wave>
             <Newspaper />
             <p>Actus</p>
+        </RouterLink>
+        <RouterLink to="/discussions" v-wave>
+            <MessageSquare />
+            <p>Chat</p>
         </RouterLink>
     </div>
 </template>
