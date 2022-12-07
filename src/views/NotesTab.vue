@@ -221,6 +221,9 @@
                 // create chart
                 let ctx = document.getElementById('myChart').getContext('2d');
 
+                // get brand color
+                let brandColor = getComputedStyle(document.documentElement).getPropertyValue('--brand-color');
+
                 let myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
@@ -228,13 +231,12 @@
                         datasets: [{
                             label: 'Évolution de la moyenne',
                             data: this.averageEvolution,
-                            backgroundColor: [
-                                'rgba(255, 255, 255, 0)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 255, 255, 1)'
-                            ],
-                            borderWidth: 1
+                            borderWidth: 4,
+                            borderColor: brandColor,
+                            pointRadius: 0,
+                            borderCapStyle: 'round',
+                            cubicInterpolationMode : 'monotone',
+                            tension: 1
                         }]
                     },
                     options: {
@@ -247,11 +249,14 @@
                                 }
                             }]
                         },
-                        legend: {
-                            display: false
-                        },
-                        tooltips: {
-                            enabled: false
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Évolution de la moyenne'
+                            }
                         }
                     }
                 });
