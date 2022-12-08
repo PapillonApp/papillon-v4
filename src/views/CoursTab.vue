@@ -149,14 +149,6 @@
                 let fromTime = new Date(cours.start)
                 let toTime = new Date(cours.end)
 
-                if (fromTime.getTimezoneOffset() == -120) {
-                    fromTime.setHours(fromTime.getHours() - 2)
-                    toTime.setHours(toTime.getHours() - 2)
-                } else if (fromTime.getTimezoneOffset() == -60) {
-                    fromTime.setHours(fromTime.getHours() - 1)
-                    toTime.setHours(toTime.getHours() - 1)
-                }
-
                 this.$vfm.show("coursModal", {
                     subject: cours.subject,
                     teacher: cours.teacher,
@@ -181,15 +173,6 @@
 
                 let from = new Date(this.current.from)
                 let to = new Date(this.current.to)
-
-                // timzeone fix
-                if (from.getTimezoneOffset() == -120) {
-                    from.setHours(from.getHours() - 2)
-                    to.setHours(to.getHours() - 2)
-                } else if (from.getTimezoneOffset() == -60) {
-                    from.setHours(from.getHours() - 1)
-                    to.setHours(to.getHours() - 1)
-                }
 
                 calendar.createEvent({
                     start: from,
@@ -218,10 +201,6 @@
                 this.cours.forEach(cours => {
                     let from = new Date(cours.from)
                     let to = new Date(cours.to)
-
-                    // timezone fix
-                    from.setHours(from.getHours() - 1)
-                    to.setHours(to.getHours() - 1)
 
                     if(cours.isCancelled == false) {
                         calendar.createEvent({
