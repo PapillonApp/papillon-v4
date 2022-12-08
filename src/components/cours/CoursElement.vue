@@ -98,6 +98,10 @@
                 end.setHours(end.getHours() - 1)
             }
 
+						// (unsure) correct timezone hotfix
+						begin.setHours(begin.getHours() + 1)
+						end.setHours(end.getHours() + 1)
+
             // timestamp to time
             this.timeString = begin.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
 
