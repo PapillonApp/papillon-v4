@@ -11,9 +11,7 @@
   <div id="main">
     <RouterView v-slot="{ Component }">
       <KeepAlive>
-        <Transition name="fade">
           <Component :is="Component" />
-        </Transition>
       </KeepAlive>
     </RouterView>
   </div>
