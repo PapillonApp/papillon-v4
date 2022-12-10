@@ -34,7 +34,8 @@
                     Toastify({
                         text: "La géolocalisation n'est pas supportée par votre navigateur",
                         className: "notification error",
-                        gravity: "bottom",
+                        gravity: "top",
+                        position: "center",
                     }).showToast();
                 }
             },
@@ -98,8 +99,8 @@
                 if(url == "" || url == null) {
                     Toastify({
                         text: "Impossible d'utiliser la détection automatique",
-                        className: "notification error",
-                        gravity: "bottom",
+                        gravity: "top",
+                        position: "center",
                     }).showToast();
                 }
 
@@ -152,7 +153,8 @@
                             Toastify({
                                 text: "Vous n'avez pas choisi de CAS",
                                 className: "notification error",
-                                gravity: "bottom",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                            return;
                        } 
@@ -191,7 +193,8 @@
                         Toastify({
                             text: "Impossible de déterminer l'établissement",
                             className: "notification",
-                            gravity: "bottom"
+                            gravity: "top",
+                            position: "center",
                         }).showToast();
                     }
                 })
@@ -201,10 +204,10 @@
 </script>
 
 <template>
-    <div class="quietLoading" v-if="inLoading">
-        <div class="quietLoadingBar"></div>
-    </div>
     <div id="loginMain">
+        <div class="quietLoading" v-if="inLoading">
+            <div class="quietLoadingBar"></div>
+        </div>
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">
             <a class="terms" href="https://pronote.plus/assets/terms_privacy_23112022_rev0.pdf" v-wave>Termes & conditions</a>

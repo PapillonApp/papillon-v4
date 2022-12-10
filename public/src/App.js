@@ -1,7 +1,7 @@
 /* global vars */
 const API = "https://python.api.just-tryon.tech";
 const API_VERSION = "v3";
-const APP_VERSION = "4.2.0";
+const APP_VERSION = "4.2.1";
 
 let waitingForToken = false;
 let currentDiscussion = [];
@@ -139,7 +139,7 @@ function emptyCache(automatic) {
         Toastify({
             text: "Le cache va être vidé.",
             className: "notification",
-            gravity: "bottom",
+            gravity: "top",
             position: "center",
         }).showToast();
         setTimeout(() => {
@@ -252,7 +252,7 @@ window.addEventListener('offline', (event) => {
     Toastify({
         text: "Vous n'êtes plus connecté à Internet.",
         className: "notification error",
-        gravity: "bottom",
+        gravity: "top",
         position: "center",
     }).showToast();
 });
@@ -261,7 +261,7 @@ window.addEventListener('online', (event) => {
     Toastify({
         text: "Vous êtes à nouveau connecté à Internet.",
         className: "notification success",
-        gravity: "bottom",
+        gravity: "top",
         position: "center",
     }).showToast();
 });
@@ -271,6 +271,12 @@ let tokenRefreshedRecently = false;
 function refreshToken() {
     if(!waitingForToken) {
         waitingForToken = true;
+        Toastify({
+            text: "Reconnexion à votre compte Pronote en cours ...",
+            className: "notification",
+            gravity: "top",
+            position: "center",
+        }).showToast();
         if(localStorage.getItem('loginData') != null) {
             let loginData = JSON.parse(localStorage.getItem('loginData'));
             var myHeaders = new Headers();
@@ -303,16 +309,16 @@ function refreshToken() {
                             Toastify({
                                 text: "L'établissement suivant n'existe pas sur cet ENT.",
                                 className: "notification error",
-                                gravity: "bottom",
-                                backgroundColor: "red",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                         }
                         else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
                             Toastify({
                                 text: "Identifiants incorrects.",
                                 className: "notification error",
-                                gravity: "bottom",
-                                backgroundColor: "red",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                         }
                     }

@@ -29,7 +29,8 @@
                 classAverage: "0",
                 classMin: "0",
                 classMax: "0",
-                averageEvolution: []
+                averageEvolution: [],
+                graphCreated: false,
             }
         },
         methods: {
@@ -189,6 +190,7 @@
 
                     this.averageEvolution = averageEvolution;
                     document.dispatchEvent(new Event('updatedGraph'));
+                    this.graphCreated = true;
                 }
                 else {
                     refreshToken();
@@ -330,7 +332,7 @@
             </NotesSubject>
         </div>
 
-        <div class="graph averageGraph">
+        <div class="graph averageGraph" v-if="graphCreated">
             <canvas id="myChart" width="400" height="200"></canvas>
         </div>
     </div>

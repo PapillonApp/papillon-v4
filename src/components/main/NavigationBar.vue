@@ -21,10 +21,6 @@
             <Newspaper />
             <p>Actus</p>
         </RouterLink>
-        <RouterLink to="/discussions" v-wave>
-            <MessageSquare />
-            <p>Discu.</p>
-        </RouterLink>
     </div>
 </template>
 
@@ -41,6 +37,9 @@
         border-top: 1px solid var(--border-light);
 
         padding-bottom: calc(3px + env(safe-area-inset-bottom));
+
+        position: fixed;
+        bottom: 0 !important;
     }
 
     #NavigationBar * {

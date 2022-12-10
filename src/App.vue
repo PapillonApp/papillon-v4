@@ -11,9 +11,11 @@
   <div id="main">
     <RouterView v-slot="{ Component }">
       <KeepAlive>
-        <Component :is="Component" />
+        <Transition name="fade">
+          <Component :is="Component" />
+        </Transition>
       </KeepAlive>
-  </RouterView>
+    </RouterView>
   </div>
 
   <!-- Affiche la barre de navigation -->
@@ -21,11 +23,22 @@
 </template>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+
   #main {
     height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden !important;
+    padding-top: var(--safe-area-inset-top) !important;
   }
 
   #NavigationBar {

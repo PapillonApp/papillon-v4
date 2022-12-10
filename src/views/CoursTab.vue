@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-    import TabName from '../components/main/TabName.vue'
+    import ModernTabName from '../components/main/TabName.vue'
     import CoursElement from '@/components/cours/CoursElement.vue';
     import MainItem from '../components/main/MainItem.vue'
 
@@ -20,7 +20,7 @@
     export default {
         name: 'CoursTab',
         components: {
-            TabName,
+            ModernTabName,
             CoursElement,
             NoItem,
             MainItem,
@@ -132,7 +132,7 @@
                         }, 10);
                     }
                     else {
-                        refreshToken()
+                        refreshToken();
                     }
                     })
             },
@@ -290,7 +290,7 @@
 </script>
 
 <template>
-    <TabName name="Emploi du temps" calendar logged />
+    <ModernTabName name="Emploi du temps" calendar logged />
     <div class="quietLoading" v-if="inLoading">
         <div class="quietLoadingBar"></div>
     </div>

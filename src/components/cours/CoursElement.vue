@@ -164,32 +164,18 @@
         flex: none;
         order: 0;
         flex-grow: 0;
-
-        color: var(--text);
-
-        border-radius: 11px;
-
-        display: flex;
-        overflow: visible;
-
-        opacity: 0%;
-        animation: TabNameStringUp 0.3s cubic-bezier(0,0,0,1) forwards;
-        animation-delay: calc(var(--index) * 0.05s);
-        margin-bottom: 3px;
-        margin-top: 3px;
-    }
-
-    .cours.closest {
-        /* border: 1px solid var(--border); */
         background: var(--element);
+        color: var(--text);
+        border-radius: 10px;
+        display: flex;
+        overflow: hidden;
+        opacity: 0%;
+        animation: TabNameStringUp 0.2s cubic-bezier(0,0,0,1) forwards;
         box-shadow: var(--shadow);
-        padding: 7px 10px;
-        margin-bottom: 0px;
-        margin-top: 0px;
     }
 
     .cours.cancelled {
-        --color: #f1323255 !important;
+        opacity: 0.5 !important;
     }
 
     .cours * {
@@ -198,35 +184,54 @@
     }
 
     .cours-color {
-        width: 4px;
+        width: 6px;
         background: var(--color);
-        border-radius: 10px;
+        border-radius: 10px 0px 0px 10px;
     }
 
     .cours-data {
-        padding: 0px;
-        padding-bottom: 0px;
-        padding-left: 13px;
+        padding: 11px;
+        padding-left: 17px;
     }
 
     .cours-data small {
+        color: var(--text-light);
         font-size: 15px;
+        line-height: 15px;
         letter-spacing: 0.005em;
         text-align: left;
+    }
+
+    .status {
+        font-size: 14px;
+        font-weight: 500;
+        background: var(--border-light);
         color: var(--text-light);
+        border: none;
+        padding: 2px 5px;
+        border-radius: 300px;
+        transform: translateY(-2px);
+    }
+
+    .cancelled .status {
+        background: none;
+        color: var(--color);
+        border: 1px solid var(--color);
+    }
+
+    .cancelled {
+        --color: #d61717 !important;
     }
 
     .cours-data h3 {
         font-size: 20px;
         line-height: 20px;
-        font-weight: 600;
         letter-spacing: 0.005em;
         text-align: left;
         color: var(--color);
         margin-bottom: 15px;
-        margin-top: 2px;
+        margin-top: 3px !important;
     }
-
     .cours-data p {
         font-size: 15px;
         line-height: 15px;
@@ -234,22 +239,5 @@
         text-align: left;
         opacity: 0.5;
         text-transform: none;
-        margin-bottom: 5px;
-    }
-
-    .cours .status {
-        font-size: 14px;
-        line-height: 14px;
-        color: var(--text-light);
-        border: 1px solid var(--text-light);
-        border-radius: 5px;
-        padding: 1px 5px;
-        padding-top: 3px;
-        margin-left: 2px;
-    }
-
-    .cours .status.cancelled {
-        color: #F13232;
-        border: 1px solid #F13232;
     }
 </style>

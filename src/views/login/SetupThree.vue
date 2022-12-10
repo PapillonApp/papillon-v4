@@ -71,24 +71,24 @@
                             Toastify({
                                 text: "L'établissement suivant n'existe pas sur cet ENT.",
                                 className: "notification error",
-                                gravity: "bottom",
-                                backgroundColor: "red",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                         }
                         else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
                             Toastify({
                                 text: "Identifiants incorrects.",
                                 className: "notification error",
-                                gravity: "bottom",
-                                backgroundColor: "red",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                         }
                         else {
                             Toastify({
                                 text: "Une erreur est survenue. Veuillez réessayer.",
                                 className: "notification error",
-                                gravity: "bottom",
-                                backgroundColor: "red",
+                                gravity: "top",
+                                position: "center",
                             }).showToast();
                         }
                     }
@@ -99,10 +99,10 @@
 </script>
 
 <template>
-    <div class="quietLoading" v-if="inLoading">
-        <div class="quietLoadingBar"></div>
-    </div>
     <div id="loginMain">
+        <div class="quietLoading" v-if="inLoading">
+            <div class="quietLoadingBar"></div>
+        </div>
         <div class="topNav">
             <img src="/full_logo.svg" alt="logo" id="logo">
             <a class="terms" href="https://pronote.plus/assets/terms_privacy_23112022_rev0.pdf" v-wave>Termes & conditions</a>
@@ -136,10 +136,10 @@
     .loginBtn {
         margin-top: 10px;
         padding: 13px 22px;
-        background: var(--brand-color);
+        background: none;
         color: #fff;
-        border-radius:300px;
-        border: none;
+        border: 1px solid #fff !important;
+        border-radius:300px;;
         font-size: 17px;
         font-weight: 600;
         padding-bottom: 10px;

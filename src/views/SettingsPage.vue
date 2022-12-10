@@ -38,7 +38,20 @@
                 refreshToken()
             },
             emptyCache() {
-                emptyCache()
+                caches.keys().then(function(names) {
+                    for (let name of names)
+                        caches.delete(name);
+                });
+
+                Toastify({
+                    text: "Le cache va être vidé.",
+                    className: "notification",
+                    gravity: "top",
+                    position: "center",
+                }).showToast();
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
             },
             showAbout() {
                 // redirect to "/about"
@@ -148,24 +161,9 @@
 <template>
     <TabName name="Mon compte" logged back />
     <div id="content">
-        
-        <div id="profile">
-            <img :src="avatar" class="avatarBackground" />
-            <div class="profileData" v-wave>
-                <img :src="avatar" class="avatar" />
-                <h3>Bonjour, {{firstName}} !</h3>
-                <p>Vous êtes en classe de {{className}} à {{establishment}}</p>
-            </div>
-        </div>
 
-        <MainCategory title="Autres fonctionnalités"/>
-
-        <div class="retrospective" v-wave v-on:click="retrospective">
-            <img src="/retrospective.svg" />
-        </div>
-
-        <MainCategory title="Paramètres"/>
-
+        <MainCategory title="Paramètres" class="firstCategory"/>
+ 
         <div class="setting">
             <div class="settingName">
                 <h3>Couleur de l'interface</h3>
@@ -183,7 +181,8 @@
             </div>
             <div class="settingValue">
                 <select id="brandFont">
-                    <option value="Open Sans">Open Sans (Défaut)</option>
+                    <option value="Inter">Inter (Défaut)</option>
+                    <option value="Open Sans">Open Sans</option>
                     <option value="system-ui">Système</option>
                     <option value="Manjari">Manjari</option>
                     <option value="Lora">Lora</option>
@@ -288,6 +287,10 @@
 </template>
 
 <style scoped>
+    .firstCategory {
+        margin-top: 0px;
+    }
+
     #profile {
         width: 100%;
         height: 170px !important;

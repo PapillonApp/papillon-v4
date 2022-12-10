@@ -74,7 +74,7 @@
                 fetch(API + `/homework?dateFrom=${currentDate}&dateTo=${currentDate}&token=${token}`, requestOptions)
                 .then(response => response.json())
                 .then(result => {
-                    if(result !== "notfound") {
+                    if(result !== "notfound" || result !== "expired") {
                         // set loading to false
                         this.loading = false
                         this.inLoading = false
@@ -91,6 +91,9 @@
                                 this.hasCours = true
                             }
                         }, 10);
+                    }
+                    else {
+                        refreshToken()
                     }
                 })
                 .catch(error => {
