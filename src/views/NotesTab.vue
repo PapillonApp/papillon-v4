@@ -55,6 +55,7 @@
                 .then(result => {
                     if(result != "notfound" || result != "expired") {
                     this.inLoading = false;
+                    this.graphCreated = true;
 
                     let marks = result;
                     
@@ -190,7 +191,6 @@
 
                     this.averageEvolution = averageEvolution;
                     document.dispatchEvent(new Event('updatedGraph'));
-                    this.graphCreated = true;
                 }
                 else {
                     refreshToken();
@@ -332,7 +332,7 @@
             </NotesSubject>
         </div>
 
-        <div class="graph averageGraph" v-if="graphCreated">
+        <div class="graph averageGraph">
             <canvas id="myChart" width="400" height="200"></canvas>
         </div>
     </div>
