@@ -174,7 +174,7 @@
                                 etab = etab + "/" + "eleve.html";
                             }
                         }
-                    }
+                        
                         // put etab to lowercase
                         etab = etab.toLowerCase();
 
