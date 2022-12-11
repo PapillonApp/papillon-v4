@@ -167,7 +167,7 @@
                     }
                     else {
                         if(!etab.includes("eleve.html")) {
-                            if(etab.includes("/pronote/") {
+                            if(etab.includes("/pronote/")) {
                                 etab = etab + "eleve.html";
                             }
                             else {
