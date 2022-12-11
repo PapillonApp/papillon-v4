@@ -166,11 +166,15 @@
                         this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
                     }
                     else {
-                        // add eleve.html to cas etab if missing
                         if(!etab.includes("eleve.html")) {
-                            etab = etab + "eleve.html";
+                            if(etab.includes("/pronote/") {
+                                etab = etab + "eleve.html";
+                            }
+                            else {
+                                etab = etab + "/" + "eleve.html";
+                            }
                         }
-
+                    }
                         // put etab to lowercase
                         etab = etab.toLowerCase();
 
