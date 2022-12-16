@@ -109,7 +109,7 @@
         </div>
 
         <h1>Indiquez vos identifiants</h1>
-        <p class="desc ae">nous avons trouvé votre établissement ! vous êtes au {{name}} et vous utilisez l'ENT {{cas}}</p>
+        <p class="desc ae">Nous avons trouvé votre établissement ! Vous êtes au {{name}} et vous utilisez l'ENT {{cas}}</p>
 
         <div class="list group">
             <RouterLink to="/setup_2"><MainItem>
@@ -124,11 +124,11 @@
         </div>
 
         <div class="login">
-            <input v-model="username" v-wave class="input" type="text" placeholder="identifiant" />
-            <input v-model="password" v-wave class="input" type="password" placeholder="mot de passe" />
+            <input v-model="username" v-wave class="input" type="text" placeholder="Identifiant" />
+            <input v-model="password" v-wave class="input" type="password" placeholder="Mot de passe" />
         </div>
 
-        <button v-wave class="loginBtn" v-on:click="login">se connecter</button>
+        <button v-wave class="loginBtn" v-on:click="login">Se connecter</button>
     </div>
 </template>
 
