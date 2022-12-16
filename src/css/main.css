@@ -206,9 +206,9 @@ a {
     padding: var(--padding);
     padding-top: calc(env(safe-area-inset-top) + var(--padding) / 1.5);
     
-    background: linear-gradient(16.4deg, #00B562 38.91%, #1A8DCE 100%);
+    background: var(--background);
 
-    color: #fff;
+    color: var(--text);
 
     overflow-y: scroll;
 }
@@ -246,7 +246,7 @@ a {
     margin: 0;
     margin-top: 24px;
 
-    color: #fff;
+    color: var(--brand-color);
 }
 
 #loginMain p.desc {
