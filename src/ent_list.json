@@ -239,6 +239,12 @@
       "url": "cas.ent.auvergnerhonealpes.fr",
       "py": "ent_auvergnerhonealpe"
     },
+        {
+      "name": "ENT l'Éduc de Normandie via EduConnect",
+      "cas": "educ-normandie",
+      "url": "connexion.l-educdenormandie.fr",
+      "py": "educ-normandie"
+    },
     {
       "name": "Pas d'ENT",
       "cas": "",
