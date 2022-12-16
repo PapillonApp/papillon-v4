@@ -36,7 +36,6 @@
     width: 100%;
     position: relative;
     overflow: hidden !important;
-    padding-top: var(--safe-area-inset-top) !important;
   }
 
   #NavigationBar {

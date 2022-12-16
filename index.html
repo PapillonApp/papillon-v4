@@ -11,7 +11,6 @@
         <!-- apple touch pwa support -->
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 
         <!-- splash screens -->
@@ -30,7 +29,7 @@
 
         <style>
             #app {
-                height: calc(100vh);
+                height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
                 width: 100vw;
                 margin: 0;
                 padding: 0;

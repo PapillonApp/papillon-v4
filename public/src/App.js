@@ -304,6 +304,7 @@ function refreshToken() {
                         let event = new CustomEvent('updatedToken', {detail: result.token});
                         document.dispatchEvent(event);
                         waitingForToken = false;
+                        location.reload();
                     } else {
                         if(result.error.split('(')[0] == "HTTPSConnectionPool") {
                             Toastify({
