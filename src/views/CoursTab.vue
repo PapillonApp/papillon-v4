@@ -71,7 +71,7 @@
                 fetch(API + `/timetable?dateString=${rnString}&token=${token}`, requestOptions)
                 .then(response => response.json())
                 .then(response => {
-                    if(response !== "notfound" || result != "expired") {
+                    if(response !== "notfound" || response != "expired") {
                         // reset vars
                         this.empty = false;
                         this.error = "";
