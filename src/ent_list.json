@@ -128,7 +128,7 @@
     {
       "name": "Académie de Rouen",
       "cas": "ac-rouen",
-      "url": "connexion.l-educdenormandie.fr/",
+      "url": "ent.l-educdenormandie.fr/",
       "py": "l_normandie"
     },
     {
@@ -241,9 +241,9 @@
     },
         {
       "name": "ENT l'Éduc de Normandie via EduConnect",
-      "cas": "educ-normandie",
-      "url": "connexion.l-educdenormandie.fr",
-      "py": "educ-normandie"
+      "cas": "ac-rouen",
+      "url": "ent.l-educdenormandie.fr",
+      "py": "l_normandie"
     },
     {
       "name": "Pas d'ENT",
