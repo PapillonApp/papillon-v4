@@ -17,6 +17,11 @@
             ArrowLeft
         },
         data() {
+            if(localStorage.getItem('cas') != null) { 
+                cas_name = cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
+            } else {
+                cas_name = null
+            }
             return {
                 username: '',
                 password: '',
@@ -25,7 +30,7 @@
                 name: localStorage.getItem('name'),
                 inLoading: false,
 
-                casName: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name
+                casName: cas_name
             }
         },
         methods : {
