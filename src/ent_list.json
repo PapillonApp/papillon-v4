@@ -241,7 +241,7 @@
     },
         {
       "name": "ENT l'Éduc de Normandie via EduConnect",
-      "cas": "ac-rouen",
+      "cas": "l-normandie",
       "url": "ent.l-educdenormandie.fr",
       "py": "l_normandie"
     },
