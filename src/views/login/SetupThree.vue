@@ -17,11 +17,6 @@
             ArrowLeft
         },
         data() {
-            // if(localStorage.getItem('cas') != null) { 
-            //     cas_name = cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
-            // } else {
-            //     cas_name = "Aucun"
-            // }
             return {
                 username: '',
                 password: '',
@@ -35,6 +30,17 @@
         },
         methods : {
             login() {
+                
+                if (this.username == '' || this.password == '') {
+                    Toastify({
+                        text: "Merci de remplir tous les champs.",
+                        className: "notification error",
+                        gravity: "top",
+                        position: "center",
+                    }).showToast();
+                    return
+                }
+
                 this.inLoading = true;
 
                 // collect data
@@ -82,9 +88,9 @@
                                 position: "center",
                             }).showToast();
                         }
-                        else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')") {
+                        else if (result.error == "('Decryption failed while trying to un pad. (probably bad decryption key/iv)', 'exception happened during login -> probably bad username/password')" || result.error.includes("probably wrong login information")) {
                             Toastify({
-                                text: "Identifiants incorrects.",
+                                text: "Identifiants incorrects ou ENT non supporté.",
                                 className: "notification error",
                                 gravity: "top",
                                 position: "center",
