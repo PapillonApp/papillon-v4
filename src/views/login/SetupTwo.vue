@@ -105,7 +105,7 @@
                 }
 
                 if (!url.includes('eleve.html')) {
-                    url = url.join('/eleve.html')
+                    url = url + '/eleve.html'
                 }
 
                 // démarre le chargement
