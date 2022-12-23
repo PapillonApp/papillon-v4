@@ -144,13 +144,13 @@
       "py": "laclasse_lyon"
     },
     {
-      "name": "ENT Lycee Connecte (Nouvelle-Aquitaine)",
+      "name": "ENT Lycee Connecte via EduConnect",
       "cas": "lyceeconnecte",
       "url": "jeunes.nouvelle-aquitaine.fr",
       "py": "lyceeconnecte_aquitaine"
     },
     {
-      "name": "ENT Seine-et-Marne",
+      "name": "ENT77 (Seine-et-Marne)",
       "cas": "seine-et-marne",
       "url": "ent77.seine-et-marne.fr",
       "py": "ent77"
