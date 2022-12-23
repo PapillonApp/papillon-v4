@@ -24,6 +24,8 @@
                 cas: localStorage.getItem('cas'),
                 name: localStorage.getItem('name'),
                 inLoading: false,
+
+                casName: cas_list.filter(casList => casList.py == cas)[0].name
             }
         },
         methods : {
@@ -109,7 +111,7 @@
         </div>
 
         <h1>Indiquez vos identifiants</h1>
-        <p class="desc ae">Nous avons trouvé votre établissement ! Vous êtes au {{name}} et vous utilisez l'ENT {{cas}}</p>
+        <p class="desc ae">Nous avons trouvé votre établissement ! Vous êtes au {{name}} et vous utilisez l'ENT {{casName}}</p>
 
         <div class="list group">
             <RouterLink to="/setup_2"><MainItem>
