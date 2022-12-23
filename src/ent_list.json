@@ -18,13 +18,7 @@
       "py": "eclat_bfc"
     },
     {
-      "name": "Académie de Bordeaux",
-      "cas": "ac-bordeaux",
-      "url": "mon.lyceeconnecte.fr",
-      "py": "lyceeconnecte_aquitaine"
-    },
-    {
-      "name": "Académie de Bordeaux 2",
+      "name": "Académie de Bordeaux (OSÉ)",
       "cas": "ac-bordeaux2",
       "url": "ent2d.ac-bordeaux.fr",
       "py": "ent2d_bordeaux"
@@ -72,12 +66,6 @@
       "py": ""
     },
     {
-      "name": "Académie de Limoges",
-      "cas": "ac-limoges",
-      "url": "mon.lyceeconnecte.fr",
-      "py": "lyceeconnecte_aquitaine"
-    },
-    {
       "name": "Académie de Lyon",
       "cas": "ac-lyon",
       "url": "cas.ent.auvergnerhonealpes.fr",
@@ -108,12 +96,6 @@
       "py": "ent_elyco"
     },
     {
-      "name": "Académie de Poitiers",
-      "cas": "ac-poitiers",
-      "url": "mon.lyceeconnecte.fr",
-      "py": "ac_poitiers"
-    },
-    {
       "name": "Académie de Reims",
       "cas": "ac-reims",
       "url": "cas.monbureaunumerique.fr",
@@ -124,18 +106,6 @@
       "cas": "arsene76",
       "url": "cas.arsene76.fr",
       "py": "cas_arsene76"
-    },
-    {
-      "name": "Académie de Rouen",
-      "cas": "ac-rouen",
-      "url": "ent.l-educdenormandie.fr/",
-      "py": "l_normandie"
-    },
-    {
-      "name": "Académie de Strasbourg",
-      "cas": "ac-strasbourg",
-      "url": "cas.monbureaunumerique.fr",
-      "py": "monbureaunumerique"
     },
     {
       "name": "Académie de Toulouse",
@@ -176,7 +146,7 @@
     {
       "name": "ENT Lycee Connecte (Nouvelle-Aquitaine)",
       "cas": "lyceeconnecte",
-      "url": "mon.lyceeconnecte.fr",
+      "url": "jeunes.nouvelle-aquitaine.fr",
       "py": "lyceeconnecte_aquitaine"
     },
     {
@@ -242,7 +212,7 @@
         {
       "name": "ENT l'Éduc de Normandie via EduConnect",
       "cas": "l-normandie",
-      "url": "ent.l-educdenormandie.fr",
+      "url": "connexion.l-educdenormandie.fr",
       "py": "l_normandie"
     },
     {
