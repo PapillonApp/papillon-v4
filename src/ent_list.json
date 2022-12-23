@@ -20,7 +20,7 @@
     {
       "name": "Académie de Bordeaux (OSÉ)",
       "cas": "ac-bordeaux2",
-      "url": "ent2d.ac-bordeaux.fr",
+      "url": "ds.ac-bordeaux.fr",
       "py": "ent2d_bordeaux"
     },
     {
