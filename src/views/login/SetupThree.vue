@@ -25,7 +25,7 @@
                 name: localStorage.getItem('name'),
                 inLoading: false,
 
-                casName: cas_list.filter(casList => casList.py == cas)[0].name
+                casName: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name
             }
         },
         methods : {
