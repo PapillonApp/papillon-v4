@@ -17,11 +17,11 @@
             ArrowLeft
         },
         data() {
-            if(localStorage.getItem('cas') != null) { 
-                cas_name = cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
-            } else {
-                cas_name = "Aucun"
-            }
+            // if(localStorage.getItem('cas') != null) { 
+            //     cas_name = cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
+            // } else {
+            //     cas_name = "Aucun"
+            // }
             return {
                 username: '',
                 password: '',
@@ -30,7 +30,7 @@
                 name: localStorage.getItem('name'),
                 inLoading: false,
 
-                casName: cas_name
+                casName: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
             }
         },
         methods : {

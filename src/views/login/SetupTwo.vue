@@ -104,6 +104,10 @@
                     }).showToast();
                 }
 
+                if (!url.includes('eleve.html')) {
+                    url = url.join('/eleve.html')
+                }
+
                 // démarre le chargement
                 this.inLoading = true;
 
