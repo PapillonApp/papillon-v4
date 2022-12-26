@@ -134,7 +134,7 @@
     {
       "name": "ENT Hauts-de-France",
       "cas": "hdf",
-      "url": "enthdf.fr",
+      "url": "connexion.enthdf.fr",
       "py": "ent_hdf"
     },
     {
