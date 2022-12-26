@@ -136,7 +136,6 @@
                     this.inLoading = true;
 
                     if (url.includes("/ProNote/")) {
-                        console.log("ProNote detected, replacing with pronote.toutatice.fr");
                         url = url.replace("index-education.net", "pronote.toutatice.fr");
                     }
 
@@ -157,8 +156,6 @@
                     if (cas_host.includes("pronote.toutatice.fr")) {
                         cas_host = "www.toutatice.fr";
                     }
-                    
-                    console.log("CAS host: " + cas_host);
 
                     let all_cas_same_host = cas_list.filter(cas => cas.url == cas_host);
                     let cas = all_cas_same_host[0];
