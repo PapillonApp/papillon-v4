@@ -5,7 +5,6 @@
 
     import { ArrowLeft, Locate, TextCursorInput } from 'lucide-vue-next';
 
-    import axios from 'axios'
     import cas_list from '/src/ent_list.json'
     import etab_list from '/src/etab_list.json'
 
@@ -39,63 +38,76 @@
                     }).showToast();
                 }
             },
-            askPostal() {
+            async askPostal() {
                 // demande le code postal
-                let postal = prompt("Entrez votre code postal");
+                const postal = prompt("Entrez votre code postal");
 
                 // commence le chargement
                 this.inLoading = true;
 
-                // obtient la localisation depuis l'API (html encoded)
-                axios.get('https://api.androne.dev/papillon-v4/cors.php?url=https%3A%2F%2Fpositionstack.com%2Fgeo_api.php%3Fquery%3Dfrance%2B' + postal)
-                    .then(response => {                      
-                        // affiche la localisation
-                        let resp = JSON.parse(decodeHtml(response.data.content)).data[0];
-                        let latitude = resp.latitude;
-                        let longitude = resp.longitude;
-
-                        let location = {
-                            coords: {
-                                latitude: latitude,
-                                longitude: longitude
-                            }
-                        }
-
-                        this.searchEtabs(location);
-                    })
-                    .catch(error => {
-                        // affiche un message d'erreur
-                        console.error(error);
-                    })
+                try {
+                  const response = await fetch('https://api.androne.dev/papillon-v4/cors.php?url=https%3A%2F%2Fpositionstack.com%2Fgeo_api.php%3Fquery%3Dfrance%2B' + postal);
+                  const data = await response.json();
+                  
+                  // obtient la localisation depuis l'API (html encoded)
+                  const location = JSON.parse(decodeHtml(data.content)).data[0];
+  
+                  await this.searchEtabs({
+                    coords: {
+                      latitude: location.latitude,
+                      longitude: location.longitude
+                    }
+                  });
+                }
+                catch (error) {
+                  // affiche un message d'erreur
+                  console.error(error);
+                }
+                finally {
+                  this.inLoading = false;
+                }
             },
-            searchEtabs(position) {
-                /* JQuery puisque Axios à la flemme visiblement */
-                $.ajax('https://www.index-education.com/swie/geoloc.php', {
-                    crossDomain: true,
-                    data: {
-                    data: JSON.stringify({
-                        "nomFonction": "geoLoc",
-                        "lat": position.coords.latitude,
-                        "long": position.coords.longitude,
-                    })
-                    },
-                    method: "POST"})
-                    .done((data) => {
-                        this.etabs = data;
+            /** @param {{ coords: { latitude: number, longitude: number } }} position */
+            async searchEtabs(position) {
+              const body = new URLSearchParams();
+              body.set("data", JSON.stringify({
+                nomFonction: "geoLoc",
+                lat: position.coords.latitude.toString(),
+                long: position.coords.longitude.toString()
+              }));
 
-                        // fin du chargement
-                        this.inLoading = false;
-                    })
+              const headers = new Headers();
+              headers.set("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+              try {
+                this.inLoading = true;
+
+                const response = await fetch('https://www.index-education.com/swie/geoloc.php', {
+                  method: "POST",
+                  headers,
+                  body
+                });
+                
+                let data = await response.json();
+                data = Array.isArray(data) ? data : [];
+
+                this.etabs = data;
+              }
+              catch (error) {
+                console.error(error);
+              }
+              finally {
+                this.inLoading = false;
+              }
             },
             decodeHtml(text) {
                 var txt = document.createElement("textarea");
                 txt.innerHTML = text;
                 return txt.value;
             },
-            
-            selectEtab(url, name) {
+            async selectEtab(url, name) {
                 let etab = url;
-                if(url == "" || url == null) {
+                if (url == "" || url == null) {
                     Toastify({
                         text: "Impossible d'utiliser la détection automatique",
                         gravity: "top",
@@ -107,20 +119,19 @@
                     url = url + '/eleve.html'
                 }
 
-                // démarre le chargement
-                this.inLoading = true;
+                try {
+                    // démarre le chargement
+                    this.inLoading = true;
 
-                // get etab final url
-                axios.get(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(url)}`)
-                .then(response => {
+                    const response = await fetch(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(url)}`);
+                    const data = await response.json();
 
-                    // fin du chargement
-                    this.inLoading = false;
-                    
-                    let resp = response.data.url
+                    let resp = data.url
+
                     //cas_host = host with subdomain
                     let cas_host = resp.split('/')[2];
                     cas_host = cas_host.split('/')[0] || cas_host;
+                    
                     console.log(cas_host);
 
                     if(cas_host.includes("index-education.net")) {
@@ -133,7 +144,6 @@
                     }
 
                     console.log(cas_host);
-                    
                     
                     let all_cas_same_host = cas_list.filter(cas => cas.url == cas_host);
                     let cas = all_cas_same_host[0];
@@ -164,13 +174,13 @@
                         cas = all_cas_same_host[parseInt(nb_choices)-1].py;
                     }
                     // TODO: Vérifier si ca fonctionne pour toutatice
-                    if(url == resp && url.includes("index-education.net")) {
+                    if (url == resp && url.includes("index-education.net")) {
                         // car toutatice est chelou
                         this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
                     }
                     else {
-                        if(!etab.includes("eleve.html")) {
-                            if(etab.includes("/pronote/")) {
+                        if (!etab.includes("eleve.html")) {
+                            if (etab.includes("/pronote/")) {
                                 etab = etab + "eleve.html";
                             }
                             else {
@@ -187,16 +197,16 @@
                         localStorage.setItem('name', name);
 
                         // redirect to next page
-                        location.href = '/setup_3';
+                        window.location.href = '/setup_3';
                     }
-                })
-                .catch(error => {
+                }
+                catch (error) {
                     // toutatice bypass bc of weird API
                     // replace index-education.net with pronote.toutatice.fr
-                    console.log(error);
+                    console.error(error);
 
                     // affiche un message d'erreur
-                    if(url.includes("pronote.toutatice.fr") || !url.includes("index-education.net")) {
+                    if (url.includes("pronote.toutatice.fr") || !url.includes("index-education.net")) {
                         Toastify({
                             text: "Impossible de déterminer l'établissement",
                             className: "notification",
@@ -204,7 +214,10 @@
                             position: "center",
                         }).showToast();
                     }
-                })
+                }
+                finally {
+                    this.inLoading = false;
+                }
             }
         },
     }

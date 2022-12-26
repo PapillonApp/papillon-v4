@@ -149,8 +149,10 @@ function emptyCache(automatic) {
 }
 
 /* decode HTML string */
-function decodeHtml(html) {
-    return $('<div>').html(html).text();
+function decodeHtml (html) {
+    const textArea = document.createElement("textarea");
+    textArea.innerHTML = html;
+    return textArea.value;
 }
 
 /* get basic user data */
