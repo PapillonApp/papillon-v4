@@ -6,7 +6,6 @@
     import { ArrowLeft, Locate, TextCursorInput } from 'lucide-vue-next';
 
     import cas_list from '/src/ent_list.json'
-    import etab_list from '/src/etab_list.json'
 
     export default {
         name: 'LoginPage',
@@ -62,6 +61,13 @@
                 catch (error) {
                   // affiche un message d'erreur
                   console.error(error);
+
+                  Toastify({
+                        text: "Une erreur est survenue lors de la recherche avec votre code postal",
+                        gravity: "top",
+                        position: "center",
+                        className: "notification error",
+                    }).showToast();
                 }
                 finally {
                   this.inLoading = false;
@@ -106,45 +112,54 @@
                 return txt.value;
             },
             async selectEtab(url, name) {
-                let etab = url;
                 if (url == "" || url == null) {
                     Toastify({
                         text: "Impossible d'utiliser la détection automatique",
                         gravity: "top",
                         position: "center",
+                        className: "notification error",
                     }).showToast();
+
+                    return;
                 }
 
-                if (!url.includes('eleve.html')) {
-                    url = url + '/eleve.html'
+                if (!url.includes("eleve.html")) {
+                    if (url.includes("/pronote/")|| url.includes("/ProNote/")) {
+                        url = url + "eleve.html";
+                    } else {
+                        url = url + "/" + "eleve.html";
+                    }
                 }
 
                 try {
                     // démarre le chargement
                     this.inLoading = true;
 
+                    if (url.includes("/ProNote/")) {
+                        console.log("ProNote detected, replacing with pronote.toutatice.fr");
+                        url = url.replace("index-education.net", "pronote.toutatice.fr");
+                    }
+
                     const response = await fetch(`https://api.androne.dev/papillon-v4/redirect.php?url=${encodeURIComponent(url)}`);
                     const data = await response.json();
 
                     let resp = data.url
+                    let etab = url;
 
                     //cas_host = host with subdomain
                     let cas_host = resp.split('/')[2];
                     cas_host = cas_host.split('/')[0] || cas_host;
-                    
-                    console.log(cas_host);
 
                     if(cas_host.includes("index-education.net")) {
                         cas_host = "index-education.net";
                     }
 
-                    // more toutatice weird stuff
-                    if(cas_host.includes("pronote.toutatice.fr")) {
+                    if (cas_host.includes("pronote.toutatice.fr")) {
                         cas_host = "www.toutatice.fr";
                     }
-
-                    console.log(cas_host);
                     
+                    console.log("CAS host: " + cas_host);
+
                     let all_cas_same_host = cas_list.filter(cas => cas.url == cas_host);
                     let cas = all_cas_same_host[0];
 
@@ -173,32 +188,16 @@
                        } 
                         cas = all_cas_same_host[parseInt(nb_choices)-1].py;
                     }
-                    // TODO: Vérifier si ca fonctionne pour toutatice
-                    if (url == resp && url.includes("index-education.net")) {
-                        // car toutatice est chelou
-                        this.selectEtab(url.replace("index-education.net", "pronote.toutatice.fr"), name);
-                    }
-                    else {
-                        if (!etab.includes("eleve.html")) {
-                            if (etab.includes("/pronote/")) {
-                                etab = etab + "eleve.html";
-                            }
-                            else {
-                                etab = etab + "/" + "eleve.html";
-                            }
-                        }
-                        
-                        // put etab to lowercase
-                        etab = etab.toLowerCase();
+                    // put etab to lowercase
+                    etab = etab.toLowerCase();
 
-                        // save url and cas in local storage
-                        localStorage.setItem('etab', etab);
-                        localStorage.setItem('cas', cas);
-                        localStorage.setItem('name', name);
+                    // save url and cas in local storage
+                    localStorage.setItem('etab', etab);
+                    localStorage.setItem('cas', cas);
+                    localStorage.setItem('name', name);
 
-                        // redirect to next page
-                        window.location.href = '/setup_3';
-                    }
+                    // redirect to next page
+                    window.location.href = '/setup_3';
                 }
                 catch (error) {
                     // toutatice bypass bc of weird API
@@ -209,7 +208,7 @@
                     if (url.includes("pronote.toutatice.fr") || !url.includes("index-education.net")) {
                         Toastify({
                             text: "Impossible de déterminer l'établissement",
-                            className: "notification",
+                            className: "notification error",
                             gravity: "top",
                             position: "center",
                         }).showToast();
