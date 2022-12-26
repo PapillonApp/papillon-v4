@@ -141,7 +141,6 @@
             
             <select v-model="cas" v-wave class="select">
                 <option value="undefined" selected="true" disabled hidden>Choisissez votre ENT</option>
-                <option value="none">Aucun</option>
                 <option v-for="ent in cas_list" :value="ent.py" v-bind:key="ent.py">{{ ent.name }}</option>
             </select>
         </div>
