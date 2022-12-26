@@ -33,7 +33,7 @@
       "name": "Académie de Clermont-Ferrand",
       "cas": "ac-clermont",
       "url": "cas.ent.auvergnerhonealpes.fr",
-      "py": ""
+      "py": "ac_clermont_ferrand"
     },
     {
       "name": "Académie de Dijon",
