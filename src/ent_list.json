@@ -6,19 +6,6 @@
       "py": ""
     },
     {
-      "name": "Académie de Rennes (Toutatice)",
-      "cas": "toutatice",
-      "url": "www.toutatice.fr",
-      "py": "ac_rennes"
-    },
-    {
-      "name": "Académie d'Orléans-Tours (Net O'Centre)",
-      "cas": "ac-orleans-tours",
-      "url": "ent.netocentre.fr",
-      "py": "ac_orleans_tours",
-      "educonnect": true
-    },
-    {
       "name": "Académie de Clermont-Ferrand (Ma Classe En Auvergne Rhône-Alpes)",
       "cas": "ac-clermont",
       "url": "cas.ent.auvergnerhonealpes.fr",
@@ -31,10 +18,11 @@
       "py": "ac_grenoble"
     },
     {
-      "name": "CyberColleges42",
-      "cas": "cybercolleges42",
-      "url": "cas.cybercolleges42.fr",
-      "py": "cas_cybercolleges42"
+      "name": "Académie de la Réunion (Métice)",
+      "cas": "ac-reunion",
+      "url": "sso.ac-reunion.fr",
+      "py": "ac_reunion",
+      "educonnect": true
     },
     {
       "name": "Académie de Lyon (Ma Classe En Auvergne Rhône-Alpes)",
@@ -50,6 +38,31 @@
       "educonnect": true
     },
     {
+      "name": "Académie de Rennes (Toutatice)",
+      "cas": "toutatice",
+      "url": "www.toutatice.fr",
+      "py": "ac_rennes"
+    },
+    {
+      "name": "Académie de Toulouse (Mon ENT Occitanie)",
+      "cas": "ac-toulouse",
+      "url": "cas.mon-ent-occitanie.fr",
+      "py": "occitanie_toulouse"
+    },
+    {
+      "name": "Académie d'Orléans-Tours (Net O'Centre)",
+      "cas": "ac-orleans-tours",
+      "url": "ent.netocentre.fr",
+      "py": "ac_orleans_tours",
+      "educonnect": true
+    },
+    {
+      "name": "Agora 06",
+      "cas": "agora06",
+      "url": "cas.agora06.fr",
+      "py": "cas_agora06"
+    },
+    {
       "name": "Arsene76",
       "cas": "arsene76",
       "url": "cas.arsene76.fr",
@@ -63,28 +76,16 @@
       "educonnect": true
     },
     {
-      "name": "Académie de Toulouse (Mon ENT Occitanie)",
-      "cas": "ac-toulouse",
-      "url": "cas.mon-ent-occitanie.fr",
-      "py": "occitanie_toulouse"
+      "name": "Atrium Sud",
+      "cas": "atriumsud",
+      "url": "www.atrium-sud.fr",
+      "py": "atrium_sud"
     },
     {
-      "name": "Mon Collège du Val d'Oise",
-      "cas": "ac-valdoise",
-      "url": "cas.moncollege.valdoise.fr",
-      "py": "val_doise"
-    },
-    {
-      "name": "Agora 06",
-      "cas": "agora06",
-      "url": "cas.agora06.fr",
-      "py": "cas_agora06"
-    },    
-    {
-      "name": "OSÉ (Argos 2.0)",
-      "cas": "ac-bordeaux2",
-      "url": "ds.ac-bordeaux.fr",
-      "py": "ent2d_bordeaux"
+      "name": "CyberColleges42",
+      "cas": "cybercolleges42",
+      "url": "cas.cybercolleges42.fr",
+      "py": "cas_cybercolleges42"
     },
     {
       "name": "e-Co//ège 31",
@@ -100,10 +101,39 @@
       "educonnect": true
     },
     {
+      "name": "ENC Hauts-de-Seine",
+      "url": "enc.hauts-de-seine.fr",
+      "py": "enc_hauts_de_seine"
+    },
+    {
+      "name": "ENT27",
+      "cas": "eure-normandie",
+      "url": "cas.ent27.fr",
+      "py": "cas_ent27"
+    },
+    {
+      "name": "ENT77",
+      "cas": "seine-et-marne",
+      "url": "ent77.seine-et-marne.fr",
+      "py": "ent77"
+    },
+    {
       "name": "ENT Hauts-de-France",
       "cas": "hdf",
       "url": "connexion.enthdf.fr",
       "py": "ent_hdf"
+    },
+    {
+      "name": "ENT Île de France",
+      "cas": "iledefrance",
+      "url": "ent.iledefrance.fr",
+      "py": "ile_de_france"
+    },
+    {
+      "name": "Extranet Collèges de la Somme",
+      "cas": "",
+      "url": "colleges.cg80.fr",
+      "py": ""
     },
     {
       "name": "La Classe (Grand Lyon)",
@@ -119,6 +149,13 @@
       "educonnect": true
     },
     {
+      "name": "L'Éduc de Normandie via ÉduConnect",
+      "cas": "l-normandie",
+      "url": "connexion.l-educdenormandie.fr",
+      "py": "l_normandie",
+      "educonnect": true
+    },
+    {
       "name": "Lycée Connecté via ÉduConnect",
       "cas": "lyceeconnecte",
       "url": "jeunes.nouvelle-aquitaine.fr",
@@ -126,28 +163,36 @@
       "educonnect": true
     },
     {
-      "name": "ENT77",
-      "cas": "seine-et-marne",
-      "url": "ent77.seine-et-marne.fr",
-      "py": "ent77"
+      "name": "Ma Classe en Auvergne Rhône-Alpes via ÉduConnect",
+      "cas": "auvergnerhonealpes-educonnect",
+      "url": "cas.ent.auvergnerhonealpes.fr",
+      "py": "ent_auvergnerhonealpe",
+      "educonnect": true
     },
     {
-      "name": "Extranet Collèges de la Somme",
-      "cas": "",
-      "url": "colleges.cg80.fr",
-      "py": ""
+      "name": "Mon Bureau Numérique via ÉduConnect",
+      "cas": "monbureaunumerique-educonnect",
+      "url": "cas.monbureaunumerique.fr",
+      "py": "monbureaunumerique",
+      "educonnect": true
     },
     {
-      "name": "ENT Île de France",
-      "cas": "iledefrance",
-      "url": "ent.iledefrance.fr",
-      "py": "ile_de_france"
+      "name": "Mon Collège du Val d'Oise",
+      "cas": "ac-valdoise",
+      "url": "cas.moncollege.valdoise.fr",
+      "py": "val_doise"
     },
     {
       "name": "Mon Collège (Essonne)",
       "cas": "moncollege-essonne",
       "url": "www.moncollege-ent.essonne.fr",
       "py": "ent_essonne"
+    },
+    {
+      "name": "OSÉ (Argos 2.0)",
+      "cas": "ac-bordeaux2",
+      "url": "ds.ac-bordeaux.fr",
+      "py": "ent2d_bordeaux"
     },
     {
       "name": "Paris Classe Numérique",
@@ -160,38 +205,6 @@
       "cas": "",
       "url": "cas.skolengo.com",
       "py": "cas_kosmos"
-    },
-    {
-      "name": "ENT27",
-      "cas": "eure-normandie",
-      "url": "cas.ent27.fr",
-      "py": "cas_ent27"
-    },
-    {
-      "name": "Mon Bureau Numérique via ÉduConnect",
-      "cas": "monbureaunumerique-educonnect",
-      "url": "cas.monbureaunumerique.fr",
-      "py": "monbureaunumerique",
-      "educonnect": true
-    },
-    {
-      "name": "Ma Classe en Auvergne Rhône-Alpes via ÉduConnect",
-      "cas": "auvergnerhonealpes-educonnect",
-      "url": "cas.ent.auvergnerhonealpes.fr",
-      "py": "ent_auvergnerhonealpe",
-      "educonnect": true
-    },
-    {
-      "name": "L'Éduc de Normandie via EduConnect",
-      "cas": "l-normandie",
-      "url": "connexion.l-educdenormandie.fr",
-      "py": "l_normandie",
-      "educonnect": true
-    },
-    {
-      "name": "ENC Hauts-de-Seine",
-      "url": "enc.hauts-de-seine.fr",
-      "py": "enc_hauts_de_seine"
     },
     {
       "name": "Webcollège",
