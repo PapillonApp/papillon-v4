@@ -50,6 +50,13 @@
       "py": "occitanie_toulouse"
     },
     {
+      "name": "Académie de Toulouse (Mon ENT Occitanie) via ÉduConnect",
+      "cas": "ac-toulouse-edu",
+      "url": "cas.mon-ent-occitanie.fr",
+      "py": "occitanie_toulouse_edu",
+      "educonnect": true
+    },
+    {
       "name": "Académie d'Orléans-Tours (Net O'Centre)",
       "cas": "ac-orleans-tours",
       "url": "ent.netocentre.fr",
@@ -57,10 +64,18 @@
       "educonnect": true
     },
     {
+      "name": "Académie de Poitiers",
+      "cas": "ac-poitiers",
+      "url": "sp-ts.ac-poitiers.fr",
+      "py": "ac_poitiers",
+      "educonnect": true
+    },
+    {
       "name": "Agora 06",
       "cas": "agora06",
       "url": "cas.agora06.fr",
-      "py": "cas_agora06"
+      "py": "cas_agora06",
+      "educonnect": true
     },
     {
       "name": "Arsene76",
@@ -70,9 +85,9 @@
     },
     {
       "name": "Arsene76 via ÉduConnect",
-      "cas": "",
-      "url": "",
-      "py": "",
+      "cas": "arsene76-edu",
+      "url": "cas.arsene76.fr",
+      "py": "cas_arsene76_edu",
       "educonnect": true
     },
     {
@@ -88,6 +103,13 @@
       "py": "cas_cybercolleges42"
     },
     {
+      "name": "CyberColleges42 via ÉduConnect",
+      "cas": "cybercolleges42-edu",
+      "url": "cas.cybercolleges42.fr",
+      "py": "cas_cybercolleges42_edu",
+      "educonnect": true
+    },
+    {
       "name": "e-Co//ège 31",
       "cas": "haute-garonne",
       "url": "cas.ecollege.haute-garonne.fr",
@@ -95,9 +117,16 @@
     },
     {
       "name": "e-Co//ège 31 via ÉduConnect",
-      "cas": "",
-      "url": "",
-      "py": "",
+      "cas": "hg-edu",
+      "url": "cas.ecollege.haute-garonne.fr",
+      "py": "ecollege_haute_garonne_edu",
+      "educonnect": true
+    },
+    {
+      "name": "ÉCLAT-BFC",
+      "cas": "eclat-bfc",
+      "url": "cas.eclat-bfc.fr",
+      "py": "eclat_bfc",
       "educonnect": true
     },
     {
@@ -130,10 +159,16 @@
       "py": "ile_de_france"
     },
     {
+      "name": "ENT Mayotte",
+      "cas": "mayotte",
+      "url": "mayotte.opendigitaleducation.com",
+      "py": "ent_mayotte"
+    },
+    {
       "name": "Extranet Collèges de la Somme",
-      "cas": "",
+      "cas": "colleges-somme",
       "url": "colleges.cg80.fr",
-      "py": ""
+      "py": "extranet_colleges_somme"
     },
     {
       "name": "La Classe (Grand Lyon)",
@@ -189,6 +224,12 @@
       "py": "ent_essonne"
     },
     {
+      "name": "Néo Connect",
+      "cas": "neoconnect",
+      "url": "neoconnect.opendigitaleducation.com",
+      "py": "neoconnect_guadeloupe"
+    },
+    {
       "name": "OSÉ (Argos 2.0)",
       "cas": "ac-bordeaux2",
       "url": "ds.ac-bordeaux.fr",
@@ -202,7 +243,7 @@
     },
     {
       "name": "Skolengo",
-      "cas": "",
+      "cas": "kosmos",
       "url": "cas.skolengo.com",
       "py": "cas_kosmos"
     },
