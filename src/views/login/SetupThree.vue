@@ -3,7 +3,7 @@
     import TabName from '/src/components/main/TabName.vue'
     import MainItem from '/src/components/main/MainItem.vue'
 
-    import { ArrowLeft } from 'lucide-vue-next';
+    import { ArrowLeft, Info } from 'lucide-vue-next';
 
     import axios from 'axios'
     import cas_list from '/src/ent_list.json'
@@ -14,7 +14,8 @@
         components: {
             TabName,
             MainItem,
-            ArrowLeft
+            ArrowLeft,
+            Info
         },
         data() {
             return {
@@ -25,7 +26,8 @@
                 name: localStorage.getItem('name'),
                 inLoading: false,
 
-                casName: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name 
+                casName: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].name,
+                educonnect: cas_list.filter(casList => casList.py == localStorage.getItem('cas'))[0].educonnect
             }
         },
         methods : {
@@ -135,6 +137,18 @@
                 </template>
             </MainItem></RouterLink>
         </div>
+        
+        <div class="list group educonnect" v-if="educonnect">
+            <MainItem class="educonnect">
+                <template #icon>
+                    <Info />
+                </template>
+                <template #content>
+                    <h3>Connexion avec ÉduConnect</h3>
+                    <p style="color: var(--text);">Veuillez utiliser vos identifiants ÉduConnect pour vous connecter avec cet ENT</p>
+                </template>
+            </MainItem>
+        </div>
 
         <div class="login">
             <input v-model="username" v-wave class="input" type="text" placeholder="Identifiant" />
@@ -146,6 +160,15 @@
 </template>
 
 <style scoped>
+    .educonnect {
+        background-color: rgba(71, 145, 255, 0.1);
+        color: #4791FF !important;
+    }
+
+    .group.educonnect {
+        margin-top: 10px;
+    }
+
     .loginBtn {
         margin-top: 10px;
         padding: 13px 22px;
