@@ -150,7 +150,8 @@
       "name": "ENT Hauts-de-France",
       "cas": "hdf",
       "url": "connexion.enthdf.fr",
-      "py": "ent_hdf"
+      "py": "ent_hdf",
+      "educonnect": true
     },
     {
       "name": "ENT Île de France",
