@@ -154,12 +154,6 @@
       "educonnect": true
     },
     {
-      "name": "ENT Île de France",
-      "cas": "iledefrance",
-      "url": "ent.iledefrance.fr",
-      "py": "ile_de_france"
-    },
-    {
       "name": "ENT Mayotte",
       "cas": "mayotte",
       "url": "mayotte.opendigitaleducation.com",
@@ -230,6 +224,12 @@
       "cas": "moncollege-essonne",
       "url": "www.moncollege-ent.essonne.fr",
       "py": "ent_essonne"
+    },
+    {
+      "name": "MonLycée.net",
+      "cas": "iledefrance",
+      "url": "ent.iledefrance.fr",
+      "py": "ile_de_france"
     },
     {
       "name": "Néo Connect",
