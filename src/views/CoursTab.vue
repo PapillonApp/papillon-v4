@@ -150,7 +150,7 @@
                 let toTime = new Date(cours.end)
 
                 this.$vfm.show("coursModal", {
-                    subject: cours.subject,
+                    subject: cours.subject.name,
                     teacher: cours.teacher,
                     room: cours.room,
                     from: fromTime.toLocaleTimeString("fr-FR", { hour: '2-digit', minute: '2-digit' }),
@@ -169,7 +169,7 @@
                 })
             },
             addCurrentToCalendar: function() {
-                const calendar = ical({name: 'Mon cours de ' + this.current.subject + ' avec ' + this.current.teacher});
+                const calendar = ical({name: 'Mon cours de ' + this.current.subject.name + ' avec ' + this.current.teacher});
 
                 let from = new Date(this.current.from)
                 let to = new Date(this.current.to)
@@ -177,8 +177,8 @@
                 calendar.createEvent({
                     start: from,
                     end: to,
-                    summary: this.current.subject,
-                    description: 'Cours de ' + this.current.subject + ' avec ' + this.current.teacher + ' dans la salle ' + this.current.room,
+                    summary: this.current.subject.name,
+                    description: 'Cours de ' + this.current.subject.name + ' avec ' + this.current.teacher + ' dans la salle ' + this.current.room,
                     location: this.current.room
                 });
 
@@ -206,8 +206,8 @@
                         calendar.createEvent({
                             start: start,
                             end: end,
-                            summary: cours.subject,
-                            description: 'Cours de ' + cours.subject + ' avec ' + cours.teacher + ' dans la salle ' + cours.room,
+                            summary: cours.subject.name,
+                            description: 'Cours de ' + cours.subject.name + ' avec ' + cours.teacher + ' dans la salle ' + cours.room,
                             location: cours.room
                         });
                     }
@@ -334,7 +334,7 @@
             </NoItem>
 
             <div class="list">
-                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.start" :to="cours.end" :name="cours.subject" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.background_color" :closest="cours.closestCours"/>
+                <CoursElement v-for="(cours, index) in cours" v-on:click="openCoursModal(cours)" :index="index" :from="cours.start" :to="cours.end" :name="cours.subject.name" :room="cours.room" :status="cours.status" :teacher="cours.teacher" :color="cours.background_color" :closest="cours.closestCours"/>
             </div>
 
             <div v-if="hasCours" class="list gr2">

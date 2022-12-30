@@ -91,7 +91,7 @@
                 
                 this.$vfm.show("actuModal", {
                     description: content.description,
-                    title: content.subject,
+                    title: content.subject.name,
                     author: content.teachers,
                     files: content.files,
                 })
@@ -167,7 +167,7 @@
                         <Scroll />
                     </template>
                     <template #content>
-                        <h3>{{contentItem.subject}}</h3>
+                        <h3>{{contentItem.subject.name}}</h3>
                         <p>{{contentItem.smallDescription}}</p>
                     </template>
                 </MainItem>

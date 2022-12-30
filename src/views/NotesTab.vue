@@ -64,14 +64,14 @@
                         // create an array for the subject with name and an empty array for marks
 
                         // find subject index
-                        let subjectIndexMain = this.notes.findIndex(subject => subject.name == mark.subject);
+                        let subjectIndexMain = this.notes.findIndex(subject => subject.name == mark.subject.name);
 
                         // get random item from baseColors
                         let randomColor = baseColors[Math.floor(Math.random() * baseColors.length)].hex;
 
                         if(subjectIndexMain == -1) {
                             let newSubject = {
-                                name: mark.subject,
+                                name: mark.subject.name,
                                 marks: [],
                                 averages: {
                                     student: 0,
@@ -99,7 +99,7 @@
                         newMark.date = new Date(newMark.date);
 
                         // find subject index
-                        let subjectIndex = this.notes.findIndex(subject => subject.name == mark.subject);
+                        let subjectIndex = this.notes.findIndex(subject => subject.name == mark.subject.name);
 
                         // add mark to subject
                         this.notes[subjectIndex].marks.push(newMark);
@@ -107,7 +107,7 @@
 
                     // add averages to subjects
                     marks.averages.forEach(average => {
-                        let subjectIndex = this.notes.findIndex(subject => subject.name == average.subject);
+                        let subjectIndex = this.notes.findIndex(subject => subject.name == average.subject.name);
 
                         this.notes[subjectIndex].averages.student = parseFloat(average.average.replace(",", "."));
                         this.notes[subjectIndex].averages.class = parseFloat(average.class_average.replace(",", "."));
@@ -285,7 +285,7 @@
                 <NotesElement
                     v-for="(mark, index) in subject.marks"
                     :subject="subject.name"
-                    :description="mark.title"
+                    :description="mark.description"
                     :mark="mark.grade.value"
                     :scale="mark.grade.out_of"
                     :average="mark.grade.average"

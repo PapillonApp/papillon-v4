@@ -109,7 +109,7 @@
                 
                 this.$vfm.show("hwModal", {
                     description: hw.description,
-                    subject: hw.subject,
+                    subject: hw.subject.name,
                     htmlDescription: hw.htmlDescription,
                     files: hw.files,
                     noFiles: hw.files.length == 0,
@@ -225,7 +225,7 @@
             </NoItem>
 
             <div class="list">
-                <HomeworkElement v-for="(hw, index) in homeworks" :index="index" :subject="hw.subject" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
+                <HomeworkElement v-for="(hw, index) in homeworks" :index="index" :subject="hw.subject.name" :description="hw.description" :color="hw.color" :id="hw.id" @click="openHwModal(hw)"/>
             </div>
         </div>
     </div>
