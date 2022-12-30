@@ -6,15 +6,6 @@
 
     import { RefreshCcw, LogOut, Bug, Trash2 } from 'lucide-vue-next';
 
-    let userData = JSON.parse(localStorage.getItem('userData'))
-
-    let avatar = userData.avatar;
-    let name = userData.name;
-    let establishment = userData.establishment.name;
-    let className = userData.studentClass.name;
-
-    let firstName = name.split(' ').pop();
-
     export default {
         components: {
             TabName,
