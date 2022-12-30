@@ -3,11 +3,11 @@
     export default {
         props: {
             from: {
-                type: Number,
+                type: String,
                 required: true
             },
             to: {
-                type: Number,
+                type: String,
                 required: true
             },
             name: {
