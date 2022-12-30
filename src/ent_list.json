@@ -150,13 +150,8 @@
       "name": "ENT Hauts-de-France",
       "cas": "hdf",
       "url": "connexion.enthdf.fr",
-      "py": "ent_hdf"
-    },
-    {
-      "name": "ENT Île de France",
-      "cas": "iledefrance",
-      "url": "ent.iledefrance.fr",
-      "py": "ile_de_france"
+      "py": "ent_hdf",
+      "educonnect": true
     },
     {
       "name": "ENT Mayotte",
@@ -229,6 +224,12 @@
       "cas": "moncollege-essonne",
       "url": "www.moncollege-ent.essonne.fr",
       "py": "ent_essonne"
+    },
+    {
+      "name": "MonLycée.net",
+      "cas": "iledefrance",
+      "url": "ent.iledefrance.fr",
+      "py": "ile_de_france"
     },
     {
       "name": "Néo Connect",
