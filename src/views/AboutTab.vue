@@ -17,21 +17,19 @@
             Trash2
         },
         methods: {
-            logout() {
-                localStorage.removeItem('loginData')
-                localStorage.removeItem('token')
-                location.reload()
-            },
-            refresh() {
-                refreshToken()
-            },
-            emptyCache() {
-                emptyCache()
+            async getApiVersion() {
+                await fetch(API + '/infos')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.api_version = data.version;
+                    })
             }
         },
         data() {
+            this.getApiVersion()
             return {
-                version : APP_VERSION
+                version : APP_VERSION,
+                api_version: this.api_version
             }
         },
         mounted() {
@@ -46,7 +44,7 @@
         
         <div class="generique">
             <img src="/logo_shaded.svg" class="logo" alt="Logo Pronote+">
-            <small>Papillon v{{version}} / crée par Vince Linise</small>
+            <small>Papillon v{{ version }} / Papillon-Python v{{ api_version }}</small>
         </div>
 
         <MainCategory title="Contributeurs"/>
@@ -115,16 +113,27 @@
 
         <MainItem>
             <template #icon>
-                <img src="https://avatars.githubusercontent.com/u/8712146" class="avatar" alt="Avatar Contributeur">
+                <img src="https://avatars.githubusercontent.com/u/31798786" class="avatar" alt="Avatar Projet OSS">
+            </template>
+            <template #content>
+                <h3>Bain3 pour PronotePy</h3>
+                <small>bain3/pronotepy</small>
+
+                <p>API Python compatible Pronote 2022/2023 (Version actuelle de notre Api)</p>
+            </template>
+        </MainItem>
+
+        <MainItem>
+            <template #icon>
+                <img src="https://avatars.githubusercontent.com/u/8712146" class="avatar" alt="Avatar Projet OSS">
             </template>
             <template #content>
                 <h3>Litarvan pour pronote-api</h3>
                 <small>Litarvan/pronote-api</small>
 
-                <p>(Tout langage) API compatible Pronote 2020/2021</p>
+                <p>(Tout langage) API compatible Pronote 2020/2021 [DEPRECATED]</p>
             </template>
         </MainItem>
-
 
     </div>
 </template>

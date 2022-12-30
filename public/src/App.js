@@ -1,6 +1,6 @@
 /* global vars */
 const API = "https://python.api.just-tryon.tech";
-const API_VERSION = "v3";
+const API_VERSION = "3.0.0";
 const APP_VERSION = "4.2.1";
 
 let waitingForToken = false;
@@ -164,7 +164,7 @@ function getData() {
             redirect: 'follow'
         };
           
-        fetch("https://python.api.just-tryon.tech/user?token="+localStorage.getItem('token'), requestOptions)
+        fetch(API + "/user?token="+localStorage.getItem('token'), requestOptions)
             .then(response => response.json())
             .then(result => {
                 if(result !== "notfound") {
@@ -297,7 +297,7 @@ function refreshToken() {
                 redirect: 'follow'
                 };
 
-                fetch("https://python.api.just-tryon.tech/generatetoken", requestOptions)
+                fetch(API + "/generatetoken", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if(result.token != false) {
