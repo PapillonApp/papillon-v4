@@ -226,7 +226,7 @@
             </template>
             <template #content>
                 <h3>Réinitialiser les paramètres</h3>
-                <p>Rétablit les paramètres par défaut sans vous déconnecter de Pronote +</p>
+                <p>Rétablit les paramètres par défaut sans vous déconnecter de Papillon</p>
             </template>
         </MainItem>
 
