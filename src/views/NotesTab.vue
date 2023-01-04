@@ -88,6 +88,14 @@
                         // add mark to subject array
                         let newMark = mark;
 
+                        // Convert variables to string
+                        newMark.grade.value =  newMark.grade.value.toString()
+                        newMark.grade.max =  newMark.grade.max.toString()
+                        newMark.grade.min =  newMark.grade.min.toString()
+                        newMark.grade.coefficient =  newMark.grade.coefficient.toString()
+                        newMark.grade.average =  newMark.grade.average.toString()
+                        newMark.grade.out_of =  newMark.grade.out_of.toString()
+
                         newMark.grade.value = parseFloat(newMark.grade.value.replace(",", "."));
                         newMark.grade.max = parseFloat(newMark.grade.max.replace(",", "."));
                         newMark.grade.min = parseFloat(newMark.grade.min.replace(",", "."));
