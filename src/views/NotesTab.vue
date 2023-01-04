@@ -88,12 +88,21 @@
                         // add mark to subject array
                         let newMark = mark;
 
-                        newMark.grade.value = parseFloat(newMark.grade.value.replace(",", "."));
-                        newMark.grade.max = parseFloat(newMark.grade.max.replace(",", "."));
-                        newMark.grade.min = parseFloat(newMark.grade.min.replace(",", "."));
-                        newMark.grade.coefficient = parseFloat(newMark.grade.coefficient.replace(",", "."));
-                        newMark.grade.average = parseFloat(newMark.grade.average.replace(",", "."));
-                        newMark.grade.out_of = parseFloat(newMark.grade.out_of.replace(",", "."));
+                        const cleanUpValue = (value) => value.toString().replace(",", ".");
+
+                        const keysToConvert = ["value", "max", "min", "coefficient", "average", "out_of"];
+
+                        for (const key in newMark.grade) {
+                            if(keysToConvert.includes(key))
+                                newMark.grade[key] = cleanUpValue(newMark.grade[key]);
+                        }
+
+                        newMark.grade.value = parseFloat(newMark.grade.value);
+                        newMark.grade.max = parseFloat(newMark.grade.max);
+                        newMark.grade.min = parseFloat(newMark.grade.min);
+                        newMark.grade.coefficient = parseFloat(newMark.grade.coefficient);
+                        newMark.grade.average = parseFloat(newMark.grade.average);
+                        newMark.grade.out_of = parseFloat(newMark.grade.out_of);
 
                         // parse date to Date object
                         newMark.date = new Date(newMark.date);
