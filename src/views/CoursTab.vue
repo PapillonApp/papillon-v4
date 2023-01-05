@@ -84,7 +84,6 @@
                         // apply data
                         setTimeout(() => {
                             this.cours = response
-
                             // check if empty
                             if(this.cours.length == 0) {
                                 this.empty = true
@@ -94,8 +93,12 @@
                                 this.initiatedSwipe = false;
                                 this.initiatedSwipeLeft = false;
 
-                                // remove duplicates
+                                // remove duplicates and set the correct variables
                                 for (let i = 0; i < this.cours.length; i++) {
+                                    // Set the teacher and room string correctly
+                                    this.cours[i].teacher = this.cours[i].teachers.join('&')
+                                    this.cours[i].room = this.cours[i].rooms.join('&')
+
                                     for (let j = i + 1; j < this.cours.length; j++) {
                                         if (this.cours[i].from == this.cours[j].from) {
                                             if(this.cours[i].isCancelled == true) {
@@ -123,7 +126,6 @@
                                                 j--
                                             } else if (this.cours[j].is_cancelled == true) {
                                                 this.cours.splice(j, 1)
-                                                i--
                                             }
                                         }
                                     }
