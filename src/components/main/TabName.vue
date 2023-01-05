@@ -49,7 +49,7 @@
                 updateDateStrings()
                 document.getElementById('rnPicker').value = dateStr;
                 document.getElementById('CalendarString').innerHTML = dateStrShow;
-                document.dispatchEvent(new CustomEvent('dateChanged'));
+                document.dispatchEvent(new CustomEvent('rnChanged'));
             });
             document.addEventListener('rnChanged', function() {
                 updateDateStrings()
