@@ -123,6 +123,12 @@
       "educonnect": true
     },
     {
+      "name": "e-lyco",
+      "url": "cas3.e-lyco.fr",
+      "py": "ent_elyco",
+      "educonnect": true
+    },
+    {
       "name": "ÉCLAT-BFC",
       "cas": "eclat-bfc",
       "url": "cas.eclat-bfc.fr",
