@@ -54,6 +54,7 @@ Parce qu'il me fallait une alternative à l'app officielle qui commence vraiment
 - [Luc'HACK](https://github.com/lucas-luchack)
 - [Tryon](https://github.com/tryon-dev)
 - [Astrow25](https://github.com/Astrow25)
+- [Mizu](https://github.com/Rexxt)
 
 ## Alternatives à Pronote+
 Effectivement on a des concurrents, et c'est important de les soutenir vu qu'on connait la galère de faire un client Pronote.
