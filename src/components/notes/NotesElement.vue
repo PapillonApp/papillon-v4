@@ -54,7 +54,11 @@
         },
         mounted() {
             this.mark20 = ((this.mark / this.scale) * 20).toFixed(1)
-            this.finalMark = (parseFloat(this.mark).toFixed(2)).toString()
+            if (this.mark != "Abs") {
+                this.finalMark = (parseFloat(this.mark).toFixed(2)).toString()
+            } else {
+                this.finalMark = "Abs"
+            }
 
             if(this.sur20) {
                 this.finalMark = this.mark20
