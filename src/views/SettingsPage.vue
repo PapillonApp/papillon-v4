@@ -162,6 +162,16 @@
     <TabName name="Mon compte" logged back />
     <div id="content">
 
+        <MainItem style="background-color: crimson; margin-bottom: 20px;">
+            <template #icon>
+                <Bug />
+            </template>
+            <template #content>
+                <h3>Fin de support</h3>
+                <p>Pronote+ v4 arrive à son terme de support. Nous vous conseillons de passer à Papillon v5 dès que possible afin de profiter de la meilleure interface pour Pronote.</p>
+            </template>
+        </MainItem>
+
         <MainCategory title="Paramètres" class="firstCategory"/>
  
         <div class="setting">

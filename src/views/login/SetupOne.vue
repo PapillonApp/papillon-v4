@@ -3,7 +3,7 @@
     import TabName from '/src/components/main/TabName.vue'
     import MainItem from '/src/components/main/MainItem.vue'
 
-    import { MapPin, Link } from 'lucide-vue-next';
+    import { MapPin, Link, Bug } from 'lucide-vue-next';
 
     import axios from 'axios'
     import cas_list from '/src/ent_list.json'
@@ -34,6 +34,16 @@
 
         <h1>Bienvenue dans Pronote+ 👋</h1>
         <p class="desc">Sélectionnez une méthode de connexion à votre compte Pronote.</p>
+
+        <MainItem style="background-color: crimson; margin-bottom: 20px;">
+            <template #icon>
+                <Bug />
+            </template>
+            <template #content>
+                <h3>Fin de support</h3>
+                <p>Pronote+ v4 arrive à son terme de support. Nous vous conseillons de passer à Papillon v5 dès que possible afin de profiter de la meilleure interface pour Pronote.</p>
+            </template>
+        </MainItem>
 
         <div class="list group">
             <RouterLink to="/setup_2"><MainItem>
