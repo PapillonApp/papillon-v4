@@ -110,6 +110,10 @@
                         // find subject index
                         let subjectIndex = this.notes.findIndex(subject => subject.name == mark.subject.name);
 
+                        if (newMark.grade.value == -1) {
+                            newMark.grade.value = "Abs";
+                        }
+
                         // add mark to subject
                         this.notes[subjectIndex].marks.push(newMark);
                     });
